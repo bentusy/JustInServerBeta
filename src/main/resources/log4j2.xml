@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug" strict="true" >
+    <Properties>
+        <Property name="filename">target/JustInDebugLog.log</Property>
+    </Properties>
+    <!--<Filter type="ThresholdFilter" level="trace"/>-->
+
+    <Appenders>
+
+        <RollingFile name="RollingFile" fileName="target/logs/app.log"
+                     filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <!--<Property name="append">true</Property>-->
+            <Property name="bufferedIO">false</Property>
+
+            <Layout type="PatternLayout" pattern="%d{ISO8601} [%-5p][%-16.16t][%32.32c] - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="6" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+           </RollingFile>
+
+
+            <Console name="STDOUT" target="SYSTEM_OUT">
+                <PatternLayout pattern="%m%n"/>
+            </Console>
+
+
+    </Appenders>
+
+    <Loggers>
+        <Logger name="InfoLoger" level="debug" additivity="false">
+              <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="RollingFile"/>
+        </Logger>
+
+        <Root level="trace">
+            <AppenderRef ref="List"/>
+        </Root>
+    </Loggers>
+
+</Configuration>

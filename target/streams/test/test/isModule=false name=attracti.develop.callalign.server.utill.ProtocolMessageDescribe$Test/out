@@ -1,0 +1,3 @@
+[info] ProtocolMessageDescribe$Test:
+[info] Tests of TCP describes
+[info] - should return string value for protocol

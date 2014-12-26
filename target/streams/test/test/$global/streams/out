@@ -1,0 +1,10 @@
+[debug] Running TaskDef(attracti.develop.callalign.server.utill.ProtocolMessageDescribe$Test, org.scalatest.tools.Framework$$anon$1@d2d3f6, false, [SuiteSelector])
+[debug] Running TaskDef(attracti.develop.callalign.server.utill.Utils$Test, org.scalatest.tools.Framework$$anon$1@d2d3f6, false, [SuiteSelector])
+[info] Run completed in 793 milliseconds.
+[info] Total number of tests run: 3
+[info] Suites: completed 2, aborted 0
+[info] Tests: succeeded 3, failed 0, canceled 0, ignored 0, pending 0
+[info] All tests passed.
+[debug] Passed tests:
+[debug] 	attracti.develop.callalign.server.utill.Utils$Test
+[debug] 	attracti.develop.callalign.server.utill.ProtocolMessageDescribe$Test
