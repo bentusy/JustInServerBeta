@@ -48,19 +48,19 @@ println()
   def receive(): Receive = {
 
 
-    case UserToTcpWillYouCallForThisIntent(intn, calc)=>{
-      val pkg = out.createPckgType0X2A(intn.toString())
-      send(pkg._1)
-      collect +=(pkg._2, new doSomething {
-        override def run(typ: Int): Unit = {
-          typ match {
-            case 0 =>
-            case 1 => calc ! UserToCalculatorAnswerForIntetnsRequest(0)
-            case 2 => calc ! UserToCalculatorAnswerForIntetnsRequest(1)
-          }
-        }
-        })
-    }
+//    case UserToTcpWillYouCallForThisIntent(intn, calc)=>{
+//      val pkg = out.createPckgType0X2A(intn.toString())
+//      send(pkg._1)
+//      collect +=(pkg._2, new doSomething {
+//        override def run(typ: Int): Unit = {
+//          typ match {
+//            case 0 =>
+//            case 1 => calc ! UserToCalculatorAnswerForIntetnsRequest(0)
+//            case 2 => calc ! UserToCalculatorAnswerForIntetnsRequest(1)
+//          }
+//        }
+//        })
+//    }
 
 
     case UserToTcpTakeAllRegistredUsers(map, pid)=>{

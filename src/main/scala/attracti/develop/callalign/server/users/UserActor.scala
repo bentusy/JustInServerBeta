@@ -52,13 +52,13 @@ class UserActor(usr: User) extends Actor {
       }
     }
 
-    case CalculatorToUserWillYouCall(i)=>{
-      if(connection != null)
-    }
-
-    case CalculatorManagerToUserRequestForReadyToCall()=>{
-      user.doYouReadyForTallck(sender)
-    }
+//    case CalculatorToUserWillYouCall(i)=>{
+//      if(connection != null)
+//    }
+//
+//    case CalculatorManagerToUserRequestForReadyToCall()=>{
+//      user.doYouReadyForTallck(sender)
+//    }
 
     case TcpToUserGetAllRegistredUsers(pid: Int)=>{
       connection ! UserToTcpTakeAllRegistredUsers(user.regContatcs, pid)

@@ -15,12 +15,17 @@ import scala.concurrent.duration._
 
 
 class IntentsCalculator extends Actor{
-
+  implicit val ec = context.system.dispatcher
   implicit val timeout = Timeout(5.seconds)
   val intentsQueue=mutable.Queue[Intent]()
   var currentIntent:Intent=null
   var isWork=false
   var masterUser:ActorRef=null
+
+  def isCurrent(i: Intent):Boolean={
+    currentIntent == i
+  }
+
   def start(): Unit ={
     currentIntent=intentsQueue.dequeue()
     val f1= currentIntent.aRefCreator ? IntentsCalculatorToUserRQ(currentIntent)
@@ -31,7 +36,7 @@ class IntentsCalculator extends Actor{
     }yield (r1.asInstanceOf[UserToIntentCalcultorRS],r2.asInstanceOf[UserToIntentCalcultorRS])
 
     b.onSuccess{
-      case (a, b)=>if(b==1||a==1)next else {
+      case (a, b) if(isCurrent(a.intn))=>if(b!=1||a!=0)next else {
       a.intn.aRefCreator ! IntentsCalculatorToUserCall(a.intn)
     }
     }

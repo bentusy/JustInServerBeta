@@ -8,4 +8,5 @@ package attracti.develop.callalign.server
 object GlobalContext {
 val timeToPing=2000 //in millsec
   val timeToCallRequest=3000
+
 }
