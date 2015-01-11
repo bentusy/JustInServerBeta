@@ -6,7 +6,7 @@
 [debug] == resolving dependencies for justinserver#justinserver$sources_javadoc_2.10;1.0 [compile]
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->org.scala-lang#scala-compiler;2.10.4 [compile->default(compile)]
 [info] Resolving org.scala-lang#scala-compiler;2.10.4 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@2026cbc0
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@76c57e03
 [debug] sbt-chain: module revision found in cache: org.scala-lang#scala-compiler;2.10.4
 [debug] 	local: revision in cache: org.scala-lang#scala-compiler;2.10.4
 [debug] 	found org.scala-lang#scala-compiler;2.10.4 in sbt-chain
@@ -15,7 +15,7 @@
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->org.scala-lang#scala-compiler;2.10.4 [compile->master]
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->org.scala-lang#scala-library;2.10.4 [compile->default(compile)]
 [info] Resolving org.scala-lang#scala-library;2.10.4 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@d8ea479
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@3111783d
 [debug] sbt-chain: module revision found in cache: org.scala-lang#scala-library;2.10.4
 [debug] 	local: revision in cache: org.scala-lang#scala-library;2.10.4
 [debug] 	found org.scala-lang#scala-library;2.10.4 in sbt-chain
@@ -25,7 +25,7 @@
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->org.scala-lang#scala-library;2.10.4 [compile->master]
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->org.scala-lang#scala-reflect;2.10.4 [compile->default(compile)]
 [info] Resolving org.scala-lang#scala-reflect;2.10.4 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@a97dafa
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@4de1a108
 [debug] sbt-chain: module revision found in cache: org.scala-lang#scala-reflect;2.10.4
 [debug] 	local: revision in cache: org.scala-lang#scala-reflect;2.10.4
 [debug] 	found org.scala-lang#scala-reflect;2.10.4 in sbt-chain
@@ -35,7 +35,7 @@
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->org.scala-lang#scala-reflect;2.10.4 [compile->master]
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->io.spray#spray-can;1.3.1 [compile->default(compile)]
 [info] Resolving io.spray#spray-can;1.3.1 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@5725cc1
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@e1d2c63
 [debug] sbt-chain: module revision found in cache: io.spray#spray-can;1.3.1
 [debug] 	local: revision in cache: io.spray#spray-can;1.3.1
 [debug] 	found io.spray#spray-can;1.3.1 in sbt-chain
@@ -44,7 +44,7 @@
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->io.spray#spray-can;1.3.1 [compile->master]
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->io.spray#spray-io;1.3.1 [compile->default(compile)]
 [info] Resolving io.spray#spray-io;1.3.1 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@50dbe4f3
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@7a583553
 [debug] sbt-chain: module revision found in cache: io.spray#spray-io;1.3.1
 [debug] 	local: revision in cache: io.spray#spray-io;1.3.1
 [debug] 	found io.spray#spray-io;1.3.1 in sbt-chain
@@ -53,7 +53,7 @@
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->io.spray#spray-io;1.3.1 [compile->master]
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->io.spray#spray-util;1.3.1 [compile->default(compile)]
 [info] Resolving io.spray#spray-util;1.3.1 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@342be5bc
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@9c4e62f
 [debug] sbt-chain: module revision found in cache: io.spray#spray-util;1.3.1
 [debug] 	local: revision in cache: io.spray#spray-util;1.3.1
 [debug] 	found io.spray#spray-util;1.3.1 in sbt-chain
@@ -62,7 +62,7 @@
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->io.spray#spray-util;1.3.1 [compile->master]
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->io.spray#spray-http;1.3.1 [compile->default(compile)]
 [info] Resolving io.spray#spray-http;1.3.1 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@138f4128
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@40ab95d
 [debug] sbt-chain: module revision found in cache: io.spray#spray-http;1.3.1
 [debug] 	local: revision in cache: io.spray#spray-http;1.3.1
 [debug] 	found io.spray#spray-http;1.3.1 in sbt-chain
@@ -71,7 +71,7 @@
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->io.spray#spray-http;1.3.1 [compile->master]
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->org.parboiled#parboiled-scala_2.10;1.1.6 [compile->default(compile)]
 [info] Resolving org.parboiled#parboiled-scala_2.10;1.1.6 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@70377cf
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@3adc78bb
 [debug] sbt-chain: module revision found in cache: org.parboiled#parboiled-scala_2.10;1.1.6
 [debug] 	local: revision in cache: org.parboiled#parboiled-scala_2.10;1.1.6
 [debug] 	found org.parboiled#parboiled-scala_2.10;1.1.6 in sbt-chain
@@ -80,7 +80,7 @@
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->org.parboiled#parboiled-scala_2.10;1.1.6 [compile->master]
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->org.parboiled#parboiled-core;1.1.6 [compile->default(compile)]
 [info] Resolving org.parboiled#parboiled-core;1.1.6 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@412803d8
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@755ae357
 [debug] sbt-chain: module revision found in cache: org.parboiled#parboiled-core;1.1.6
 [debug] 	local: revision in cache: org.parboiled#parboiled-core;1.1.6
 [debug] 	found org.parboiled#parboiled-core;1.1.6 in sbt-chain
@@ -89,7 +89,7 @@
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->org.parboiled#parboiled-core;1.1.6 [compile->master]
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->org.apache.logging.log4j#log4j-api;2.1 [compile->default(compile)]
 [info] Resolving org.apache.logging.log4j#log4j-api;2.1 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@48785623
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@3bd37f64
 [debug] sbt-chain: module revision found in cache: org.apache.logging.log4j#log4j-api;2.1
 [debug] 	local: revision in cache: org.apache.logging.log4j#log4j-api;2.1
 [debug] 	found org.apache.logging.log4j#log4j-api;2.1 in sbt-chain
@@ -98,7 +98,7 @@
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->org.apache.logging.log4j#log4j-api;2.1 [compile->master]
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->org.apache.logging.log4j#log4j-core;2.1 [compile->default(compile)]
 [info] Resolving org.apache.logging.log4j#log4j-core;2.1 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@33d36e7f
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@545f3900
 [debug] sbt-chain: module revision found in cache: org.apache.logging.log4j#log4j-core;2.1
 [debug] 	local: revision in cache: org.apache.logging.log4j#log4j-core;2.1
 [debug] 	found org.apache.logging.log4j#log4j-core;2.1 in sbt-chain
@@ -107,7 +107,7 @@
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->org.apache.logging.log4j#log4j-core;2.1 [compile->master]
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->org.scalactic#scalactic_2.10;2.2.2 [compile->default(compile)]
 [info] Resolving org.scalactic#scalactic_2.10;2.2.2 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@1160c101
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@64b33139
 [debug] sbt-chain: module revision found in cache: org.scalactic#scalactic_2.10;2.2.2
 [debug] 	local: revision in cache: org.scalactic#scalactic_2.10;2.2.2
 [debug] 	found org.scalactic#scalactic_2.10;2.2.2 in sbt-chain
@@ -116,7 +116,7 @@
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->org.scalactic#scalactic_2.10;2.2.2 [compile->master]
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->postgresql#postgresql;9.1-901-1.jdbc4 [compile->default(compile)]
 [info] Resolving postgresql#postgresql;9.1-901-1.jdbc4 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@6582b808
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@7c4e52e1
 [debug] sbt-chain: module revision found in cache: postgresql#postgresql;9.1-901-1.jdbc4
 [debug] 	local: revision in cache: postgresql#postgresql;9.1-901-1.jdbc4
 [debug] 	found postgresql#postgresql;9.1-901-1.jdbc4 in sbt-chain
@@ -125,7 +125,7 @@
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->postgresql#postgresql;9.1-901-1.jdbc4 [compile->master]
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->com.typesafe.akka#akka-actor_2.10;2.3.5 [compile->default(compile)]
 [info] Resolving com.typesafe.akka#akka-actor_2.10;2.3.5 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@358c5162
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@7fbaca29
 [debug] sbt-chain: module revision found in cache: com.typesafe.akka#akka-actor_2.10;2.3.5
 [debug] 	local: revision in cache: com.typesafe.akka#akka-actor_2.10;2.3.5
 [debug] 	found com.typesafe.akka#akka-actor_2.10;2.3.5 in sbt-chain
@@ -134,7 +134,7 @@
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->com.typesafe.akka#akka-actor_2.10;2.3.5 [compile->master]
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->com.typesafe#config;1.2.1 [compile->default(compile)]
 [info] Resolving com.typesafe#config;1.2.1 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@17104d7c
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@3aaf9b54
 [debug] sbt-chain: module revision found in cache: com.typesafe#config;1.2.1
 [debug] 	local: revision in cache: com.typesafe#config;1.2.1
 [debug] 	found com.typesafe#config;1.2.1 in sbt-chain
@@ -450,7 +450,7 @@
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->com.typesafe#config;1.2.1 [test->master]
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->org.scalatest#scalatest_2.10;2.2.0 [test->default(compile)]
 [info] Resolving org.scalatest#scalatest_2.10;2.2.0 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@28b27977
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@60ef6b9
 [debug] sbt-chain: module revision found in cache: org.scalatest#scalatest_2.10;2.2.0
 [debug] 	local: revision in cache: org.scalatest#scalatest_2.10;2.2.0
 [debug] 	found org.scalatest#scalatest_2.10;2.2.0 in sbt-chain
@@ -1068,58 +1068,58 @@
 [debug] == resolving dependencies justinserver#justinserver$sources_javadoc_2.10;1.0->org.fusesource.jansi#jansi;1.4 [scala-tool->master]
 [debug] 	resolved ivy file produced in cache
 [debug] :: downloading artifacts ::
-[debug] 	[NOT REQUIRED] org.scala-lang#scala-compiler;2.10.4!scala-compiler.jar(src)
 [debug] 	[NOT REQUIRED] org.scala-lang#scala-compiler;2.10.4!scala-compiler.jar
+[debug] 	[NOT REQUIRED] org.scala-lang#scala-compiler;2.10.4!scala-compiler.jar(src)
+[debug] 	[NOT REQUIRED] org.scala-lang#scala-library;2.10.4!scala-library.jar(src)
 [debug] 	[NOT REQUIRED] org.scala-lang#scala-library;2.10.4!scala-library.jar
 [debug] 	[NOT REQUIRED] org.scala-lang#scala-library;2.10.4!scala-library.jar(doc)
-[debug] 	[NOT REQUIRED] org.scala-lang#scala-library;2.10.4!scala-library.jar(src)
-[debug] 	[NOT REQUIRED] org.scala-lang#scala-reflect;2.10.4!scala-reflect.jar(src)
 [debug] 	[NOT REQUIRED] org.scala-lang#scala-reflect;2.10.4!scala-reflect.jar(doc)
 [debug] 	[NOT REQUIRED] org.scala-lang#scala-reflect;2.10.4!scala-reflect.jar
+[debug] 	[NOT REQUIRED] org.scala-lang#scala-reflect;2.10.4!scala-reflect.jar(src)
 [debug] 	[NOT REQUIRED] io.spray#spray-can;1.3.1!spray-can.jar(src)
-[debug] 	[NOT REQUIRED] io.spray#spray-can;1.3.1!spray-can.jar
 [debug] 	[NOT REQUIRED] io.spray#spray-can;1.3.1!spray-can.jar(doc)
+[debug] 	[NOT REQUIRED] io.spray#spray-can;1.3.1!spray-can.jar
 [debug] 	[NOT REQUIRED] io.spray#spray-io;1.3.1!spray-io.jar(src)
 [debug] 	[NOT REQUIRED] io.spray#spray-io;1.3.1!spray-io.jar(doc)
 [debug] 	[NOT REQUIRED] io.spray#spray-io;1.3.1!spray-io.jar
 [debug] 	[NOT REQUIRED] io.spray#spray-util;1.3.1!spray-util.jar(src)
 [debug] 	[NOT REQUIRED] io.spray#spray-util;1.3.1!spray-util.jar
 [debug] 	[NOT REQUIRED] io.spray#spray-util;1.3.1!spray-util.jar(doc)
+[debug] 	[NOT REQUIRED] io.spray#spray-http;1.3.1!spray-http.jar(doc)
 [debug] 	[NOT REQUIRED] io.spray#spray-http;1.3.1!spray-http.jar(src)
 [debug] 	[NOT REQUIRED] io.spray#spray-http;1.3.1!spray-http.jar
-[debug] 	[NOT REQUIRED] io.spray#spray-http;1.3.1!spray-http.jar(doc)
-[debug] 	[NOT REQUIRED] org.parboiled#parboiled-scala_2.10;1.1.6!parboiled-scala_2.10.jar(src)
-[debug] 	[NOT REQUIRED] org.parboiled#parboiled-scala_2.10;1.1.6!parboiled-scala_2.10.jar(doc)
 [debug] 	[NOT REQUIRED] org.parboiled#parboiled-scala_2.10;1.1.6!parboiled-scala_2.10.jar
+[debug] 	[NOT REQUIRED] org.parboiled#parboiled-scala_2.10;1.1.6!parboiled-scala_2.10.jar(doc)
+[debug] 	[NOT REQUIRED] org.parboiled#parboiled-scala_2.10;1.1.6!parboiled-scala_2.10.jar(src)
 [debug] 	[NOT REQUIRED] org.parboiled#parboiled-core;1.1.6!parboiled-core.jar(src)
-[debug] 	[NOT REQUIRED] org.parboiled#parboiled-core;1.1.6!parboiled-core.jar
 [debug] 	[NOT REQUIRED] org.parboiled#parboiled-core;1.1.6!parboiled-core.jar(doc)
+[debug] 	[NOT REQUIRED] org.parboiled#parboiled-core;1.1.6!parboiled-core.jar
 [debug] 	[NOT REQUIRED] org.apache.logging.log4j#log4j-api;2.1!log4j-api.jar(doc)
-[debug] 	[NOT REQUIRED] org.apache.logging.log4j#log4j-api;2.1!log4j-api.jar
 [debug] 	[NOT REQUIRED] org.apache.logging.log4j#log4j-api;2.1!log4j-api.jar(src)
-[debug] 	[NOT REQUIRED] org.apache.logging.log4j#log4j-core;2.1!log4j-core.jar(doc)
+[debug] 	[NOT REQUIRED] org.apache.logging.log4j#log4j-api;2.1!log4j-api.jar
 [debug] 	[NOT REQUIRED] org.apache.logging.log4j#log4j-core;2.1!log4j-core.jar
+[debug] 	[NOT REQUIRED] org.apache.logging.log4j#log4j-core;2.1!log4j-core.jar(doc)
 [debug] 	[NOT REQUIRED] org.apache.logging.log4j#log4j-core;2.1!log4j-core.jar(src)
-[debug] 	[NOT REQUIRED] org.scalactic#scalactic_2.10;2.2.2!scalactic_2.10.jar(doc)
 [debug] 	[NOT REQUIRED] org.scalactic#scalactic_2.10;2.2.2!scalactic_2.10.jar
 [debug] 	[NOT REQUIRED] org.scalactic#scalactic_2.10;2.2.2!scalactic_2.10.jar(src)
-[debug] 	[NOT REQUIRED] postgresql#postgresql;9.1-901-1.jdbc4!postgresql.jar(doc)
+[debug] 	[NOT REQUIRED] org.scalactic#scalactic_2.10;2.2.2!scalactic_2.10.jar(doc)
 [debug] 	[NOT REQUIRED] postgresql#postgresql;9.1-901-1.jdbc4!postgresql.jar
+[debug] 	[NOT REQUIRED] postgresql#postgresql;9.1-901-1.jdbc4!postgresql.jar(doc)
 [debug] 	[NOT REQUIRED] postgresql#postgresql;9.1-901-1.jdbc4!postgresql.jar(src)
 [debug] 	[NOT REQUIRED] com.typesafe.akka#akka-actor_2.10;2.3.5!akka-actor_2.10.jar(doc)
-[debug] 	[NOT REQUIRED] com.typesafe.akka#akka-actor_2.10;2.3.5!akka-actor_2.10.jar
 [debug] 	[NOT REQUIRED] com.typesafe.akka#akka-actor_2.10;2.3.5!akka-actor_2.10.jar(src)
+[debug] 	[NOT REQUIRED] com.typesafe.akka#akka-actor_2.10;2.3.5!akka-actor_2.10.jar
 [debug] 	[NOT REQUIRED] com.typesafe#config;1.2.1!config.jar
-[debug] 	[NOT REQUIRED] com.typesafe#config;1.2.1!config.jar(doc)
 [debug] 	[NOT REQUIRED] com.typesafe#config;1.2.1!config.jar(src)
-[debug] 	[NOT REQUIRED] org.scalatest#scalatest_2.10;2.2.0!scalatest_2.10.jar(src)
+[debug] 	[NOT REQUIRED] com.typesafe#config;1.2.1!config.jar(doc)
 [debug] 	[NOT REQUIRED] org.scalatest#scalatest_2.10;2.2.0!scalatest_2.10.jar
 [debug] 	[NOT REQUIRED] org.scalatest#scalatest_2.10;2.2.0!scalatest_2.10.jar(doc)
+[debug] 	[NOT REQUIRED] org.scalatest#scalatest_2.10;2.2.0!scalatest_2.10.jar(src)
 [debug] 	[NOT REQUIRED] org.scala-lang#jline;2.10.4!jline.jar(src)
 [debug] 	[NOT REQUIRED] org.scala-lang#jline;2.10.4!jline.jar(doc)
-[debug] 	[NOT REQUIRED] org.fusesource.jansi#jansi;1.4!jansi.jar(src)
 [debug] 	[NOT REQUIRED] org.fusesource.jansi#jansi;1.4!jansi.jar(doc)
-[debug] :: resolution report :: resolve 2887ms :: artifacts dl 222ms
+[debug] 	[NOT REQUIRED] org.fusesource.jansi#jansi;1.4!jansi.jar(src)
+[debug] :: resolution report :: resolve 2245ms :: artifacts dl 221ms
 [debug] 	report for justinserver#justinserver$sources_javadoc_2.10;1.0 compile produced in E:\IdeaProjects\JustInServer\target\resolution-cache\reports\justinserver-justinserver$sources_javadoc_2.10-compile.xml
 [debug] 	report for justinserver#justinserver$sources_javadoc_2.10;1.0 runtime produced in E:\IdeaProjects\JustInServer\target\resolution-cache\reports\justinserver-justinserver$sources_javadoc_2.10-runtime.xml
 [debug] 	report for justinserver#justinserver$sources_javadoc_2.10;1.0 test produced in E:\IdeaProjects\JustInServer\target\resolution-cache\reports\justinserver-justinserver$sources_javadoc_2.10-test.xml
@@ -1133,4 +1133,4 @@
 [debug] 	report for justinserver#justinserver$sources_javadoc_2.10;1.0 docs produced in E:\IdeaProjects\JustInServer\target\resolution-cache\reports\justinserver-justinserver$sources_javadoc_2.10-docs.xml
 [debug] 	report for justinserver#justinserver$sources_javadoc_2.10;1.0 pom produced in E:\IdeaProjects\JustInServer\target\resolution-cache\reports\justinserver-justinserver$sources_javadoc_2.10-pom.xml
 [debug] 	report for justinserver#justinserver$sources_javadoc_2.10;1.0 scala-tool produced in E:\IdeaProjects\JustInServer\target\resolution-cache\reports\justinserver-justinserver$sources_javadoc_2.10-scala-tool.xml
-[debug] 	resolve done (2887ms resolve - 222ms download)
+[debug] 	resolve done (2245ms resolve - 221ms download)

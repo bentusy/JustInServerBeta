@@ -16,19 +16,16 @@ import scala.util.{Failure, Success}
  * Created by Darcklight on 12/1/2014.
  */
 
-class User(idc: String,  globalMapc:Map[String, ActorRef], intentManagerc: ActorRef,countryCodc:String, daoc: ActorRef) {
-
+class User(val id: String, val globalMap:Map[String, ActorRef], val intentManager: ActorRef, val countryCod:String, val dao: ActorRef) {
 
 
   val log: Logger = LogManager.getLogger("InfoLoger")
-  val id = idc
+
   var deviceType:Int=0
   var userActor:UserActor=null
-  val globalMap = globalMapc
-  val intentManager = intentManagerc
+
+
   var connection:ActorRef=null
-  var countryCod: String = countryCodc
-  val dao=daoc
   var status = 0;
   var contacts: ArrayBuffer[String] = ArrayBuffer()
   val regContatcs: MMap[String, ActorRef] = MMap()
@@ -38,13 +35,23 @@ class User(idc: String,  globalMapc:Map[String, ActorRef], intentManagerc: Actor
   val outgoingIntent= MMap[String, Intent]()
   val recycleIncomingIntents= MMap[String, Intent]()
   val recycleOutgoingIntents= MMap[String, Intent]()
-//  val incomingIntentsForSending= ArrayBuffer[Intent]()
   var calculator:ActorRef = null
-//  val toTcpMasageBuffer=new ArrayBuffer[toTcpMasages]()
+
 
   val callReg=ArrayBuffer[CallConteoner]()
 
 
+
+
+
+  def doYouReadyForTallck(ref: ActorRef): Unit = {
+
+    if(status!=0|| connection!=null){
+     ref ! UserToCalculatorManagerIAmReadyToTallc(0)
+    }else{
+      ref ! UserToCalculatorManagerIAmReadyToTallc(1)
+    }
+  }
 
 
   def requestForCallFromTcp(rUser: String, pid: Int): Unit = {
@@ -94,7 +101,7 @@ class User(idc: String,  globalMapc:Map[String, ActorRef], intentManagerc: Actor
     }
 
    if(status==1){
-   calculator ! UserToIntensCalculateManager(incomingIntent, outgoingIntent)
+   calculator ! UserToIntensCalculateManagerStart(incomingIntent, outgoingIntent)
   }
   }
 

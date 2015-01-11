@@ -57,9 +57,8 @@ class UserManager(intntManager: ActorRef, daoc: ActorRef, pu: ArrayBuffer[ProtoU
     case TcpToUserManagerRegisterUser(countryCod, phoneNomber, pkgId) => {
       val id = countryCod+phoneNomber
       if(globalUserMap.contains(id)==false){
-
       val user = new User(id, globalUserMap, intentManager,  countryCod, dao)
-      val aref = context.actorOf(Props(new UserActor(user)), name = id.toString)
+      val aref = context.actorOf(Props(new UserActor(user)), id.toString)
       aref ! UserManagerToUserInformAll()
       globalUserMap += (id -> aref)
       sender ! UserManagerToTcpRegNewUser(id, aref, pkgId)

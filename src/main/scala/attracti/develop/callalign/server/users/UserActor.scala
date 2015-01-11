@@ -52,6 +52,13 @@ class UserActor(usr: User) extends Actor {
       }
     }
 
+    case CalculatorToUserWillYouCall(i)=>{
+      if(connection != null)
+    }
+
+    case CalculatorManagerToUserRequestForReadyToCall()=>{
+      user.doYouReadyForTallck(sender)
+    }
 
     case TcpToUserGetAllRegistredUsers(pid: Int)=>{
       connection ! UserToTcpTakeAllRegistredUsers(user.regContatcs, pid)
@@ -90,7 +97,7 @@ class UserActor(usr: User) extends Actor {
 case UserToUserMyStatusIsChange(rid,status)=>{
 
 
-  if (user.connection !=null/*&&user.regContatcs.contains(rid)*/)  user.connection ! UserToTcpYourContactSetStatus(rid, status)
+  if (user.connection !=null&&user.regContatcs.contains(rid))  user.connection ! UserToTcpYourContactSetStatus(rid, status)
 }
 
 

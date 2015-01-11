@@ -9348,3 +9348,234 @@ java.lang.ArrayIndexOutOfBoundsException: 2
 2014-12-26T19:30:29,461 [INFO ][t-dispatcher-173][                       InfoLoger] - Stoped TCPHandlerAActor akka://hostsystem/user/tcpServer/$eb
 2014-12-26T19:30:29,466 [INFO ][t-dispatcher-172][                       InfoLoger] - SOPED TCPServerA
 2014-12-26T19:30:29,470 [INFO ][t-dispatcher-172][                       InfoLoger] - STOP user manger - akka://hostsystem/user/userManager
+2014-12-27T11:50:00,377 [INFO ][ult-dispatcher-4][                       InfoLoger] - Start BD Manager
+2014-12-27T11:50:00,458 [INFO ][ult-dispatcher-3][                       InfoLoger] - Start Intent Manager
+2014-12-27T11:50:05,015 [INFO ][ult-dispatcher-4][                       InfoLoger] - Start creating users from BD
+2014-12-27T11:50:05,022 [INFO ][ult-dispatcher-2][                       InfoLoger] - Start TCPServerA
+2014-12-27T11:50:05,068 [INFO ][ult-dispatcher-3][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380974027438
+2014-12-27T11:50:05,068 [INFO ][ult-dispatcher-6][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380635083979
+2014-12-27T11:50:05,069 [INFO ][ult-dispatcher-5][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380635083679
+2014-12-27T11:50:05,069 [INFO ][ult-dispatcher-2][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380634543787
+2014-12-27T11:50:05,072 [INFO ][ult-dispatcher-4][                       InfoLoger] - Start UserManager
+2014-12-27T11:50:05,256 [INFO ][ult-dispatcher-8][                       InfoLoger] - Start creating intents from BD
+2014-12-27T11:50:05,447 [INFO ][ult-dispatcher-8][                       InfoLoger] - All load successfully ♥
+2014-12-27T11:59:25,271 [INFO ][lt-dispatcher-13][                       InfoLoger] - SOPED TCPServerA
+2014-12-27T11:59:25,280 [INFO ][lt-dispatcher-16][                       InfoLoger] - STOP user manger - akka://hostsystem/user/userManager
+2014-12-27T11:59:30,504 [INFO ][ult-dispatcher-2][                       InfoLoger] - Start BD Manager
+2014-12-27T11:59:30,583 [INFO ][ult-dispatcher-7][                       InfoLoger] - Start Intent Manager
+2014-12-27T11:59:30,738 [INFO ][ult-dispatcher-7][                       InfoLoger] - Start creating users from BD
+2014-12-27T11:59:30,761 [INFO ][ult-dispatcher-6][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380634543787
+2014-12-27T11:59:30,764 [INFO ][ult-dispatcher-6][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380635083979
+2014-12-27T11:59:30,765 [INFO ][ult-dispatcher-4][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380974027438
+2014-12-27T11:59:30,766 [INFO ][ult-dispatcher-2][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380635083679
+2014-12-27T11:59:30,775 [INFO ][ult-dispatcher-7][                       InfoLoger] - Start UserManager
+2014-12-27T11:59:30,816 [INFO ][ult-dispatcher-5][                       InfoLoger] - Start TCPServerA
+2014-12-27T11:59:30,852 [INFO ][ult-dispatcher-6][                       InfoLoger] - Start creating intents from BD
+2014-12-27T11:59:30,900 [INFO ][ult-dispatcher-6][                       InfoLoger] - All load successfully ♥
+2014-12-27T12:02:09,542 [INFO ][ult-dispatcher-2][                       InfoLoger] - Start BD Manager
+2014-12-27T12:02:09,600 [INFO ][ult-dispatcher-4][                       InfoLoger] - Start Intent Manager
+2014-12-27T12:02:09,755 [INFO ][ult-dispatcher-4][                       InfoLoger] - Start creating users from BD
+2014-12-27T12:02:09,768 [INFO ][ult-dispatcher-3][                       InfoLoger] - Start TCPServerA
+2014-12-27T12:02:09,782 [INFO ][ult-dispatcher-3][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380634543787
+2014-12-27T12:02:09,783 [INFO ][ult-dispatcher-9][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380635083979
+2014-12-27T12:02:09,810 [INFO ][ult-dispatcher-2][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380974027438
+2014-12-27T12:02:09,792 [INFO ][ult-dispatcher-4][                       InfoLoger] - Start UserManager
+2014-12-27T12:02:09,787 [INFO ][ult-dispatcher-8][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380635083679
+2014-12-27T12:02:09,892 [INFO ][ult-dispatcher-7][                       InfoLoger] - Start creating intents from BD
+2014-12-27T12:02:09,939 [INFO ][ult-dispatcher-7][                       InfoLoger] - All load successfully ♥
+2014-12-27T12:03:27,914 [INFO ][ult-dispatcher-4][                       InfoLoger] - Start Intent Manager
+2014-12-27T12:03:28,021 [INFO ][ult-dispatcher-2][                       InfoLoger] - Start BD Manager
+2014-12-27T12:03:28,237 [INFO ][ult-dispatcher-2][                       InfoLoger] - Start creating users from BD
+2014-12-27T12:03:28,255 [INFO ][ult-dispatcher-2][                       InfoLoger] - Start UserManager
+2014-12-27T12:03:28,258 [INFO ][ult-dispatcher-2][                       InfoLoger] - Start TCPServerA
+2014-12-27T12:03:28,387 [INFO ][ult-dispatcher-2][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380634543787
+2014-12-27T12:03:28,390 [INFO ][ult-dispatcher-3][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380635083979
+2014-12-27T12:03:28,392 [INFO ][ult-dispatcher-7][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380635083679
+2014-12-27T12:03:28,397 [INFO ][ult-dispatcher-6][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380974027438
+2014-12-27T12:03:28,401 [INFO ][ult-dispatcher-5][                       InfoLoger] - Start creating intents from BD
+2014-12-27T12:03:28,450 [INFO ][ult-dispatcher-5][                       InfoLoger] - All load successfully ♥
+2014-12-27T12:03:35,040 [INFO ][ult-dispatcher-5][                       InfoLoger] - New TCP connection:/94.45.133.18:54647
+2014-12-27T12:03:35,134 [INFO ][ult-dispatcher-2][                       InfoLoger] - Start new TCPHendler  with connection-/94.45.133.18:54647
+2014-12-27T12:03:35,907 [ERROR][lt-dispatcher-10][                       InfoLoger] - TCP DEFAULT
+2014-12-27T12:03:35,908 [INFO ][lt-dispatcher-10][                       InfoLoger] - Stopping,conn from /94.45.133.18:54647
+2014-12-27T12:03:35,909 [INFO ][lt-dispatcher-10][                       InfoLoger] - Stoped TCPHandlerAActor akka://hostsystem/user/tcpServer/$a
+2014-12-27T12:11:42,788 [INFO ][ult-dispatcher-9][                       InfoLoger] - New TCP connection:/176.38.31.44:46320
+2014-12-27T12:11:42,790 [INFO ][lt-dispatcher-13][                       InfoLoger] - Start new TCPHendler  with connection-/176.38.31.44:46320
+2014-12-27T12:11:43,173 [INFO ][lt-dispatcher-13][                       InfoLoger] - Incoming from /176.38.31.44:46320 : 61/+380974027438:0/
+2014-12-27T12:11:43,181 [INFO ][lt-dispatcher-13][                       InfoLoger] - TCPhandler send autorisation for +380974027438
+2014-12-27T12:11:43,182 [INFO ][lt-dispatcher-13][                       InfoLoger] - Incoming from /176.38.31.44:46320 : 61/+380974027438:0/
+2014-12-27T12:11:43,183 [INFO ][lt-dispatcher-13][                       InfoLoger] - TCPhandler send autorisation for +380974027438
+2014-12-27T12:11:43,183 [INFO ][lt-dispatcher-13][                       InfoLoger] - Incoming from /176.38.31.44:46320 : 61/+380974027438:0/
+2014-12-27T12:11:43,184 [INFO ][lt-dispatcher-13][                       InfoLoger] - TCPhandler send autorisation for +380974027438
+2014-12-27T12:11:43,184 [INFO ][ult-dispatcher-9][                       InfoLoger] - UserManager have verified +380974027438 = Actor[akka://hostsystem/user/userManager/+380974027438#1680986911]
+2014-12-27T12:11:43,184 [INFO ][lt-dispatcher-13][                       InfoLoger] - Incoming from /176.38.31.44:46320 : 61/+380974027438:0/
+2014-12-27T12:11:43,185 [INFO ][lt-dispatcher-13][                       InfoLoger] - TCPhandler send autorisation for +380974027438
+2014-12-27T12:11:43,185 [INFO ][ult-dispatcher-9][                       InfoLoger] - UserManager have verified +380974027438 = Actor[akka://hostsystem/user/userManager/+380974027438#1680986911]
+2014-12-27T12:11:43,185 [INFO ][lt-dispatcher-13][                       InfoLoger] - Incoming from /176.38.31.44:46320 : 61/+380974027438:0/
+2014-12-27T12:11:43,185 [INFO ][ult-dispatcher-9][                       InfoLoger] - UserManager have verified +380974027438 = Actor[akka://hostsystem/user/userManager/+380974027438#1680986911]
+2014-12-27T12:11:43,186 [INFO ][lt-dispatcher-13][                       InfoLoger] - TCPhandler send autorisation for +380974027438
+2014-12-27T12:11:43,186 [INFO ][ult-dispatcher-9][                       InfoLoger] - UserManager have verified +380974027438 = Actor[akka://hostsystem/user/userManager/+380974027438#1680986911]
+2014-12-27T12:11:43,186 [INFO ][ult-dispatcher-9][                       InfoLoger] - UserManager have verified +380974027438 = Actor[akka://hostsystem/user/userManager/+380974027438#1680986911]
+2014-12-27T12:11:43,203 [INFO ][ult-dispatcher-9][                       InfoLoger] - +380974027438 Get New Connection
+2014-12-27T12:12:22,930 [ERROR][lt-dispatcher-15][                       InfoLoger] - TCP DEFAULT
+2014-12-27T12:12:22,931 [INFO ][lt-dispatcher-15][                       InfoLoger] - Stopping,conn from /176.38.31.44:46320
+2014-12-27T12:12:22,932 [INFO ][lt-dispatcher-15][                       InfoLoger] - Stoped TCPHandlerAActor akka://hostsystem/user/tcpServer/$b
+2014-12-27T12:12:22,933 [INFO ][lt-dispatcher-15][                       InfoLoger] - +380974027438Have drop ConnectionHendle
+2014-12-27T12:12:22,934 [INFO ][lt-dispatcher-15][                       InfoLoger] - +380974027438 setStatus to '0'
+2014-12-27T14:23:22,832 [INFO ][ult-dispatcher-4][                       InfoLoger] - Start BD Manager
+2014-12-27T14:23:22,945 [INFO ][ult-dispatcher-5][                       InfoLoger] - Start Intent Manager
+2014-12-27T14:23:23,651 [INFO ][ult-dispatcher-4][                       InfoLoger] - Start creating users from BD
+2014-12-27T14:23:23,652 [INFO ][ult-dispatcher-5][                       InfoLoger] - Start TCPServerA
+2014-12-27T14:23:23,856 [INFO ][ult-dispatcher-4][                       InfoLoger] - Start UserManager
+2014-12-27T14:23:23,989 [INFO ][ult-dispatcher-6][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380635083979
+2014-12-27T14:23:23,990 [INFO ][ult-dispatcher-2][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380635083679
+2014-12-27T14:23:24,000 [INFO ][ult-dispatcher-5][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380974027438
+2014-12-27T14:23:24,052 [INFO ][ult-dispatcher-3][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380634543787
+2014-12-27T14:23:24,303 [INFO ][ult-dispatcher-9][                       InfoLoger] - Start creating intents from BD
+2014-12-27T14:23:24,910 [INFO ][ult-dispatcher-9][                       InfoLoger] - All load successfully ♥
+2014-12-27T15:26:39,608 [INFO ][ult-dispatcher-3][                       InfoLoger] - Start Intent Manager
+2014-12-27T15:26:39,659 [INFO ][ult-dispatcher-6][                       InfoLoger] - Start BD Manager
+2014-12-27T15:26:39,915 [INFO ][ult-dispatcher-6][                       InfoLoger] - Start creating users from BD
+2014-12-27T15:26:39,932 [INFO ][ult-dispatcher-3][                       InfoLoger] - Start TCPServerA
+2014-12-27T15:26:39,935 [INFO ][ult-dispatcher-2][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380974027438
+2014-12-27T15:26:39,935 [INFO ][ult-dispatcher-7][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380635083979
+2014-12-27T15:26:39,935 [INFO ][ult-dispatcher-9][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380635083679
+2014-12-27T15:26:39,935 [INFO ][ult-dispatcher-5][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380634543787
+2014-12-27T15:26:39,950 [INFO ][ult-dispatcher-6][                       InfoLoger] - Start UserManager
+2014-12-27T15:26:40,000 [INFO ][ult-dispatcher-6][                       InfoLoger] - Start creating intents from BD
+2014-12-27T15:26:40,055 [INFO ][ult-dispatcher-5][                       InfoLoger] - All load successfully ♥
+2014-12-27T17:30:06,448 [INFO ][lt-dispatcher-14][                       InfoLoger] - New TCP connection:/176.38.31.44:47380
+2014-12-27T17:30:06,450 [INFO ][lt-dispatcher-17][                       InfoLoger] - Start new TCPHendler  with connection-/176.38.31.44:47380
+2014-12-27T17:30:13,821 [INFO ][lt-dispatcher-14][                       InfoLoger] - Incoming from /176.38.31.44:47380 : 61/+380930715899:0/
+2014-12-27T17:30:13,822 [INFO ][lt-dispatcher-14][                       InfoLoger] - TCPhandler send autorisation for +380930715899
+2014-12-27T17:30:13,822 [INFO ][lt-dispatcher-17][                       InfoLoger] - UserManager have verified +380930715899 = null
+2014-12-27T17:31:04,683 [INFO ][lt-dispatcher-19][                       InfoLoger] - Incoming from /176.38.31.44:47380 : 61/+380930715899:0/
+2014-12-27T17:31:04,684 [INFO ][lt-dispatcher-19][                       InfoLoger] - TCPhandler send autorisation for +380930715899
+2014-12-27T17:31:04,684 [INFO ][lt-dispatcher-20][                       InfoLoger] - UserManager have verified +380930715899 = null
+2014-12-27T17:34:36,158 [ERROR][lt-dispatcher-21][                       InfoLoger] - TCP DEFAULT
+2014-12-27T17:34:36,159 [INFO ][lt-dispatcher-21][                       InfoLoger] - Stopping,conn from /176.38.31.44:47380
+2014-12-27T17:34:36,159 [INFO ][lt-dispatcher-21][                       InfoLoger] - Stoped TCPHandlerAActor akka://hostsystem/user/tcpServer/$c
+2014-12-27T17:36:21,214 [INFO ][lt-dispatcher-22][                       InfoLoger] - New TCP connection:/176.38.31.44:34918
+2014-12-27T17:36:21,215 [INFO ][lt-dispatcher-24][                       InfoLoger] - Start new TCPHendler  with connection-/176.38.31.44:34918
+2014-12-27T17:36:21,462 [INFO ][lt-dispatcher-24][                       InfoLoger] - Incoming from /176.38.31.44:34918 : 61/+380930715899:0/
+2014-12-27T17:36:21,463 [INFO ][lt-dispatcher-24][                       InfoLoger] - TCPhandler send autorisation for +380930715899
+2014-12-27T17:36:21,463 [INFO ][lt-dispatcher-22][                       InfoLoger] - UserManager have verified +380930715899 = null
+2014-12-27T17:36:22,369 [INFO ][lt-dispatcher-22][                       InfoLoger] - Incoming from /176.38.31.44:34918 : 61/+380930715899:0/
+2014-12-27T17:36:22,370 [INFO ][lt-dispatcher-22][                       InfoLoger] - TCPhandler send autorisation for +380930715899
+2014-12-27T17:36:22,370 [INFO ][lt-dispatcher-24][                       InfoLoger] - UserManager have verified +380930715899 = null
+2014-12-27T17:36:34,347 [ERROR][lt-dispatcher-24][                       InfoLoger] - TCP DEFAULT
+2014-12-27T17:36:34,348 [INFO ][lt-dispatcher-24][                       InfoLoger] - Stopping,conn from /176.38.31.44:34918
+2014-12-27T17:36:34,349 [INFO ][lt-dispatcher-24][                       InfoLoger] - Stoped TCPHandlerAActor akka://hostsystem/user/tcpServer/$d
+2014-12-27T17:36:41,855 [INFO ][lt-dispatcher-24][                       InfoLoger] - New TCP connection:/176.38.31.44:47752
+2014-12-27T17:36:41,856 [INFO ][lt-dispatcher-26][                       InfoLoger] - Start new TCPHendler  with connection-/176.38.31.44:47752
+2014-12-27T17:36:42,092 [INFO ][lt-dispatcher-22][                       InfoLoger] - Incoming from /176.38.31.44:47752 : 61/+380930715899:0/
+2014-12-27T17:36:42,093 [INFO ][lt-dispatcher-22][                       InfoLoger] - TCPhandler send autorisation for +380930715899
+2014-12-27T17:36:42,093 [INFO ][lt-dispatcher-26][                       InfoLoger] - UserManager have verified +380930715899 = null
+2014-12-27T17:37:10,460 [ERROR][lt-dispatcher-24][                       InfoLoger] - TCP DEFAULT
+2014-12-27T17:37:10,461 [INFO ][lt-dispatcher-24][                       InfoLoger] - Stopping,conn from /176.38.31.44:47752
+2014-12-27T17:37:10,461 [INFO ][lt-dispatcher-24][                       InfoLoger] - Stoped TCPHandlerAActor akka://hostsystem/user/tcpServer/$e
+2014-12-27T17:37:24,373 [INFO ][lt-dispatcher-24][                       InfoLoger] - New TCP connection:/176.38.31.44:39366
+2014-12-27T17:37:24,374 [INFO ][lt-dispatcher-25][                       InfoLoger] - Start new TCPHendler  with connection-/176.38.31.44:39366
+2014-12-27T17:37:24,606 [INFO ][lt-dispatcher-22][                       InfoLoger] - Incoming from /176.38.31.44:39366 : 61/+380930715899:0/
+2014-12-27T17:37:24,607 [INFO ][lt-dispatcher-22][                       InfoLoger] - TCPhandler send autorisation for +380930715899
+2014-12-27T17:37:24,607 [INFO ][lt-dispatcher-25][                       InfoLoger] - UserManager have verified +380930715899 = null
+2014-12-27T17:37:42,643 [ERROR][lt-dispatcher-25][                       InfoLoger] - TCP DEFAULT
+2014-12-27T17:37:42,644 [INFO ][lt-dispatcher-25][                       InfoLoger] - Stopping,conn from /176.38.31.44:39366
+2014-12-27T17:37:42,644 [INFO ][lt-dispatcher-25][                       InfoLoger] - Stoped TCPHandlerAActor akka://hostsystem/user/tcpServer/$f
+2014-12-27T17:37:49,489 [INFO ][lt-dispatcher-25][                       InfoLoger] - New TCP connection:/176.38.31.44:48226
+2014-12-27T17:37:49,491 [INFO ][lt-dispatcher-24][                       InfoLoger] - Start new TCPHendler  with connection-/176.38.31.44:48226
+2014-12-27T17:37:49,727 [INFO ][lt-dispatcher-22][                       InfoLoger] - Incoming from /176.38.31.44:48226 : 61/+380930715899:0/
+2014-12-27T17:37:49,728 [INFO ][lt-dispatcher-24][                       InfoLoger] - UserManager have verified +380930715899 = null
+2014-12-27T17:37:49,728 [INFO ][lt-dispatcher-22][                       InfoLoger] - TCPhandler send autorisation for +380930715899
+2014-12-27T17:38:17,029 [ERROR][lt-dispatcher-27][                       InfoLoger] - TCP DEFAULT
+2014-12-27T17:38:17,030 [INFO ][lt-dispatcher-27][                       InfoLoger] - Stopping,conn from /176.38.31.44:48226
+2014-12-27T17:38:17,030 [INFO ][lt-dispatcher-27][                       InfoLoger] - Stoped TCPHandlerAActor akka://hostsystem/user/tcpServer/$g
+2014-12-27T17:39:47,546 [INFO ][lt-dispatcher-24][                       InfoLoger] - New TCP connection:/176.38.31.44:41271
+2014-12-27T17:39:47,548 [INFO ][lt-dispatcher-28][                       InfoLoger] - Start new TCPHendler  with connection-/176.38.31.44:41271
+2014-12-27T17:39:47,752 [INFO ][lt-dispatcher-24][                       InfoLoger] - Incoming from /176.38.31.44:41271 : 61/+380930715899:0/
+2014-12-27T17:39:47,753 [INFO ][lt-dispatcher-28][                       InfoLoger] - UserManager have verified +380930715899 = null
+2014-12-27T17:39:47,753 [INFO ][lt-dispatcher-24][                       InfoLoger] - TCPhandler send autorisation for +380930715899
+2014-12-27T17:40:06,660 [INFO ][lt-dispatcher-31][                       InfoLoger] - Incoming from /176.38.31.44:41271 : 61/+380930715899:0/
+2014-12-27T17:40:06,661 [INFO ][lt-dispatcher-31][                       InfoLoger] - TCPhandler send autorisation for +380930715899
+2014-12-27T17:40:06,661 [INFO ][lt-dispatcher-24][                       InfoLoger] - UserManager have verified +380930715899 = null
+2014-12-27T17:40:46,680 [ERROR][lt-dispatcher-30][                       InfoLoger] - TCP DEFAULT
+2014-12-27T17:40:46,681 [INFO ][lt-dispatcher-30][                       InfoLoger] - Stopping,conn from /176.38.31.44:41271
+2014-12-27T17:40:46,682 [INFO ][lt-dispatcher-30][                       InfoLoger] - Stoped TCPHandlerAActor akka://hostsystem/user/tcpServer/$h
+2014-12-27T17:40:55,862 [INFO ][lt-dispatcher-30][                       InfoLoger] - New TCP connection:/176.38.31.44:45485
+2014-12-27T17:40:55,864 [INFO ][lt-dispatcher-29][                       InfoLoger] - Start new TCPHendler  with connection-/176.38.31.44:45485
+2014-12-27T17:40:56,089 [INFO ][lt-dispatcher-29][                       InfoLoger] - Incoming from /176.38.31.44:45485 : 61/+380930715899:0/
+2014-12-27T17:40:56,090 [INFO ][lt-dispatcher-29][                       InfoLoger] - TCPhandler send autorisation for +380930715899
+2014-12-27T17:40:56,090 [INFO ][lt-dispatcher-30][                       InfoLoger] - UserManager have verified +380930715899 = null
+2014-12-27T17:41:00,018 [INFO ][lt-dispatcher-30][                       InfoLoger] - Incoming from /176.38.31.44:45485 : 61/+380930715899:0/
+2014-12-27T17:41:00,019 [INFO ][lt-dispatcher-30][                       InfoLoger] - TCPhandler send autorisation for +380930715899
+2014-12-27T17:41:00,019 [INFO ][lt-dispatcher-29][                       InfoLoger] - UserManager have verified +380930715899 = null
+2014-12-27T17:41:42,043 [ERROR][lt-dispatcher-33][                       InfoLoger] - TCP DEFAULT
+2014-12-27T17:41:42,044 [INFO ][lt-dispatcher-33][                       InfoLoger] - Stopping,conn from /176.38.31.44:45485
+2014-12-27T17:41:42,044 [INFO ][lt-dispatcher-33][                       InfoLoger] - Stoped TCPHandlerAActor akka://hostsystem/user/tcpServer/$i
+2014-12-27T17:41:50,466 [INFO ][lt-dispatcher-33][                       InfoLoger] - New TCP connection:/176.38.31.44:34470
+2014-12-27T17:41:50,467 [INFO ][lt-dispatcher-35][                       InfoLoger] - Start new TCPHendler  with connection-/176.38.31.44:34470
+2014-12-27T17:41:50,696 [INFO ][lt-dispatcher-32][                       InfoLoger] - Incoming from /176.38.31.44:34470 : 61/+380930715899:0/
+2014-12-27T17:41:50,697 [INFO ][lt-dispatcher-32][                       InfoLoger] - TCPhandler send autorisation for +380930715899
+2014-12-27T17:41:50,698 [INFO ][lt-dispatcher-35][                       InfoLoger] - UserManager have verified +380930715899 = null
+2014-12-27T17:41:54,619 [INFO ][lt-dispatcher-32][                       InfoLoger] - Incoming from /176.38.31.44:34470 : 61/+380930715899:0/
+2014-12-27T17:41:54,619 [INFO ][lt-dispatcher-32][                       InfoLoger] - TCPhandler send autorisation for +380930715899
+2014-12-27T17:41:54,620 [INFO ][lt-dispatcher-35][                       InfoLoger] - UserManager have verified +380930715899 = null
+2014-12-27T17:42:06,787 [INFO ][lt-dispatcher-35][                       InfoLoger] - Incoming from /176.38.31.44:34470 : 60/+380:930715899/
+2014-12-27T17:42:06,790 [INFO ][lt-dispatcher-35][                       InfoLoger] - TcpHandlerHelp send request for new user-+380930715899
+2014-12-27T17:42:06,824 [INFO ][lt-dispatcher-35][                       InfoLoger] - Start new UserActor akka://hostsystem/user/userManager/+380930715899
+2014-12-27T17:42:06,827 [INFO ][lt-dispatcher-32][                       InfoLoger] - User manager has registered new user = +380930715899
+2014-12-27T17:42:07,456 [INFO ][lt-dispatcher-37][                       InfoLoger] - Incoming from /176.38.31.44:34470 : 61/+380930715899:0/
+2014-12-27T17:42:07,457 [INFO ][lt-dispatcher-37][                       InfoLoger] - TCPhandler send autorisation for +380930715899
+2014-12-27T17:42:07,457 [INFO ][lt-dispatcher-33][                       InfoLoger] - UserManager have verified +380930715899 = Actor[akka://hostsystem/user/userManager/+380930715899#587536538]
+2014-12-27T17:42:07,458 [INFO ][lt-dispatcher-38][                       InfoLoger] - +380930715899 Get New Connection
+2014-12-27T17:56:41,249 [INFO ][lt-dispatcher-32][                       InfoLoger] - New TCP connection:/176.38.31.44:34684
+2014-12-27T17:56:41,250 [INFO ][lt-dispatcher-39][                       InfoLoger] - Start new TCPHendler  with connection-/176.38.31.44:34684
+2014-12-27T17:56:41,477 [INFO ][lt-dispatcher-39][                       InfoLoger] - Incoming from /176.38.31.44:34684 : 61/+380930715899:0/
+2014-12-27T17:56:41,478 [INFO ][lt-dispatcher-39][                       InfoLoger] - TCPhandler send autorisation for +380930715899
+2014-12-27T17:56:41,478 [INFO ][lt-dispatcher-32][                       InfoLoger] - UserManager have verified +380930715899 = Actor[akka://hostsystem/user/userManager/+380930715899#587536538]
+2014-12-27T17:56:41,479 [INFO ][lt-dispatcher-32][                       InfoLoger] - +380930715899 Get New Connection
+2014-12-27T17:56:41,484 [ERROR][lt-dispatcher-32][                       InfoLoger] - TCP DEFAULT
+2014-12-27T17:56:41,485 [INFO ][lt-dispatcher-32][                       InfoLoger] - Stopping,conn from /176.38.31.44:34470
+2014-12-27T17:56:41,486 [INFO ][lt-dispatcher-32][                       InfoLoger] - Stoped TCPHandlerAActor akka://hostsystem/user/tcpServer/$j
+2014-12-27T17:58:37,644 [INFO ][lt-dispatcher-40][                       InfoLoger] - Incoming from /176.38.31.44:34684 : 62/+380636506979,+380937266227,+380635083679,+380634543787,+380973780780,+380995450041,+380974027438,/
+2014-12-27T17:58:37,648 [INFO ][lt-dispatcher-40][                       InfoLoger] - TCP send to UserActor set size =7
+2014-12-27T17:58:37,650 [INFO ][lt-dispatcher-42][                       InfoLoger] - +380930715899start Set All Contacts
+2014-12-27T17:58:37,698 [INFO ][lt-dispatcher-42][                       InfoLoger] - +380930715899End seting contact Length = 7  RC.length = 3
+
+2014-12-27T18:01:39,425 [ERROR][lt-dispatcher-44][                       InfoLoger] - TCP DEFAULT
+2014-12-27T18:01:39,425 [INFO ][lt-dispatcher-44][                       InfoLoger] - Stopping,conn from /176.38.31.44:34684
+2014-12-27T18:01:39,426 [INFO ][lt-dispatcher-44][                       InfoLoger] - Stoped TCPHandlerAActor akka://hostsystem/user/tcpServer/$k
+2014-12-27T18:01:39,426 [INFO ][lt-dispatcher-46][                       InfoLoger] - +380930715899Have drop ConnectionHendle
+2014-12-27T18:01:39,427 [INFO ][lt-dispatcher-46][                       InfoLoger] - +380930715899 setStatus to '0'
+2014-12-27T18:35:38,557 [INFO ][lt-dispatcher-45][                       InfoLoger] - New TCP connection:/176.38.31.44:33605
+2014-12-27T18:35:38,560 [INFO ][lt-dispatcher-47][                       InfoLoger] - Start new TCPHendler  with connection-/176.38.31.44:33605
+2014-12-27T18:35:38,778 [INFO ][lt-dispatcher-45][                       InfoLoger] - Incoming from /176.38.31.44:33605 : 61/+380930715899:0/
+2014-12-27T18:35:38,779 [INFO ][lt-dispatcher-45][                       InfoLoger] - TCPhandler send autorisation for +380930715899
+2014-12-27T18:35:38,779 [INFO ][lt-dispatcher-47][                       InfoLoger] - UserManager have verified +380930715899 = Actor[akka://hostsystem/user/userManager/+380930715899#587536538]
+2014-12-27T18:35:38,780 [INFO ][lt-dispatcher-50][                       InfoLoger] - +380930715899 Get New Connection
+2014-12-27T18:36:22,743 [ERROR][lt-dispatcher-49][                       InfoLoger] - TCP DEFAULT
+2014-12-27T18:36:22,744 [INFO ][lt-dispatcher-49][                       InfoLoger] - Stopping,conn from /176.38.31.44:33605
+2014-12-27T18:36:22,744 [INFO ][lt-dispatcher-49][                       InfoLoger] - Stoped TCPHandlerAActor akka://hostsystem/user/tcpServer/$l
+2014-12-27T18:36:22,745 [INFO ][lt-dispatcher-47][                       InfoLoger] - +380930715899Have drop ConnectionHendle
+2014-12-27T18:36:22,745 [INFO ][lt-dispatcher-47][                       InfoLoger] - +380930715899 setStatus to '0'
+2014-12-27T18:40:02,574 [INFO ][lt-dispatcher-49][                       InfoLoger] - New TCP connection:/176.38.31.44:41733
+2014-12-27T18:40:02,576 [INFO ][lt-dispatcher-52][                       InfoLoger] - Start new TCPHendler  with connection-/176.38.31.44:41733
+2014-12-27T18:40:02,806 [INFO ][lt-dispatcher-49][                       InfoLoger] - Incoming from /176.38.31.44:41733 : 61/+380930715899:0/
+2014-12-27T18:40:02,806 [INFO ][lt-dispatcher-49][                       InfoLoger] - TCPhandler send autorisation for +380930715899
+2014-12-27T18:40:02,807 [INFO ][lt-dispatcher-52][                       InfoLoger] - UserManager have verified +380930715899 = Actor[akka://hostsystem/user/userManager/+380930715899#587536538]
+2014-12-27T18:40:02,807 [INFO ][lt-dispatcher-55][                       InfoLoger] - +380930715899 Get New Connection
+2014-12-27T18:40:59,770 [INFO ][lt-dispatcher-54][                       InfoLoger] - Incoming from /176.38.31.44:41733 : 62/+380636506979,+380937266227,+380635083679,+380634543787,+380973780780,+380995450041,+380974027438,/
+2014-12-27T18:40:59,771 [INFO ][lt-dispatcher-54][                       InfoLoger] - TCP send to UserActor set size =7
+2014-12-27T18:40:59,771 [INFO ][lt-dispatcher-52][                       InfoLoger] - +380930715899start Set All Contacts
+2014-12-27T18:40:59,772 [INFO ][lt-dispatcher-52][                       InfoLoger] - +380930715899End seting contact Length = 7  RC.length = 3
+
+2014-12-27T18:41:42,605 [ERROR][lt-dispatcher-57][                       InfoLoger] - TCP DEFAULT
+2014-12-27T18:41:42,606 [INFO ][lt-dispatcher-57][                       InfoLoger] - Stopping,conn from /176.38.31.44:41733
+2014-12-27T18:41:42,606 [INFO ][lt-dispatcher-57][                       InfoLoger] - Stoped TCPHandlerAActor akka://hostsystem/user/tcpServer/$m
+2014-12-27T18:41:42,607 [INFO ][lt-dispatcher-58][                       InfoLoger] - +380930715899Have drop ConnectionHendle
+2014-12-27T18:41:42,607 [INFO ][lt-dispatcher-58][                       InfoLoger] - +380930715899 setStatus to '0'
+2014-12-28T12:03:32,873 [INFO ][lt-dispatcher-57][                       InfoLoger] - IntentMeneger cleaning intents
+2014-12-29T00:03:32,779 [INFO ][lt-dispatcher-57][                       InfoLoger] - IntentMeneger cleaning intents
+2014-12-29T12:03:32,843 [INFO ][lt-dispatcher-57][                       InfoLoger] - IntentMeneger cleaning intents
+2014-12-30T00:03:32,791 [INFO ][lt-dispatcher-57][                       InfoLoger] - IntentMeneger cleaning intents
+2014-12-30T12:03:32,810 [INFO ][lt-dispatcher-57][                       InfoLoger] - IntentMeneger cleaning intents

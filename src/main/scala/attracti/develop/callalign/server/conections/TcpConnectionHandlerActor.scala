@@ -32,39 +32,36 @@ class TcpConnectionHandlerActor(remote: InetSocketAddress, connect: ActorRef, us
   val buffer=new Buffer(collect)
   val out=new OutgoinFormatTools()
   val pidReg = ArrayBuffer[Int]()
-//    val userMenege = usermeneger;
+
     var userid:String = null
     var useractor:ActorRef = null
-//    val connect= connection
-    val mapPingPong=MMap[Int, CallConteoner]()
 
     context.watch(connect)
 
-//def unknownComand(): Unit ={
-//  responseToConnection(error("0","0", "0"))
-//}
-//
-//  def youMustAutorizationFirst(): Unit ={
-//    responseToConnection(error("00", "0000"))
-//  }
-
-//  def responseToConnection(str: String): Unit ={
-//
-//    log.info("Response from "+Utils.cutStringFromEnd(self.toString(), 14, 1)+ "  through  " +
-//      Utils.cutStringFromEnd(connect.toString(), 16, 1)+ " to "+remote+" msg: " +str)
-//    val a = ByteString(str)
-//    connect ! Tcp.Write(a)
-//  }
 
 
   def send(arr: Array[Byte]): Unit ={
-arr.foreach( (i: Byte)=> print(i+" "))
 println()
-//    log.info("Send to "+remote+" msg:)
     connect ! Tcp.Write(ByteString.fromArray(arr))
   }
 
   def receive(): Receive = {
+
+
+    case UserToTcpWillYouCallForThisIntent(intn, calc)=>{
+      val pkg = out.createPckgType0X2A(intn.toString())
+      send(pkg._1)
+      collect +=(pkg._2, new doSomething {
+        override def run(typ: Int): Unit = {
+          typ match {
+            case 0 =>
+            case 1 => calc ! UserToCalculatorAnswerForIntetnsRequest(0)
+            case 2 => calc ! UserToCalculatorAnswerForIntetnsRequest(1)
+          }
+        }
+        })
+    }
+
 
     case UserToTcpTakeAllRegistredUsers(map, pid)=>{
       send(out.createPckgType0x2b(pid, regUsers(map)))
@@ -142,17 +139,8 @@ println()
       }
       collect += (para._2, ds)
 
-//     mapPingPong +=(para._2 -> callConteiner)
+
      send(para._1)
-//
-//      val dellF = Future {
-//        Thread.sleep(GlobalContext.timeToPing)
-//        para._2
-//      }
-//
-//      dellF.onSuccess{
-//        case pid=>if(collect.con)
-//      }
 
     }
 
@@ -226,7 +214,6 @@ println()
     case UserManagerToTcpRegNewUser(id, aref, pkgId)=>{
       if(pidReg.contains(pkgId)){
       if(aref!=null){
-//      aref ! TcpToUserNewConnection(self)
       send(out.createPckgType0x2b(pkgId,"11/Registered successfull"))
     }else{
       send(out.createPckgType0x2b(pkgId,"0002/This id have already registered"))
@@ -238,13 +225,8 @@ println()
     case UserToTcpAfterAddContacts(regContacts, pid)=>{
       if(pidReg.contains(pid)){
       send(out.createPckgType0x2b(pid, nombersAdsdedSuccessfuly(regContacts)))
-//    responseToConnection(nombersAdsdedSuccessfuly(regContacts))
+
   }}
-
-//    case UserToTcpSetStatusSuccessful(status, pid)=>{
-//      send(out.createPckgType5(pid, "Set status on"+pid+"secsesfull"))
-//    }
-
 
     case Tcp.Received(data) => {
 
@@ -254,19 +236,13 @@ println()
       while(buffer.hasNext()){
 
         val incomingData = buffer.getNext()
-//        println(incomingData.dat.foreach((i:Byte)=>print(i)))
+
         incomingData.typ match {
           case 0 =>{send(out.createPckgType0x30("0002/Wrong data format" ))}
 
           case 0x11 =>{
 
             collect.respIncoming(incomingData.pid)
-
-//            val b =collect.getFuncFromPid(incomingData.pid)
-//            if(b!=null){
-//              b.run(1)
-//            }
-
           }
           case 0x12 =>{
 
@@ -280,11 +256,10 @@ println()
           }
           case 0x2a =>{
             val text = new String(incomingData.dat.toArray)
-
             val pkgId = incomingData.pid
             val cmd = text.split("/")
             log.info("Incoming from "+remote+" : "+text)
-//            if(cmd.length > 3){send(out.createPckgType6("0002/Wrong data format" ))}
+
             cmd(0) match {
 
               case "60" => {
@@ -422,14 +397,6 @@ println()
                 } else send (out.createPckgType0x2b(incomingData.pid, "0001/You must authorization first"))
               }
 
-//              case "72" => {
-//                if(useractor!=null) {
-//                  if (cmd.length>1&&matchIt(cmd(1), patern72)) {
-//                    useractor ! TcpToUserSetStatus(cmd(1).toInt, pkgId)
-//                    log.info("Tcp send set my status")
-//                  }else{send (out.createPckgType5(incomingData.pid, "0002/Wrong data format"))}
-//                } else send (out.createPckgType5(incomingData.pid, "0001/You must authorization first"))
-//              }
 
               case "74" => {
                 if(useractor!=null) {

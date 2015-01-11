@@ -28,25 +28,20 @@ class TransportProtocolCollection {
       Thread.sleep(GlobalContext.timeToPing)
       pid
     }
-
     dellF.onSuccess{
-      case pid=>if(mapa.contains(pid)){
+      case pid if(mapa.contains(pid))=>{
        val f = mapa.getOrElse(pid, null)
         mapa -= pid
-        f.run(0)
+        if (f!=null)  f.run(0)
       }
     }
 
     mapa +=(pid -> func)
-//  queue += pid
-//  mapCorrectSize+=1
-
-
   }
 
   def clean(): Unit ={
     mapa.clear()
-//    queue.clear()
+
     mapCorrectSize=0
   }
 
@@ -56,22 +51,14 @@ class TransportProtocolCollection {
 
     val f = mapa.getOrElse(pid,null)
     if (f!=null){
-
       mapa -= pid
-//      queue -= pid
-
       f.run(1)
     }
   }
-  def getFuncFromPid(pid: Int):doSomething={
-    val f = mapa.getOrElse(pid,null)
-    return f
-  }
-
-//  def runFuncFromPid(pid: Int): Unit ={
-//    val f = mapa.getOrElse(pid,null)
-//    if(f!=null) f.run
+//  def getFuncFromPid(pid: Int):doSomething={
+//    mapa.getOrElse(pid,null)
 //  }
+
 }
 
 abstract class doSomething(){
