@@ -20,8 +20,8 @@ class BDManager (bdHandlerc: BDHandler) extends Actor{
 
   override def receive: Receive = {
 
-    case UserToDbManagerMarkIntentsSynchronize(i)=>{
-      bdHandler.marckSynchronizeIntent(i)
+     case UserToDbManagerMarkIntentsSynchronize(i)=>{
+      bdHandler.marckSynchronize(i)
     }
 
     case UserToDbManagerMarkIntentsPreparetoremove(i, inOut)=>{

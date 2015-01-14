@@ -6,6 +6,7 @@ import attracti.develop.callalign.server.users.{ProtoIntent, User, Intent}
 import scala.collection.Map
 import scala.collection.IndexedSeq
 import scala.collection.mutable.ArrayBuffer
+import scala.concurrent.Promise
 
 /**
  * Created by User on 19.11.2014.
@@ -82,7 +83,6 @@ case class UserToTcpTakeIncomingIntents(i: Map[String, Intent], pid: Int)
 case class UserToTcpAfterAddIntents(errors: ArrayBuffer[String], pid:Int)
 case class TcpToUserAddIntents(list: Array[String], pid: Int)
 case class UserToUserYouCanCallMe(i: Intent)
-case class UserToTcpYouCanCallForThisIntets(i: Intent)
 case class TcpToUserGetAllIncomingIntents(pid: Int)
 case class TcpToUserGetAllIntentsForRemove(pid: Int)
 case class TcpToUserRemoveIntet(i: String, pid: Int)
@@ -111,7 +111,7 @@ case class BDManagerToIntentManagerCreatIntents(globalUsersMap: Map[String, Acto
 case class IntentManagerToUserAddIntent(intn: Intent, inOut: Int)
 case class IntentManagerToTcpServerStart()
 case class UserManagerToUserSetAllContactList(contacts:Array[String], favorits: Array[String], seeings: Array[String] )
-
+case class UserToIntentCalcultorRemoveIntent(i: Intent)
 case class UserToBdManagerAddRegContacs(id: String, regId: String)
 case class UserToTcpCloseConnection()
 case class  UserManagerToUserInformAll()
@@ -124,10 +124,14 @@ case class UserToTcpPing(reguestForCall: CallConteoner)
 case class UserToIntensCalculateManagerStart(in: Map[String, Intent], out: Map[String, Intent])
 case class UserToIntensCalculateManagerStop(aref:ActorRef)
 
-case class UserToCalculatorManagerIAmReadyToTallc(okOrNo: Int)
-case class IntentsCalculatorToUserRQ(intn: Intent)
+//case class UserToCalculatorManagerIAmReadyToTallc(okOrNo: Int)
+case class IntentsCalculatorToUserRQ(intn: Intent, self: ActorRef, p: Promise[UserToIntentCalcultorRS])
 case class UserToIntentCalcultorRS(readyOrNo: Int, intn: Intent)
-case class IntentsCalculatorToUserCall(intn:Intent)
+case class IntentsCalculatorToUserCallRQ(intn:Intent, p: Promise[UserToIntentCalculatorCallRS])
 case class IntentsCalculatorToUserFree(aref:ActorRef)
 case class UserToTcpWillYouCalForThisIntent(i: Intent, Calculator: ActorRef)
-
+case class UserToTcpReadyToCallRQ(i:Intent, p: Promise[TcpToUserReadyToCallRS], aref: ActorRef)
+case class TcpToUserReadyToCallRS(okOrNo: Int, i:Intent, aref: ActorRef)
+case class UserToTcpCallIntentRQ(i:Intent,p: Promise[TcpToUserCallIntentRS])
+case class TcpToUserCallIntentRS(i: Intent, okNo:Int)
+case class UserToIntentCalculatorCallRS(i: Intent, okNo: Int)

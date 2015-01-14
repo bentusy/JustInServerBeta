@@ -48,14 +48,18 @@ class UserActor(usr: User) extends Actor {
       inOut match {
         case 0 => { user.recycleIncomingIntents += (int.id -> int)
         }
-        case 1 =>{user.recycleOutgoingIntents += (int.id -> int) }
+        case 1 => {user.recycleOutgoingIntents += (int.id -> int) }
       }
     }
 
-//    case CalculatorToUserWillYouCall(i)=>{
-//      if(connection != null)
-//    }
-//
+    case IntentsCalculatorToUserCallRQ(i , p)=>{
+      user.callToIntent(i, p)
+    }
+
+    case IntentsCalculatorToUserRQ(i, aref, p)=>{
+      user.doYouReadyForTallck(i, aref, p)
+    }
+
 //    case CalculatorManagerToUserRequestForReadyToCall()=>{
 //      user.doYouReadyForTallck(sender)
 //    }
@@ -93,6 +97,12 @@ class UserActor(usr: User) extends Actor {
     case UserToUserRemoveOutIntent(a) => {
       user.outgoingIntent-=a.id
     }
+
+
+    case IntentsCalculatorToUserFree(aref:ActorRef)=>{
+    user.calculatorFree(aref)
+  }
+
 
 case UserToUserMyStatusIsChange(rid,status)=>{
 
@@ -181,11 +191,11 @@ case UserToUserMyStatusIsChange(rid,status)=>{
 
     }
 
-    case UserToUserYouCanCallMe(i)=>{
-    if(user.connection != null){
-      user.connection ! UserToTcpYouCanCallForThisIntets(i)
-    }
-    }
+//    case UserToUserYouCanCallMe(i)=>{
+//    if(user.connection != null){
+//      user.connection ! UserToTcpYouCanCallForThisIntets(i)
+//    }
+//    }
 
     case UserToUserCanICallYouFromIntentsCreater(intent)=>{
       user.requestPermissionForCallWithFomIntentsCreater(intent)

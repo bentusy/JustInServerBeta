@@ -27,7 +27,7 @@ object CallAlign extends App {
 
   val usermeneger = system.actorOf(UserManager.props(intentManager, DAO, bdHandler.getProtoUsers()), name = "userManager")
 
-  val endpoint = new InetSocketAddress("10.0.1.37", 9900) // conf it
+  val endpoint = new InetSocketAddress("localhost", 9900) // conf it
 
   val server = system.actorOf(TCPServerA.props(endpoint, usermeneger), name = "tcpServer")
 

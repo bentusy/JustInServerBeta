@@ -101,14 +101,13 @@ class BDHandler {
   }
 
   def markNonactualIntent(intents: Intent): Unit = {
+    println("Помечаю не актуальный интент-1")
     val conn = DriverManager.getConnection(conn_str)
     // do database insert
     try {
-      val prep = conn.prepareStatement("UPDATE intents SET actualmark = ? WHERE id = ?")
-
-        prep.setBoolean(1, false)
-        prep.setString(2, intents.id)
-        prep.executeUpdate
+      val prep = conn.prepareCall("SELECT nonactual_intent(?)")
+        prep.setString(1, intents.id)
+        prep.execute()
     }
     finally {
       conn.close
@@ -116,7 +115,7 @@ class BDHandler {
   }
 
   def markNonactualIntents(intents: Map[String, Intent]): Unit = {
-
+    println("Помечаю не актуальныу интенты")
     val conn = DriverManager.getConnection(conn_str)
     // do database insert
     try {
@@ -131,12 +130,12 @@ class BDHandler {
   }
 
   def markPreparetoremove(intent: Intent, i: Int){
-
+    println("Помечаю подготовку на удаление")
     val conn = DriverManager.getConnection(conn_str)
     try {
-      val pst = conn.prepareStatement("UPDATE intents SET preparetoremove = ? WHERE id = ?;")
-      pst.setString(2, intent.id)
-      pst.setInt(1, i)
+      val pst = conn.prepareCall("SELECT preparetoremove_intent(?, ?)")
+      pst.setString(1, intent.id.toString)
+      pst.setInt(2, i)
       pst.execute()
     }
     finally {
@@ -145,18 +144,19 @@ class BDHandler {
 
   }
 
-  def marckSynchronizeIntent(intent: Intent){
-
+  def marckSynchronize(i:Intent){
     val conn = DriverManager.getConnection(conn_str)
+    // do database insert
     try {
-      val pst = conn.prepareStatement("UPDATE intents SET synchronize = TRUE WHERE id = ?;")
-      pst.setString(1, intent.id)
-      pst.execute()
-    }
-    finally {
-      conn.close
-    }
+    val callableStatement = conn.prepareStatement("UPDATE intents SET synchronize = 't' WHERE id = ?")
+    callableStatement.setString(1, i.id)
+    //  callableStatement.setBoolean(2, false)
+    callableStatement.execute();
+    } finally {
+    //
+          conn.close}
 
+    println("Ушло")
   }
 
 
@@ -239,7 +239,7 @@ class BDHandler {
     // do database insert
     try {
       val callableStatement = conn.prepareCall("SELECT set_favorits(?, ?)");
-      callableStatement.setArray(2, conn.createArrayOf("text", favorits.keys.toList.toArray.asInstanceOf[Array[AnyRef]]))
+      callableStatement.setArray(2, conn.createArrayOf("text", favorits.keys.toArray.asInstanceOf[Array[AnyRef]]))
 
       callableStatement.setString(1, id)
       callableStatement.execute();
@@ -256,7 +256,7 @@ class BDHandler {
     try {
       val callableStatement = conn.prepareCall("SELECT add_contacts(?, ?, ?)");
       callableStatement.setArray(2, conn.createArrayOf("text", simpleContacts.asInstanceOf[Array[AnyRef]]))
-      callableStatement.setArray(3, conn.createArrayOf("text", regContacts.keys.toList.toArray.asInstanceOf[Array[AnyRef]]))
+      callableStatement.setArray(3, conn.createArrayOf("text", regContacts.keys.toArray.asInstanceOf[Array[AnyRef]]))
       callableStatement.setString(1, id)
       callableStatement.execute();
     }
@@ -290,7 +290,7 @@ class BDHandler {
     try {
       val callableStatement = conn.prepareCall("SELECT set_contacts(?, ?, ?)");
       callableStatement.setArray(2, conn.createArrayOf("text", simpleContacts.asInstanceOf[Array[AnyRef]]))
-      callableStatement.setArray(3, conn.createArrayOf("text", regContacts.keys.toList.toArray.asInstanceOf[Array[AnyRef]]))
+      callableStatement.setArray(3, conn.createArrayOf("text", regContacts.keys.toArray.asInstanceOf[Array[AnyRef]]))
       callableStatement.setString(1, id)
       callableStatement.execute();
     }

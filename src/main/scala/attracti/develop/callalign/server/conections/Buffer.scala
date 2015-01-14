@@ -4,6 +4,8 @@ package attracti.develop.callalign.server.conections
  * Created by Administrator on 19.12.2014.
  */
 
+import java.nio.ByteBuffer
+
 import scala.collection.mutable
 import scala.collection.mutable.{ArrayBuffer, Queue}
 import attracti.develop.callalign.server.utill.IncomingData
@@ -103,13 +105,13 @@ class Buffer(collect:TransportProtocolCollection) {
         return
       }
       expectDataLength = byteToInt(pkg, 1)
-//      pid = byteToShort(pkg, 1)
+      pid = 0
 
       if (expectDataLength == pkg.length - 5) {
         //      val s = new String(pkg.slice(6, pkg.length))
         queue += IncomingData(0x30, pkg.slice(5, pkg.length), 0)
         expectDataLength = 0
-        pid = 0
+
         return
       }
 
@@ -168,8 +170,12 @@ class Buffer(collect:TransportProtocolCollection) {
            tailType = 0x2A
            return
          }
-       expectDataLength = byteToInt(pkg, 3)
-       pid = byteToShort(pkg, 1)
+         pid = byteToShort(pkg, 1)
+         /*println(s"pid=$pid")*/
+        if(byteToInt(pkg, 3)>0){expectDataLength = byteToInt(pkg, 3);
+        /* println(s"длина пакета 0х2а=$expectDataLength")*/;}else {
+          queue +=IncomingData(0,null,0);newOrTail=true;return}
+
 
       if (expectDataLength == pkg.length - 7) {
         //      val s = new String(pkg.slice(6, pkg.length))
@@ -194,8 +200,17 @@ class Buffer(collect:TransportProtocolCollection) {
         return
       }
     } else {
-         buffer++=pkg
-      if(buffer.length<7){return }else{ expectDataLength = byteToInt(buffer, 3);pid = byteToShort(pkg, 1)}
+         if(buffer.length<7) {
+           buffer ++= pkg
+           if (buffer.length >= 7) {
+             expectDataLength = byteToInt(buffer, 3);
+             pid = byteToShort(pkg, 1)
+           } else { return}
+         }else{buffer ++= pkg}
+
+//      if(buffer.length>=7){return}
+
+      if (expectDataLength == 0) {}
 
       if (buffer.length < expectDataLength+7) {
 //        buffer ++= pkg
@@ -291,6 +306,7 @@ class Buffer(collect:TransportProtocolCollection) {
     }
   }
   def inComingTyp0x12(pkg: Seq[Byte]){
+
     if(newOrTail){
       if(pkg.length<2){
         //        buffer+=pkg(0)
@@ -357,16 +373,15 @@ class Buffer(collect:TransportProtocolCollection) {
 
 
 
-
+var cn=0
 
   def byteToInt(arr: Seq[Byte], startIndx: Int): Int = {
-    val c = 4
-    var int: Int = 0
-    var i = 0
-    while (i < c) {
-      int = (int << 8) + arr(startIndx + i).asInstanceOf[Int]
-      i += 1
-    }
+
+    val ar=arr.slice(startIndx, startIndx+4).toArray
+//    println(ar.length)
+    val int =ByteBuffer.wrap(ar).getInt
+//    println(int)
+//    println(String.format("%8s", Integer.toBinaryString(int & 0xFF))+" ")
     int
   }
 
@@ -376,7 +391,7 @@ class Buffer(collect:TransportProtocolCollection) {
     var sh: Short = 0
     var i = 0
     while (i < c) {
-      sh = ((sh << 8) + arr(startIndx + i).asInstanceOf[Short]).asInstanceOf[Short]
+      sh = ((sh << 8) + arr(startIndx+i).asInstanceOf[Short]).asInstanceOf[Short]
       i += 1
     }
     sh

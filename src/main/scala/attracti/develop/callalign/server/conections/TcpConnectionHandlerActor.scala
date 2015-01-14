@@ -28,7 +28,7 @@ object TcpConnectionHandlerActor {
 class TcpConnectionHandlerActor(remote: InetSocketAddress, connect: ActorRef, userMenege: ActorRef) extends Actor {
 
   var log:Logger =LogManager.getLogger("InfoLoger")
-  val collect = new TransportProtocolCollection()
+  val collect = new TransportProtocolCollection(this)
   val buffer=new Buffer(collect)
   val out=new OutgoinFormatTools()
   val pidReg = ArrayBuffer[Int]()
@@ -41,27 +41,49 @@ class TcpConnectionHandlerActor(remote: InetSocketAddress, connect: ActorRef, us
 
 
   def send(arr: Array[Byte]): Unit ={
-println()
+println("отправка тип- "+arr(0)+", ид- "+buffer.byteToShort(arr,1)+" текст "+ new String(arr.slice(7, arr.length))+" to "+remote)
+//    arr.foreach(x=>print(x+" ")); println()
     connect ! Tcp.Write(ByteString.fromArray(arr))
   }
 
   def receive(): Receive = {
 
 
-//    case UserToTcpWillYouCallForThisIntent(intn, calc)=>{
-//      val pkg = out.createPckgType0X2A(intn.toString())
-//      send(pkg._1)
-//      collect +=(pkg._2, new doSomething {
-//        override def run(typ: Int): Unit = {
-//          typ match {
-//            case 0 =>
-//            case 1 => calc ! UserToCalculatorAnswerForIntetnsRequest(0)
-//            case 2 => calc ! UserToCalculatorAnswerForIntetnsRequest(1)
-//          }
-//        }
-//        })
-//    }
+    case UserToTcpCallIntentRQ(i,p)=>{
+      val para = out.createPckgType0X2a("30/"+i.idCreator+"#"+i.idDestination)
 
+      val ds = new doSomething {
+        def run(typ: Int): Unit = {
+          typ match {
+            case 1=> p.success(TcpToUserCallIntentRS(i,1));println("СРАБОТАЛ ТСП ЗАПРОС НА ЗВОНОК ПО ТАЙМАУТУ"); context.stop(self);
+            case 0=> p.success(TcpToUserCallIntentRS(i,0));println("СРАБОТАЛ ТСП ЗАПРОС НА ЗВОНОК ПО ОТВЕТУ");
+          }
+        }
+      }
+      collect += (para._2, ds, 1)
+
+
+      send(para._1)
+
+    }
+
+    case UserToTcpReadyToCallRQ(i,p,aref) => {
+      println("Пришёл запррос в TCP")
+      val para = out.createPckgType0X10()
+
+      val ds = new doSomething {
+        def run(typ: Int): Unit = {
+          typ match {
+            case 0=> p.success(TcpToUserReadyToCallRS(1,i, aref)); println("пинг не вернулся");context.stop(self);
+            case 1=> p.success(TcpToUserReadyToCallRS(0,i, aref));println("пинг вернулся")
+          }
+        }
+      }
+      collect += (para._2, ds)
+      println("Отправляю пинг для калькулятора на" + remote)
+      send(para._1)
+
+    }
 
     case UserToTcpTakeAllRegistredUsers(map, pid)=>{
       send(out.createPckgType0x2b(pid, regUsers(map)))
@@ -96,18 +118,6 @@ println()
       send(out.createPckgType0x2b( pid, takeIncomingIntets(listInt)))
     }}
 
-    case UserToTcpYouCanCallForThisIntets(i)=>{
-
-//      val p = out.createPckgType4(youCanCallForThisIntent(i))
-//      collect.+=(p._2, new doSomething(){
-//        def run(typ: Int): Unit ={
-//        typ match {
-//          case 0=>
-//        }
-//        }
-//      })
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    }
 
     case UserToTcpAfterAddIntents(errl, pid)=>{
       if(pidReg.contains(pid)){
@@ -129,6 +139,7 @@ println()
       import scala.concurrent.ExecutionContext.Implicits.global
 
      val para = out.createPckgType0X10()
+
       val ds = new doSomething {
         def run(typ: Int): Unit = {
         typ match {
@@ -229,20 +240,24 @@ println()
   }}
 
     case Tcp.Received(data) => {
-
-
       buffer.inComingData(data.toArray)
-
+      print(s"Пришло - от" +remote+" - ")
+      data.foreach(x=>print(x+" "))
+      println
       while(buffer.hasNext()){
 
         val incomingData = buffer.getNext()
 
+//        log.info("Incoming from "+remote+" : "+new String(incomingData.dat.toArray))
         incomingData.typ match {
           case 0 =>{send(out.createPckgType0x30("0002/Wrong data format" ))}
 
           case 0x11 =>{
-
-            collect.respIncoming(incomingData.pid)
+            if(collect.isContein(incomingData.pid)){
+            println("Пришёл Понг от "+remote)
+          collect.respIncoming(incomingData.pid)}else{
+              send(out.createPckgType0x30("0002/Wrong data format" ))
+            }
           }
           case 0x12 =>{
 
@@ -255,10 +270,12 @@ println()
              }else send (out.createPckgType0x2b(incomingData.pid, "0001/You must authorization first"))
           }
           case 0x2a =>{
+
             val text = new String(incomingData.dat.toArray)
             val pkgId = incomingData.pid
             val cmd = text.split("/")
-            log.info("Incoming from "+remote+" : "+text)
+            val pidt=incomingData.pid
+            println(s"ид пакета в хендлера - "+incomingData.pid+" Incoming from "+remote+" : "+text)
 
             cmd(0) match {
 
@@ -325,7 +342,7 @@ println()
 
               //          Get me allstatus of my contacts
               case "65" => {
-                if(cmd.length>1&&useractor!=null) {
+                if(cmd.length==2&&useractor!=null) {
                   if (matchIt(cmd(1), patern62_70)) {
                     pidReg+=incomingData.pid
                     useractor ! TcpToUserSetFavoritContacts(sliceIncomingListsDate(cmd(1)), pkgId)
@@ -446,7 +463,18 @@ println()
                   if (cmd.length>1&&matchIt(cmd(1), patern80)) {
                     pidReg+=incomingData.pid
                     useractor ! TcpToUserRemoveIntet(cmd(1), pkgId)
-                    log.info("Tcp send RemoveIntent")
+
+                  }else{send (out.createPckgType0x2b(incomingData.pid, "0002/Wrong data format"))}
+                } else send (out.createPckgType0x2b(incomingData.pid, "0001/You must authorization first"))
+              }
+
+              case "85" => {
+
+                if(useractor!=null) {
+                  if (cmd.length>=1) {
+                    pidReg+=incomingData.pid
+                    useractor ! TcpToUserGetAllRegistredUsers(pkgId)
+
                   }else{send (out.createPckgType0x2b(incomingData.pid, "0002/Wrong data format"))}
                 } else send (out.createPckgType0x2b(incomingData.pid, "0001/You must authorization first"))
               }
@@ -467,7 +495,12 @@ println()
 
           }}}
           case 0x2b =>{
-
+            if(collect.isContein(incomingData.pid)){
+              println(s"ид пакета в хендлера - "+incomingData.pid+" Incoming from "+remote)
+              collect.getAndRemove(incomingData.pid).run(incomingData.dat(0))
+            }else{
+              send(out.createPckgType0x30("0002/Wrong data format" ))
+            }
           }
 
           case 0x30 =>{
@@ -505,7 +538,7 @@ println()
     log.info("postRestart TCPHendler-"+self.path, reason) //preStart()
   }
 
-///Позже разобраться с этим методом !!!!!!!!!!!!!
+
   override val supervisorStrategy = OneForOneStrategy(maxNrOfRetries = 10, withinTimeRange = 1 minute) {
     case _: ArithmeticException      => Resume
     case _: NullPointerException     => Restart

@@ -84,7 +84,7 @@ object ProtocolMessageDescribe {
 
   def takeIncomingIntets(list: Map[String, Intent]):String={
     println("testPoint")
-    if(list.isEmpty){"27/113/"}else{
+    if(list.isEmpty){"113"}else{
     var s = new StringBuffer()
     for(a <-list){
       s.append(a._2.toString())

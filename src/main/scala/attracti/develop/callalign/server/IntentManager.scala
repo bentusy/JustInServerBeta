@@ -26,6 +26,8 @@ class IntentManager(DAO: ActorRef) extends Actor {
   val b = Duration.create(12, TimeUnit.HOURS)
   var deamonForCleaOld = context.system.scheduler.schedule(a , b , self, DeamonToIntentManagerClean)
 
+
+
  override def preStart(){
     log.info("Start Intent Manager")
   }

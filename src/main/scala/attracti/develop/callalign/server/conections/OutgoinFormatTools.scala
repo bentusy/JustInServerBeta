@@ -9,7 +9,7 @@ class OutgoinFormatTools{
 
 
 
-  def createPckgType0x2b(pid: Int, str: String): Array[Byte] ={
+  def createPckgType0x2b(pid: Int, str: String): Array[Byte] = {
     val typ = Array[Byte](0x2b)
     val byt = str.getBytes()
     val size = byt.length
@@ -24,10 +24,15 @@ class OutgoinFormatTools{
     val byt = str.getBytes()
     val size = byt.length
     val sizea = intToByte(size)
-    typ ++ sizea ++ byt
+//    print("Создание 30-го протокола");typ.foreach(x=>print(x+" "));print(" sizea ");sizea.foreach(x=>print(x+" "));print(" byt ");byt.foreach(x=>print(x+" "))
+//    println()
+    val a = typ ++ sizea ++ byt
+//   a.foreach(x=>print(x+"p"))
+
+    a
   }
 
-  def createPckgType0X2A(str: String):(Array[Byte], Int)={
+  def createPckgType0X2a(str: String):(Array[Byte], Int)={
     val typ = Array[Byte](0x2a)
     val byt = str.getBytes()
     val size = byt.length

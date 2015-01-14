@@ -1,23 +1,18 @@
 package attracti.develop.callalign.server.users
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import akka.actor.ActorRef
 import attracti.develop.callalign.server.{GlobalContext, IntentManager}
 import attracti.develop.callalign.server.utill._
 import org.apache.logging.log4j.{LogManager, Logger}
+import akka.pattern.{ ask, pipe }
 
-
-import scala.collection.Map
+import scala.collection.{mutable, Map}
 import scala.collection.mutable.{Map => MMap, TreeSet, ArrayBuffer}
-import scala.concurrent.Future
+import scala.concurrent.{Promise, Future}
 import scala.util.{Failure, Success}
 
-/**
- * Created by Darcklight on 12/1/2014.
- */
 
 class User(val id: String, val globalMap:Map[String, ActorRef], val intentManager: ActorRef, val countryCod:String, val dao: ActorRef) {
-
 
   val log: Logger = LogManager.getLogger("InfoLoger")
 
@@ -37,24 +32,90 @@ class User(val id: String, val globalMap:Map[String, ActorRef], val intentManage
   val recycleOutgoingIntents= MMap[String, Intent]()
   var calculator:ActorRef = null
 
-
   val callReg=ArrayBuffer[CallConteoner]()
+  val calculatorCaptureQueue = mutable.Queue[ActorRef]()
+  var calculatorCapture:ActorRef=null
+  var futureCapture:Future[TcpToUserReadyToCallRS]=null
+  var isCall= false
 
 
+  def calculatorFree(aref:ActorRef): Unit ={
+    if(calculatorCapture==aref){
+      calculatorCapture==null;
+      futureCapture==null;
+
+    }
+  }
 
 
+  def callToIntent(i: Intent, p1: Promise[UserToIntentCalculatorCallRS]): Unit = {
+    implicit val ec = userActor.context.system.dispatcher
+    implicit val sys = userActor.context.system
+    println("ВЫЗОВ ФУНКЦИИ callToInten")
 
-  def doYouReadyForTallck(ref: ActorRef): Unit = {
+    if(connection==null){
+      p1.success(UserToIntentCalculatorCallRS(i, 1))
+    }
+    val p = Promise[TcpToUserCallIntentRS]()
+    TimeoutScheduler.startTimout(p1, GlobalContext.timeToWeightCallIntentAnswer)
+    val f = p.future
+    f.onSuccess{
+      case TcpToUserCallIntentRS(i, okNo)=>
+        println("В ЮЗЗЕРА ПРИШЁЛ ОТВЕТ ОТ ТСП ЗАПРОСА НА ЗВОНОК")
+        p1.success(UserToIntentCalculatorCallRS(i, okNo))
+    }
 
-    if(status!=0|| connection!=null){
-     ref ! UserToCalculatorManagerIAmReadyToTallc(0)
-    }else{
-      ref ! UserToCalculatorManagerIAmReadyToTallc(1)
+    f.onFailure{
+      case ex:Throwable=>println("ЗАКОНЧИЛОСЬ ПО ТАЙМАУТУ ОЖИДАНИЕ ОТВЕТА ЗАПРОСА НА ЗВОНОК В ЮЗЕРЕ");
+        p1.success(UserToIntentCalculatorCallRS(i, 1))
+      case _=>println("Пришла некая ХРень")
+    }
+
+    connection ! UserToTcpCallIntentRQ(i, p)
+  }
+
+
+  def doYouReadyForTallck(i: Intent, ref: ActorRef, p:Promise[UserToIntentCalcultorRS]): Unit = {
+    println("Пришол запрос от калькулятора в Юзера "+id+" первая проверка "+(connection==null)+" 2- "+(calculatorCapture!=ref)+""+(status!=1))
+    implicit val ec = userActor.context.system.dispatcher
+    implicit val sys = userActor.context.system
+    if(connection==null){ ref ! UserToIntentCalcultorRS(1, i); return;}
+
+    if(calculatorCapture!=null&&calculatorCapture!=ref){ calculatorCaptureQueue += ref; return }
+
+    if(status!=1){ref ! UserToIntentCalcultorRS(1, i)}else {
+
+      calculatorCapture = ref
+      val p1: Promise[TcpToUserReadyToCallRS] = Promise()
+      TimeoutScheduler.startTimout(p1, GlobalContext.timeIntentRQToTCP)
+      val f = p1.future
+      futureCapture = f
+
+      f.onSuccess { case TcpToUserReadyToCallRS(okNo, i, aref) if (f == futureCapture) =>
+        okNo match {
+          case 0 => p.success(UserToIntentCalcultorRS(okNo, i));println("Пришёл ответ от ТСР в юзера "+id)
+          case 1 => p.success(UserToIntentCalcultorRS(okNo, i));println("Пришёл ответ от ТСР в юзера "+id)
+            calculatorCapture = null
+            setStatus(0)
+        }
+        futureCapture = null
+      }
+
+      f.onFailure{
+        case ex:Throwable if (f==futureCapture)=>{
+          calculatorCapture ! UserToIntentCalcultorRS(0, i)
+        }
+      }
+
+      connection ! UserToTcpReadyToCallRQ(i, p1, ref)
     }
   }
 
 
   def requestForCallFromTcp(rUser: String, pid: Int): Unit = {
+
+    implicit val ec = userActor.context.system.dispatcher
+    implicit val timeout = GlobalContext.timeIntentRQToTCP
     val rUserRef =regContatcs.getOrElse(rUser, null)
     if(rUserRef!=null){
       val cl = CallConteoner( id, userActor.self, rUser, rUserRef, pid)
@@ -66,7 +127,7 @@ class User(val id: String, val globalMap:Map[String, ActorRef], val intentManage
         cl}
 
       dellF.onSuccess{
-      case a=>if(callReg.contains(a)){connection ! UserToTcpResponsForCallRequest(a, 1);println;callReg-=a;}
+      case a=>if(callReg.contains(a)){connection ! UserToTcpResponsForCallRequest(a, 1);callReg-=a;}
       }
 
 
@@ -88,22 +149,38 @@ class User(val id: String, val globalMap:Map[String, ActorRef], val intentManage
 
   def dropConection: Unit ={
     connection = null
-    setStatus(0)
-  }
+    deviceType match {
+      case 1=> setStatus(0);
+      calculatorCapture ! UserToIntensCalculateManagerStop(userActor.self)
+      calculatorCapture==null
+      futureCapture=null
+    case 0=> setStatus(0);
+/////Здесь будет куча логики
+        }
+
+    }
+
+
+
 
 
 
   def setStatus(statusm: Int): Unit = {
     log.info(id + " setStatus to '" + statusm+"'")
-    status = statusm
-    for (a <- seeingList) {
+
+    def inform= for (a <- seeingList) {
     a._2 ! UserToUserMyStatusIsChange(id, status)
     }
 
-   if(status==1){
-   calculator ! UserToIntensCalculateManagerStart(incomingIntent, outgoingIntent)
+   statusm match {
+     case 0 if(status==1)=> status = statusm;inform;
+     case 1 if(status==0)=> status = statusm;inform;
+       if(calculatorCapture==null&&outgoingIntent.isEmpty==false) {calculator ! UserToIntensCalculateManagerStart(incomingIntent, outgoingIntent);
+         calculatorCapture=calculator}
+     case _=>println(s" изменить статус из $status to $status")
+   }
   }
-  }
+
 
   def loadContacts(list: Array[String], favorits: Array[String], seeings: Array[String]): Unit ={
     for(a<-list){
@@ -235,43 +312,16 @@ class User(val id: String, val globalMap:Map[String, ActorRef], val intentManage
 
   def removeFavorits(list: Array[String], pid: Int): Unit = {
     log.info(id + " remove from FavoritList")
-//    println("start removeFavorits")
-//    print("contacts")
-//    contacts.foreach((s: String)=>print(s+"  "));println
-//    print("regContatcs")
-//    regContatcs.foreach(((a: ( String, ActorRef))=>print(a._1+"  ")));println
-//    print("favoritList")
-//    favoritList.foreach(((a: ( String, ActorRef))=>print(a._1+"  ")));println
-//    print("seeingList")
-//    seeingList.foreach(((a: ( String, ActorRef))=>print(a._1+"  ")));println
 
     favoritList.--=(list)
-//
-//    println("end removeFavorits")
-//    ("contacts")
-//    contacts.foreach((s: String)=>print(s+"  "));println
-//    print("regContatcs")
-//    regContatcs.foreach(((a: ( String, ActorRef))=>print(a._1+"  ")));println
-//    print("favoritList")
-//    favoritList.foreach(((a: ( String, ActorRef))=>print(a._1+"  ")));println
-//    print("seeingList")
-//    seeingList.foreach(((a: ( String, ActorRef))=>print(a._1+"  ")))
-//    println
+
     dao ! UserToBDRemoveFromFavoritList(id, list)
     connection ! UserToTcpAfterRemoveFavoritContact(pid)
   }
 
   def addFavorits(list: Array[String], pid: Int): Unit = {
     log.info(id + " adding Favorits")
-//    println("start addFavorits")
-//    print("contacts")
-//    contacts.foreach((s: String)=>print(s+"  "));println
-//    print("regContatcs")
-//    regContatcs.foreach(((a: ( String, ActorRef))=>print(a._1+"  ")));println
-//    print("favoritList")
-//    favoritList.foreach(((a: ( String, ActorRef))=>print(a._1+"  ")));println
-//    print("seeingList")
-//    seeingList.foreach(((a: ( String, ActorRef))=>print(a._1+"  ")));println
+
     val errorList = ArrayBuffer[String]()
     val fl = MMap[String, ActorRef]()
     for (a <- list) {
@@ -280,15 +330,7 @@ class User(val id: String, val globalMap:Map[String, ActorRef], val intentManage
         fl += (a -> d)
       }else{errorList+=a}
       favoritList ++=fl
-//      println("End addFavorits")
-//      print("contacts")
-//      contacts.foreach((s: String)=>print(s+"  "));println
-//      print("regContatcs")
-//      regContatcs.foreach(((a: ( String, ActorRef))=>print(a._1+"  ")));println
-//      print("favoritList")
-//      favoritList.foreach(((a: ( String, ActorRef))=>print(a._1+"  ")));println
-//      print("seeingList")
-//      seeingList.foreach(((a: ( String, ActorRef))=>print(a._1+"  ")));println
+
       dao ! UserToBDAddToFavoritList(id, fl.keys.toArray)
       connection ! UserToTcpAfterAddFavorites(errorList, pid)
     }
@@ -395,14 +437,11 @@ class User(val id: String, val globalMap:Map[String, ActorRef], val intentManage
     }
 
     def addIncomingIntent(a: Intent): Unit ={
-
       if (connection != null){
       connection ! UserToTcpTakeIncomingIntent(a)
         a.synchronize=true
+        println("синхронизировал исходящий интент с ид- "+a.id+" в "+a.synchronize)
         dao ! UserToDbManagerMarkIntentsSynchronize(a)
-//        if(status!=0&&regContatcs.contains(a.idCreator)){
-//          a.aRefCreator ! UserToUserYouCanCallMe(a)
-//        }
       }
       incomingIntent +=(a.id -> a)
     }
@@ -420,6 +459,7 @@ def removeIntent(str: String, pid: Int): Unit ={
     if(i!=null){
     outgoingIntent -=i.id
     i.aRefDestination ! UserToUserRemoveIntent(i, 0)
+    if(calculatorCapture!=null) calculatorCapture ! UserToIntentCalcultorRemoveIntent(i)
   }else{bag=str}
 }
 
@@ -451,8 +491,10 @@ def removeIntent(str: String, pid: Int): Unit ={
         intentManager ! UserToIntentManagerRemoveIntent(a)
       }
       }
+
       }
     case 1 =>{
+
       outgoingIntent -= a.id
       if(connection !=null){
         connection ! UserToTcpRemoveIntent(a)
@@ -461,6 +503,7 @@ def removeIntent(str: String, pid: Int): Unit ={
         dao ! UserToDbManagerMarkIntentsPreparetoremove(a, 1)
         recycleOutgoingIntents+= (a.id->a)
       }
+      if(calculatorCapture!=null) calculatorCapture ! UserToIntentCalcultorRemoveIntent(a)
 
     }
   }
