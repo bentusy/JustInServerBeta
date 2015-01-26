@@ -3,56 +3,20 @@ package attracti.develop.callalign.server.bd
 import java.util.Calendar
 
 import akka.actor.ActorRef
-import attracti.develop.callalign.server.users.{ProtoIntent, ProtoUser, Intent, User}
+import attracti.develop.callalign.server.intents.{UsersMetaData, IntentConteiner, Intent}
+import attracti.develop.callalign.server.users.{User}
 import java.sql.{Connection, DriverManager, ResultSet}
 
+import attracti.develop.callalign.server.utill.{BdManagerToUserManagerLoad, ProtoMetaData, ProtoUser, ProtoIntent}
+
 import scala.collection.Map
-import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.{ListBuffer, ArrayBuffer}
 
 
 class BDHandler {
 
-  // Change to Your Database Config
-//  val conn_str = "jdbc:mysql://localhost:3306/DBNAME?user=DBUSER&password=DBPWD"
-  // Load the driver
-//  classOf[org.postgresql.Driver]
-//
-//
-//  val conn = DriverManager.getConnection(conn_str)
-//  try {
-//
-//    // Configure to be Read Only
-//    val statement = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY)
-//
-//    // Execute Query
-//    val rs = statement.executeQuery("SELECT quote FROM quotes LIMIT 5")
-//
-//    // Iterate Over ResultSet
-//    while (rs.next) {
-//      println(rs.getString("quote"))
-//    }
-//  }
-//  finally {
-//    conn.close
-//  }
-//
-//  val statement = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)
-//
-//  // do database insert
-//  try {
-//    val prep = conn.prepareStatement("INSERT INTO quotes (quote, author) VALUES (?, ?) ")
-//    prep.setString(1, "Nothing great was ever achieved without enthusiasm.")
-//    prep.setString(2, "Ralph Waldo Emerson")
-//    prep.executeUpdate
-//  }
-//  finally {
-//    conn.close
-//  }
-
-
   val conn_str = "jdbc:postgresql://localhost:5432/callalign?user=postgres&password=artemcom"
 
-//  classOf[org.postgresql.Driver]
 
 
   def addRegContacts(userId: String,regContact: String): Unit ={
@@ -85,14 +49,67 @@ class BDHandler {
   }
 
 
-  def saveNewIntent(intent: Intent): Unit = {
+  def saveNewMeta(m: UsersMetaData): Unit ={
+    val conn = DriverManager.getConnection(conn_str)
+    try {
+      val callableStatement = conn.prepareCall("SELECT ins_meta(?, ?, ?, ?, ?, ?, ?)");
+      callableStatement.setString(1, m.id)
+      callableStatement.setString(2, m.user1Id)
+      callableStatement.setString(3, m.user2Id)
+      callableStatement.setInt(4, m.u1Tou2CallTime)
+      callableStatement.setInt(5, m.u1Tou2CallCount)
+      callableStatement.setInt(6, m.u2Tou1CallTime)
+      callableStatement.setInt(7, m.u2Tou1CallCount)
+      callableStatement.execute();
+    }
+    finally {
+      conn.close
+    }
+  }
+
+  def updMeta(m: UsersMetaData): Unit ={
+    val conn = DriverManager.getConnection(conn_str)
+    // do database insert
+    try {
+      val callableStatement = conn.prepareCall("SELECT upd_metas(?, ?, ?, ?)");
+      callableStatement.setString(1, m.id)
+      callableStatement.setInt(2, m.u1Tou2CallTime)
+      callableStatement.setInt(3, m.u1Tou2CallCount)
+      callableStatement.setInt(4, m.u2Tou1CallTime)
+      callableStatement.setInt(5, m.u2Tou1CallCount)
+
+      callableStatement.execute();
+    } finally {
+      conn.close
+    }
+  }
+
+  def updIIndex(ic:IntentConteiner): Unit ={
+    val conn = DriverManager.getConnection(conn_str)
+    try {
+      val callableStatement = conn.prepareCall("SELECT upd_iindex(?, ?, ?)");
+      callableStatement.setString(1, ic.iid)
+      callableStatement.setInt(2, ic.inedx.indx)
+      callableStatement.setBoolean(3, ic.inedx.tf)
+      callableStatement.execute();
+    }
+    finally {
+      conn.close
+    }
+  }
+
+
+  def saveNewIntent(intent: IntentConteiner): Unit = {
     val conn = DriverManager.getConnection(conn_str)
       try {
-        val callableStatement = conn.prepareCall("SELECT ins_intent(?, ?, ?, ?)");
-        callableStatement.setString(1, intent.id)
+        val callableStatement = conn.prepareCall("SELECT ins_intent(?, ?, ?, ?, ?, ?)");
+        callableStatement.setString(1, intent.iid)
         callableStatement.setString(2, intent.idCreator)
         callableStatement.setString(3, intent.idDestination)
         callableStatement.setLong(4, intent.dateToDie.getTimeInMillis())
+        callableStatement.setInt(5, intent.inedx.indx)
+        callableStatement.setBoolean(6, intent.inedx.tf)
+
         callableStatement.execute();
     }
     finally {
@@ -100,13 +117,13 @@ class BDHandler {
     }
   }
 
-  def markNonactualIntent(intents: Intent): Unit = {
+  def markNonactualIntent(intents: IntentConteiner): Unit = {
     println("Помечаю не актуальный интент-1")
     val conn = DriverManager.getConnection(conn_str)
     // do database insert
     try {
       val prep = conn.prepareCall("SELECT nonactual_intent(?)")
-        prep.setString(1, intents.id)
+        prep.setString(1, intents.iid)
         prep.execute()
     }
     finally {
@@ -114,7 +131,7 @@ class BDHandler {
     }
   }
 
-  def markNonactualIntents(intents: Map[String, Intent]): Unit = {
+  def markNonactualIntents(intents: Map[String, IntentConteiner]): Unit = {
     println("Помечаю не актуальныу интенты")
     val conn = DriverManager.getConnection(conn_str)
     // do database insert
@@ -129,12 +146,12 @@ class BDHandler {
     }
   }
 
-  def markPreparetoremove(intent: Intent, i: Int){
+  def markPreparetoremove(intent: IntentConteiner, i: Int){
     println("Помечаю подготовку на удаление")
     val conn = DriverManager.getConnection(conn_str)
     try {
       val pst = conn.prepareCall("SELECT preparetoremove_intent(?, ?)")
-      pst.setString(1, intent.id.toString)
+      pst.setString(1, intent.iid)
       pst.setInt(2, i)
       pst.execute()
     }
@@ -144,19 +161,17 @@ class BDHandler {
 
   }
 
-  def marckSynchronize(i:Intent){
+  def marckSynchronize(i:IntentConteiner){
     val conn = DriverManager.getConnection(conn_str)
     // do database insert
     try {
     val callableStatement = conn.prepareStatement("UPDATE intents SET synchronize = 't' WHERE id = ?")
-    callableStatement.setString(1, i.id)
+    callableStatement.setString(1, i.iid)
     //  callableStatement.setBoolean(2, false)
     callableStatement.execute();
     } finally {
-    //
-          conn.close}
-
-    println("Ушло")
+          conn.close
+    }
   }
 
 
@@ -249,14 +264,14 @@ class BDHandler {
     }
   }
 
-  def addContacts(id: String, simpleContacts: Array[String], regContacts: Map[String, ActorRef]): Unit ={
+  def addContacts(id: String, simpleContacts: Array[String], regContacts:Iterable[String]): Unit ={
 
     val conn = DriverManager.getConnection(conn_str)
     // do database insert
     try {
       val callableStatement = conn.prepareCall("SELECT add_contacts(?, ?, ?)");
       callableStatement.setArray(2, conn.createArrayOf("text", simpleContacts.asInstanceOf[Array[AnyRef]]))
-      callableStatement.setArray(3, conn.createArrayOf("text", regContacts.keys.toArray.asInstanceOf[Array[AnyRef]]))
+      callableStatement.setArray(3, conn.createArrayOf("text", regContacts.toArray.asInstanceOf[Array[AnyRef]]))
       callableStatement.setString(1, id)
       callableStatement.execute();
     }
@@ -283,14 +298,14 @@ class BDHandler {
 
   }
 
-  def setContacts(id: String, simpleContacts: Array[String], regContacts: Map[String, ActorRef]): Unit = {
+  def setContacts(id: String, simpleContacts: Array[String], regContacts: Iterable[String]): Unit = {
 
     val conn = DriverManager.getConnection(conn_str)
     // do database insert
     try {
       val callableStatement = conn.prepareCall("SELECT set_contacts(?, ?, ?)");
       callableStatement.setArray(2, conn.createArrayOf("text", simpleContacts.asInstanceOf[Array[AnyRef]]))
-      callableStatement.setArray(3, conn.createArrayOf("text", regContacts.keys.toArray.asInstanceOf[Array[AnyRef]]))
+      callableStatement.setArray(3, conn.createArrayOf("text", regContacts.toArray.asInstanceOf[Array[AnyRef]]))
       callableStatement.setString(1, id)
       callableStatement.execute();
     }
@@ -307,7 +322,58 @@ class BDHandler {
     }
   }
 
-  def getProtoUsers(): ArrayBuffer[ProtoUser] ={
+  def loadAll(um: ActorRef): Unit ={
+    val conn = DriverManager.getConnection(conn_str)
+
+    try {
+      val pusers = ArrayBuffer[ProtoUser]()
+      val pi = ArrayBuffer[ProtoIntent]()
+      val pm = ArrayBuffer[ProtoMetaData]()
+
+      val st = conn.createStatement()
+      val rs = st.executeQuery("SELECT * from users");
+      while (rs.next()) {
+        pusers += new ProtoUser(rs.getString("id"),
+          rs.getString("countrycod"),
+          checkArrayForNull(rs.getArray("contacts")),
+          checkArrayForNull(rs.getArray("regcontacts")),
+          checkArrayForNull(rs.getArray("favorits")),
+          checkArrayForNull(rs.getArray("seeings"))
+        )
+      }
+
+      val rs2 = st.executeQuery("SELECT * from intents WHERE actualmark = true");
+      while (rs2.next()) {
+        pi += new ProtoIntent(rs2.getString("id"),
+          rs2.getString("idcreator"),
+          rs2.getString("iddestination"),
+          rs2.getLong("datetodie"),
+          rs2.getInt("preparetoremove"),
+          rs2.getBoolean("synchronize"),
+          rs2.getBoolean("index_manual_chng"),
+          rs2.getInt("index_order integer")
+        )
+      }
+      val rs3 = st.executeQuery("SELECT * from intents WHERE actualmark = true");
+      while (rs3.next()) {
+        pm += new ProtoMetaData(
+        rs3.getString("id_meta"),
+        rs3.getString("id_user1"),
+        rs3.getString("id_user2"),
+        rs3.getInt("users1_to_user2_calltime integer"),
+        rs3.getInt("users1_to_user2_callcount integer"),
+        rs3.getInt("users2_to_user1_calltime integer"),
+        rs3.getInt("users2_to_user1_callcount integer")
+        )
+      }
+      println("LoadFromBdComplete")
+      um ! BdManagerToUserManagerLoad(pusers, pi, pm)
+    }finally {
+      conn.close()
+    }
+  }
+
+ /* def getProtoUsers(): ArrayBuffer[ProtoUser] ={
 
     val arr = ArrayBuffer[ProtoUser]()
     val conn = DriverManager.getConnection(conn_str)
@@ -351,7 +417,7 @@ class BDHandler {
       conn.close
     }
     arr
-  }
+  }*/
 
 
 

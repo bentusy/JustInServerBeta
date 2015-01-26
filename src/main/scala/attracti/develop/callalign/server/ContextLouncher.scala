@@ -7,7 +7,9 @@ import akka.actor._
 import akka.io.{IO, Tcp}
 import attracti.develop.callalign.server.bd.{BDManager, BDHandler}
 import attracti.develop.callalign.server.conections.TcpConnectionHandlerActor
-import attracti.develop.callalign.server.utill.IntentManagerToTcpServerStart
+import attracti.develop.callalign.server.intents.IntentManager
+import attracti.develop.callalign.server.users.UserManager
+import attracti.develop.callalign.server.utill.{SystemTouserManagerPutServer, UserMangerToServerStart, SystemToBdManagerLoad, IntentManagerToTcpServerStart}
 
 import scala.collection.mutable.{ArrayBuilder => ARB, Map => MMap, Set => MSet}
 import scala.util.Properties.{lineSeparator => newLine}
@@ -20,17 +22,17 @@ object CallAlign extends App {
   val system = ActorSystem("hostsystem")
   val bdHandler= new BDHandler
 
-
   val DAO = system.actorOf(Props(new BDManager(bdHandler)), name = "DAO")
 
   val intentManager = system.actorOf(Props(new IntentManager(DAO)), name = "intentManager")
 
-  val usermeneger = system.actorOf(UserManager.props(intentManager, DAO, bdHandler.getProtoUsers()), name = "userManager")
+  val usermeneger = system.actorOf(UserManager.props(intentManager, DAO), name = "userManager")
 
-  val endpoint = new InetSocketAddress("localhost", 9900) // conf it
+  val endpoint = new InetSocketAddress("10.0.1.37", 9900) // conf it
 
   val server = system.actorOf(TCPServerA.props(endpoint, usermeneger), name = "tcpServer")
-
+  usermeneger ! SystemTouserManagerPutServer(server)
+  DAO ! SystemToBdManagerLoad(usermeneger)
 
   Console.readLine()
   system.shutdown()
@@ -55,7 +57,7 @@ class TCPServerA(endpoint: InetSocketAddress, usermg: ActorRef) extends Actor{
   import context.system
 
 
-  var usermeneger =  usermg
+  var usermeneger = usermg
 
   override def preStart() {
 
@@ -72,11 +74,10 @@ class TCPServerA(endpoint: InetSocketAddress, usermg: ActorRef) extends Actor{
       sender ! Tcp.Register(context.actorOf(TcpConnectionHandlerActor.props(remote, sender, usermeneger))) // sender - tcp connection
     }
 
-    case IntentManagerToTcpServerStart => {
+    case UserMangerToServerStart() => {
       IO(Tcp) ! Tcp.Bind(self, endpoint)
       log.info("All load successfully ♥")
     }
-
   }
 
 }

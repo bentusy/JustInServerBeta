@@ -8,14 +8,19 @@ import scala.collection.mutable
 
 
 object Utils {
+  def makePush() = ???
+
 
     val patern60:Pattern =Pattern.compile("^\\+[0-9]{1,5}:[0-9]{5,11}$")
     val patern61:Pattern =Pattern.compile("^\\+[0-9]{12}:[0-1]{1}$")
     val patern62_70:Pattern =Pattern.compile("^(\\+[0-9]{12},)+$")
     val patern72:Pattern =Pattern.compile( "^[0-1]{1}$")
     val patern74:Pattern =Pattern.compile( "^\\+[0-9]{12}$")
-    val patern75:Pattern =Pattern.compile("^(\\+[0-9]{12}#\\+[0-9]{12}#[0-9]{1,5},)+$")
+    val patern75:Pattern =Pattern.compile("^(\\+[0-9]{12}#\\+[0-9]{12}#[0-9]{1,5}#[0-9]{1,3}#[a-z]{3,5},)+$")
     val patern80:Pattern =Pattern.compile("^\\+[0-9]{12}#\\+[0-9]{12}$")
+    val patern86:Pattern =Pattern.compile("^\\+[0-5]$")
+    val patern87:Pattern =Pattern.compile("^(\\+[0-9]{12}:[0-9]{1,8}:[0-9]{1,8}:[0-9]{1,8}:[0-9]{1,8},)+$")
+    val patern88:Pattern =Pattern.compile("^(\\+[0-9]{12}:[0-9]{1,4}:[a-z]{3,5},)+$")
     val paternSetStatusOk:Pattern =Pattern.compile("^\\+[0-9]{12}:[0-1]$")
     val simpleCmnds:Array[String] = Array("60", "61", "63", "64", "68", "75", "76")
     val listCmnds:Array[String] = Array("62", "74")
@@ -42,7 +47,7 @@ object Utils {
 
 }
 
-  def makeKeyFromIntetsUsers(idCreator: String, idDestinatio: String): String ={
+  def makeKeyFromUsersId(idCreator: String, idDestinatio: String): String ={
     idCreator.substring(idCreator.length-7, idCreator.length)+idDestinatio.substring(idDestinatio.length-7, idDestinatio.length)
   }
 

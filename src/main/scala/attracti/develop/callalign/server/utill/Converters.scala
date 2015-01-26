@@ -3,7 +3,7 @@ package attracti.develop.callalign.server.utill
 import java.text.{SimpleDateFormat, DateFormat}
 import java.util.Calendar
 import akka.actor.ActorRef
-import attracti.develop.callalign.server.users.Intent
+import attracti.develop.callalign.server.intents.Intent
 import scala.collection.mutable.{Map => MMap, TreeSet, ArrayBuffer}
 /**
  * Created by Darcklight on 12/2/2014.

@@ -4,9 +4,8 @@ package attracti.develop.callalign.server.conections
  * Created by Administrator on 24.12.2014.
  */
 
-import akka.util.Timeout
 import attracti.develop.callalign.server.GlobalContext
-import attracti.develop.callalign.server.utill.{UserToUserResponsForCall, CallConteoner}
+
 
 import scala.collection.mutable.{Map, Queue}
 import scala.concurrent.Future

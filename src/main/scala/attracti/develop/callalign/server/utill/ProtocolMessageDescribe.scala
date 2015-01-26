@@ -1,7 +1,7 @@
 package attracti.develop.callalign.server.utill
 
 import akka.actor.ActorRef
-import attracti.develop.callalign.server.users.Intent
+import attracti.develop.callalign.server.intents.{IntentConteiner, UsersMetaData, Intent}
 import scala.collection.Map
 import scala.collection.mutable.ArrayBuffer
 
@@ -42,9 +42,7 @@ object ProtocolMessageDescribe {
     cmnd+"/"+"113"+"/\n"
   }
 
-  def removeIntent(a: Intent): String={
-   "32/"+a.idCreator+"#"+a.idDestination+"/\n"
-  }
+
 
   def canOrNoToCall(id: String, canOrNo: Int): String={
     canOrNo match {
@@ -59,9 +57,7 @@ object ProtocolMessageDescribe {
    "28/"+i.toString()+"/\n"
   }
 
-  def youCanCallForThisIntent(i: Intent): String={
-    "30/"+i.idCreator+"#"+i.idDestination+"/\n"
-  }
+
 
   def newUserHaveHaveRegistered(id: String): String ={
     "34/"+id+"/"
@@ -71,18 +67,18 @@ object ProtocolMessageDescribe {
     if(bug==null) "31/113/" else  "31/"+bug
   }
 
-  def takeIntentsForRemoving(list: Map[String, Intent])={
+  def takeIntentsForRemoving(list: Map[String, IntentConteiner])={
     if(list==null){"113"}else{
       var s = new StringBuffer()
       for(a <-list){
-        s.append(a.toString())
+        s.append(a._2.toString())
         s.append(",")       // performers ??????????
       }
 
       s.toString()}
   }
 
-  def takeIncomingIntets(list: Map[String, Intent]):String={
+  def takeIncomingIntets(list: Map[String, IntentConteiner]):String={
     println("testPoint")
     if(list.isEmpty){"113"}else{
     var s = new StringBuffer()
@@ -98,25 +94,25 @@ object ProtocolMessageDescribe {
     "23/"+rid+":"+status+"/\n"
   }
 
-  def  nombersAdsdedSuccessfuly(users:  Map[String, ActorRef]): String={
+  def  nombersAdsdedSuccessfuly(users: Iterable[String]): String={
     var s = new StringBuffer()
     if(users.isEmpty){s.append("113")
     }else{
     for(a <-users){
-      s.append(a._1)
+      s.append(a)
       s.append(",")       // performers ??????????
     }
     }
     s.toString()
   }
 
-  def  contctsSetSuccessfuly(users:  Map[String, ActorRef], errorsContacs: ArrayBuffer[String]): String={
+  def  contctsSetSuccessfuly(users:  Iterable[String], errorsContacs: ArrayBuffer[String]): String={
     val s = new StringBuffer()
     if(users==null|| users.isEmpty){
       s.append("113")
     }else{
     for(a <-users){
-      s.append(a._1)
+      s.append(a)
       s.append(",")     // performers ??????????
     }
     }
@@ -195,7 +191,7 @@ object ProtocolMessageDescribe {
     s.toString()
   }
 
-  def  regUsers(regUsers: Map[String, ActorRef]): String={
+  def  regUsers(regUsers: Map[String, UsersMetaData]): String={
     val s = new StringBuffer()
 
     if(regUsers==null||regUsers.isEmpty){
@@ -207,6 +203,17 @@ object ProtocolMessageDescribe {
       }
     }
 
+    s.toString()
+  }
+
+  def  arrayToStringPrt(arr: ArrayBuffer[String]): String={
+    val s = new StringBuffer()
+
+    if(arr==null||arr.isEmpty){
+      s.append("113")
+    }else{
+     arr.foreach(x=>s.append(x+","))
+    }
     s.toString()
   }
 

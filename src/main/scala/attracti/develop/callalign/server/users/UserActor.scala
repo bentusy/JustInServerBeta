@@ -1,7 +1,7 @@
 package attracti.develop.callalign.server.users
 
 import akka.actor._
-import attracti.develop.callalign.server.IntentManager
+import attracti.develop.callalign.server.intents.{IntentManager, Intent}
 import attracti.develop.callalign.server.utill._
 import org.apache.logging.log4j.{LogManager, Logger}
 
@@ -22,7 +22,8 @@ class UserActor(usr: User) extends Actor {
 //  var contacts:mutable.ArrayBuffer[Int]= mutable.ArrayBuffer()
   val user:User= usr
   user.userActor = this
-  user.calculator = context.actorOf(Props(new IntentsCalculator()), name = "IntentsCalculator")
+  user.slf=self
+  usr.ex=context.system.dispatcher
 
   def informAllUserThatIhaveRegistr(): Unit ={
    val g = user.globalMap
@@ -30,6 +31,8 @@ class UserActor(usr: User) extends Actor {
       a._2 ! UserToUserIHaveRegistred(user.id, self)
     }
   }
+
+
 
 
 
@@ -44,46 +47,48 @@ class UserActor(usr: User) extends Actor {
 
   override def receive = {
 
+
+    case TcpToUserSetIIndex(str, pid)=>user.setIIndex(str, pid)
+
+    case TcpToUserSetMetas(str,pid)=>{
+  user.updMetas(str,pid)
+  }
+
+    case TcpToUserConfigStatusEvent(conf, pid)=> user.configStatusEvent(conf, pid)
+
+    case UserManagerToUserLoad(intents, regs, favor, seeing)=>user.load(intents, regs, favor, seeing)
+
     case IntentManagerToUserAddIntentToRecycle(int, inOut)=>{
       inOut match {
-        case 0 => { user.recycleIncomingIntents += (int.id -> int)
+        case 0 => { user.recycleIncomingIntents += (int.iid -> int)
         }
-        case 1 => {user.recycleOutgoingIntents += (int.id -> int) }
+        case 1 => {user.recycleOutgoingIntents += (int.iid -> int) }
       }
     }
-
-    case IntentsCalculatorToUserCallRQ(i , p)=>{
-      user.callToIntent(i, p)
-    }
-
-    case IntentsCalculatorToUserRQ(i, aref, p)=>{
-      user.doYouReadyForTallck(i, aref, p)
-    }
-
-//    case CalculatorManagerToUserRequestForReadyToCall()=>{
-//      user.doYouReadyForTallck(sender)
-//    }
 
     case TcpToUserGetAllRegistredUsers(pid: Int)=>{
       connection ! UserToTcpTakeAllRegistredUsers(user.regContatcs, pid)
     }
+
+
+    case UserManagerToUserSetMetaInRegs(meta)=>{
+      user.setMetasFromUM(meta)
+  }
 
     case UserManagerToUserInformAll()=>{
       informAllUserThatIhaveRegistr()
     }
 
     case UserManagerToUserSetAllContactList(contacts, favorits, seeings)=>{
-      user.loadContacts(contacts, favorits, seeings)
+//      user.loadContacts(contacts, favorits, seeings)
     }
 
-    case IntentManagerToUserAddIntent(int: Intent, inOut: Int)=>{
+    case IntentManagerToUserAddIntent(int, inOut)=>{
       inOut match {
-
-        case 0 => { user.incomingIntent += (int.id -> int)
+        case 0 => { user.incomingIntent += (int.iid -> int)
         }
-        case 1 =>{user.outgoingIntent += (int.id -> int) }
+        case 1 =>{user.outgoingIntent += (int.iid -> int) }
       }
-
     }
 
     case UserToUserIHaveRegistred(id, aRef)=>{
@@ -94,26 +99,18 @@ class UserActor(usr: User) extends Actor {
     user.removeOldIntent(a, inOut)
     }
 
-    case UserToUserRemoveOutIntent(a) => {
-      user.outgoingIntent-=a.id
+
+    case UserToUserMyStatusIsChange(rid,status)=>{
+      if (user.connection !=null&&user.regContatcs.contains(rid))  user.connection ! UserToTcpYourContactSetStatus(rid, status)
     }
-
-
-    case IntentsCalculatorToUserFree(aref:ActorRef)=>{
-    user.calculatorFree(aref)
-  }
-
-
-case UserToUserMyStatusIsChange(rid,status)=>{
-
-
-  if (user.connection !=null&&user.regContatcs.contains(rid))  user.connection ! UserToTcpYourContactSetStatus(rid, status)
-}
 
 
     case UserToUserGetMeYourStatus(rid, aRef)=>{
 
-      if(user.seeingList.contains(rid)) aRef ! UserToUserMyStatusIsChange(user.id,user.status)
+      if(user.seeingList.contains(rid)) aRef ! UserToUserMyStatusIsChange(user.id,user.status.value)
+      if(user.flagConfigStatusEvent==1&&user.favoritList.contains(rid))  aRef ! UserToUserMyStatusIsChange(user.id,user.status.value)
+      if(user.flagConfigStatusEvent==2&&user.regContatcs.contains(rid))  aRef ! UserToUserMyStatusIsChange(user.id,user.status.value)
+
     }
 
     case TcpToUserNewConnection(aRef)=>{
@@ -127,7 +124,7 @@ case UserToUserMyStatusIsChange(rid,status)=>{
       }
 
     case Terminated(connection) => {
-    log.info(user.id+ "Have drop ConnectionHendle")
+    log.info(user.id+ "Have drop Connection")
       this.connection=null
     user.dropConection
         }
@@ -150,9 +147,8 @@ case UserToUserMyStatusIsChange(rid,status)=>{
     }
 
 
-    // AAAAAAAAAAAAAAAAAA~!!!!!!!!!!!!!!!!
+//chek
     case TcpToUserAddNewContatcs(contacts, pid)=>{
-//      log.info("AddNewContatc("+id+" ) in UserActor"+self.path)
       user.addContacts(contacts, pid)
     }
 
@@ -178,12 +174,9 @@ case UserToUserMyStatusIsChange(rid,status)=>{
       user.addOutgoingIntents(list, pid)
     }
 
-    case UserToUserResponsForCall(callConteiner, answer)=>{
-    user.connection ! UserToTcpResponsForCallRequest(callConteiner, answer); user.callReg -= callConteiner
-    }
 
-    case UserToUserRequestSolutionForCall(conteinar)=>{
-      user.requestPermissionForCallFrom(conteinar)
+    case UserToUserRequestSolutionForCall(pr,rid)=>{
+      user.requestForCallFromUser(pr, rid)
     }
 
     case TcpToUserCanICallToUser(rUser, pid)=>{
@@ -191,18 +184,27 @@ case UserToUserMyStatusIsChange(rid,status)=>{
 
     }
 
+    case IntentToUserGetMeYourStatusPR(prm)=>{
+      user.statusRQfromInent(prm)
+    }
+
+    case IntentToUserCall(ic)=>{
+    user.startWorkIntent(ic)
+  }
+    case IntentToUserFree()=>user.flagIntentWorkWithMe=false
+
 //    case UserToUserYouCanCallMe(i)=>{
 //    if(user.connection != null){
 //      user.connection ! UserToTcpYouCanCallForThisIntets(i)
 //    }
 //    }
 
-    case UserToUserCanICallYouFromIntentsCreater(intent)=>{
-      user.requestPermissionForCallWithFomIntentsCreater(intent)
-    }
+//    case UserToUserCanICallYouFromIntentsCreater(intent)=>{
+//      user.requestPermissionForCallWithFomIntentsCreater(intent)
+//    }
 
-    case UserToUserTakeIncomingIntent(i)=>{
-user.addIncomingIntent(i)
+    case UserToUserAddIncomingIntent(i)=>{
+    user.addIncomingIntent(i)
     }
 
     case TcpToUserRemoveSeeings(sc, pid)=>{

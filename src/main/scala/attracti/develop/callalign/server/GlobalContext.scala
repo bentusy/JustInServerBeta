@@ -19,5 +19,10 @@ object GlobalContext {
   val timeToWeightCallIntentAnswerTCP= Timeout(6.seconds).duration
   val timeToWeightCallIntent= Timeout(12.minutes).duration
   val defoultPkgTimeToLive= Timeout(2.seconds).duration
+  val delayIStatusReturn= Timeout(5.minutes).duration
+  val delayIPsStop= Timeout(1.minutes).duration
+  val delayUserStatusTo0= Timeout(1.minutes).duration
+  val delayUserToUserCallRQ=Timeout(10.seconds).duration
+  val delayUserRollBackStatus=Timeout(15.seconds).duration//Если бзер ответил юзеру 5 что можно звонить когда он вернёт свой статус в предыдущий если, этот юзер всётаки не позвонит
 
 }

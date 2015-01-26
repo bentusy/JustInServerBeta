@@ -3,7 +3,7 @@ package attracti.develop.callalign.server.utill
 import java.util.concurrent.TimeUnit
 
 import akka.actor.{ActorSystem, Actor}
-import akka.actor.Actor.Receive
+import akka.actor.Cancellable
 
 import scala.concurrent._
 import scala.concurrent.duration._
@@ -12,15 +12,17 @@ import scala.concurrent.duration._
  */
 object TimeoutScheduler{
 
-  def startTimout(p:Promise[_], timeout: FiniteDuration)(implicit sys : ActorSystem): Unit ={
+  def startTimout(p:Promise[_], timeout: FiniteDuration)(implicit sys : ActorSystem): Cancellable={
     implicit val ex = sys.dispatcher
     sys.scheduler.scheduleOnce(timeout)(
-     try{ p.failure(new Throwable())
+     try{
+       p.failure(new Throwable())
      }catch {
        case sx:IllegalStateException=>
        case ex:Throwable=>println(ex+" в Стартайме")
      }
     )
+
   }
 
 }

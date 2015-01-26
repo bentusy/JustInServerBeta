@@ -1,27 +1,23 @@
-package attracti.develop.callalign.server
+package attracti.develop.callalign.server.intents
 
 import java.util.Calendar
+import java.util.concurrent.TimeUnit
 
-import akka.actor.Actor.Receive
-import akka.actor.{ActorRef, Props, Actor}
-import attracti.develop.callalign.server.users.{Intent, UserActor}
+import akka.actor.{Actor, ActorRef}
 import attracti.develop.callalign.server.utill._
 import org.apache.logging.log4j.{LogManager, Logger}
 
-
 import scala.collection.mutable._
-import scala.concurrent.duration.Duration;
-import java.util.concurrent.TimeUnit;
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration.Duration
 /**
  * Created by Darcklight on 12/1/2014.
  */
 class IntentManager(DAO: ActorRef) extends Actor {
 
   val log: Logger = LogManager.getLogger("InfoLoger")
-  val fullIntentsList= TreeSet.empty[Intent]
+  val fullIntentsList= TreeSet.empty[IntentConteiner]
   val dao=DAO
-  import context.system
   val  a =Duration.create(24, TimeUnit.HOURS)
   val b = Duration.create(12, TimeUnit.HOURS)
   var deamonForCleaOld = context.system.scheduler.schedule(a , b , self, DeamonToIntentManagerClean)
@@ -32,20 +28,21 @@ class IntentManager(DAO: ActorRef) extends Actor {
     log.info("Start Intent Manager")
   }
 
-def addIntent(intnt: Intent): Unit ={
+def addIntent(intnt: IntentConteiner): Unit ={
 
   fullIntentsList +=(intnt)
 }
 
   def clearOldIntents: Unit = {
     var toDay = Calendar.getInstance()
-    var oldIntents= Map[String, Intent]()
+    var oldIntents= Map[String, IntentConteiner]()
   for(a <-fullIntentsList){
     if(toDay.after(a.dateToDie)){
     a.aRefCreator ! IntentManagerToUserRemoveOld(a, 1)
     a.aRefDestination ! IntentManagerToUserRemoveOld(a, 0)
+    a.iRef ! IntentManagerToIntentTerminate
     fullIntentsList.remove(a)
-      oldIntents += (a.id -> a)
+      oldIntents += (a.iid -> a)
     }
    dao ! IntentManagerToBDMarkNonactualIntents(oldIntents)
   }
@@ -70,30 +67,12 @@ clearOldIntents
       dao ! IntentManagerToBDMarkNonactualIntent(a)
     }
 
+    case UserManagerToIntentManagerLoad(arr)=>fullIntentsList ++=arr;sender ! "load complete"
+
     case UserToIntentManagerRemoveIntents(m)=> {
-      fullIntentsList --=m.values}
+      fullIntentsList --= m.values
       dao ! IntentManagerToBDMarkNonactualIntents(m)
-
-    case BDManagerToIntentManagerCreatIntents(globalUsersMap, protointents)=>{
-      log.info("Start creating intents from BD")
-      for(a<-protointents) {
-
-      val i = new Intent(a.id, a.idCreator, globalUsersMap(a.idCreator), a.idDestination,
-        globalUsersMap(a.idDestination), a.timeToDie, a.synchronize)
-        fullIntentsList += i
-        a.prepareToRemove match {
-          case 0=> i.aRefDestination ! IntentManagerToUserAddIntentToRecycle(i, 0)
-          case 1=> i.aRefCreator ! IntentManagerToUserAddIntentToRecycle(i, 1)
-          case 3=> {
-            i.aRefCreator ! IntentManagerToUserAddIntent(i, 1)
-            i.aRefDestination ! IntentManagerToUserAddIntent(i, 0)
-          }
-                  }
-      }
-
-      context.actorSelection("/user/tcpServer") ! IntentManagerToTcpServerStart
-
-  }
+    }
   }
 
 

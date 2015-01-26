@@ -4,7 +4,7 @@
 		module="justinserver$sources_2.10"
 		revision="1.0"
 		status="integration"
-		publication="20150113235154"
+		publication="20150126121147"
 	/>
 	<configurations>
 		<conf name="default" visibility="public" description=""/>

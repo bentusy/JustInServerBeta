@@ -52,6 +52,13 @@ class OutgoinFormatTools{
      val pakage = typ ++ shortToByte(pidGen)
     (pakage, pid)
   }
+  def createPckgType0X11(pid: Int): Array[Byte] = {
+    val typ = Array[Byte](0x11)
+
+
+    val pakage = typ ++ shortToByte(pid.toShort)
+    pakage
+  }
 
   def stringToPakageType3(str: String): Array[Byte] = {
     val byt = str.getBytes()
