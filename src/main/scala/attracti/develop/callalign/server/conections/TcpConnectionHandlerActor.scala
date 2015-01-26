@@ -26,7 +26,7 @@ object TcpConnectionHandlerActor {
     Props(new TcpConnectionHandlerActor(remote, connection, usermeneger))
 }
 
-class TcpConnectionHandlerActor(remote: InetSocketAddress, connect: ActorRef, userMenege: ActorRef) extends Actor {
+class TcpConnectionHandlerActor(remote: InetSocketAddress, connect: ActorRef, userMenege: ActorRef) extends Actor with ActorLog {
 
   var log:Logger =LogManager.getLogger("InfoLoger")
   val collect = new TransportProtocolCollection(this)
