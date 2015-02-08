@@ -1,3 +1,5 @@
 [debug] Copy resource mappings: 
 [debug] 	(E:\IdeaProjects\JustInServer\src\main\resources\log4j2.xml,E:\IdeaProjects\JustInServer\target\scala-2.10\classes\log4j2.xml)
+[debug] 	(E:\IdeaProjects\JustInServer\src\main\resources\logback.xml,E:\IdeaProjects\JustInServer\target\scala-2.10\classes\logback.xml)
+[debug] 	(E:\IdeaProjects\JustInServer\src\main\resources\loggers.conf,E:\IdeaProjects\JustInServer\target\scala-2.10\classes\loggers.conf)
 [debug] 	(E:\IdeaProjects\JustInServer\src\main\resources\note.txt,E:\IdeaProjects\JustInServer\target\scala-2.10\classes\note.txt)

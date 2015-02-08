@@ -14,18 +14,18 @@ object Converters {
 
 
 
-  val df:DateFormat = new SimpleDateFormat("yyyy.MM.dd_HH:mm");
-  def convertStringToCalendar(str: String): Calendar={
-
-    val cal:Calendar  = Calendar.getInstance();
-    cal.setTime(df.parse(str));
-    cal
-  }
-
-  def convertCalendarToString(cal: Calendar): String={
-    val cal:Calendar  = Calendar.getInstance();
-    df.format(cal.getTime)
-  }
+//  val df:DateFormat = new SimpleDateFormat("yyyy.MM.dd_HH:mm");
+//  def convertStringToCalendar(str: String): Calendar={
+//
+//    val cal:Calendar  = Calendar.getInstance();
+//    cal.setTime(df.parse(str));
+//    cal
+//  }
+//
+//  def convertCalendarToString(cal: Calendar): String={
+//    val cal:Calendar  = Calendar.getInstance();
+//    df.format(cal.getTime)
+//  }
 
 //  def arrayToArrayBuffer(a: Array[Any]): Array[Any] ={
 //

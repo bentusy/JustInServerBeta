@@ -4,7 +4,7 @@
 		module="justinserver$sources_javadoc_2.10"
 		revision="1.0"
 		status="integration"
-		publication="20150126121148"
+		publication="20150208160521"
 	/>
 	<configurations>
 		<conf name="compile" visibility="public" description=""/>
@@ -59,23 +59,15 @@
 			<artifact name="parboiled-core" type="src" ext="jar" conf="sources" e:classifier="sources"/>
 			<artifact name="parboiled-core" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
 		</dependency>
-		<dependency org="org.apache.logging.log4j" name="log4j-api" rev="2.1" transitive="false" conf="compile->default(compile);runtime->default(compile);test->default(compile);compile-internal->default(compile);runtime-internal->default(compile);test-internal->default(compile)">
-			<artifact name="log4j-api" type="src" ext="jar" conf="sources" e:classifier="sources"/>
-			<artifact name="log4j-api" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
-		</dependency>
-		<dependency org="org.apache.logging.log4j" name="log4j-core" rev="2.1" transitive="false" conf="compile->default(compile);runtime->default(compile);test->default(compile);compile-internal->default(compile);runtime-internal->default(compile);test-internal->default(compile)">
-			<artifact name="log4j-core" type="src" ext="jar" conf="sources" e:classifier="sources"/>
-			<artifact name="log4j-core" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
-		</dependency>
-		<dependency org="org.scalactic" name="scalactic_2.10" rev="2.2.2" transitive="false" conf="compile->default(compile);runtime->default(compile);test->default(compile);compile-internal->default(compile);runtime-internal->default(compile);test-internal->default(compile)">
-			<artifact name="scalactic_2.10" type="src" ext="jar" conf="sources" e:classifier="sources"/>
-			<artifact name="scalactic_2.10" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
-		</dependency>
 		<dependency org="postgresql" name="postgresql" rev="9.1-901-1.jdbc4" transitive="false" conf="compile->default(compile);runtime->default(compile);test->default(compile);compile-internal->default(compile);runtime-internal->default(compile);test-internal->default(compile)">
 			<artifact name="postgresql" type="src" ext="jar" conf="sources" e:classifier="sources"/>
 			<artifact name="postgresql" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
 		</dependency>
-		<dependency org="com.typesafe.akka" name="akka-actor_2.10" rev="2.3.5" transitive="false" conf="compile->default(compile);runtime->default(compile);test->default(compile);compile-internal->default(compile);runtime-internal->default(compile);test-internal->default(compile)">
+		<dependency org="com.typesafe.akka" name="akka-testkit_2.10" rev="2.3.9" transitive="false" conf="compile->default(compile);runtime->default(compile);test->default(compile);compile-internal->default(compile);runtime-internal->default(compile);test-internal->default(compile)">
+			<artifact name="akka-testkit_2.10" type="src" ext="jar" conf="sources" e:classifier="sources"/>
+			<artifact name="akka-testkit_2.10" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
+		</dependency>
+		<dependency org="com.typesafe.akka" name="akka-actor_2.10" rev="2.3.9" transitive="false" conf="compile->default(compile);runtime->default(compile);test->default(compile);compile-internal->default(compile);runtime-internal->default(compile);test-internal->default(compile)">
 			<artifact name="akka-actor_2.10" type="src" ext="jar" conf="sources" e:classifier="sources"/>
 			<artifact name="akka-actor_2.10" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
 		</dependency>
@@ -83,9 +75,45 @@
 			<artifact name="config" type="src" ext="jar" conf="sources" e:classifier="sources"/>
 			<artifact name="config" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
 		</dependency>
-		<dependency org="org.scalatest" name="scalatest_2.10" rev="2.2.0" transitive="false" conf="test->default(compile);test-internal->default(compile)">
+		<dependency org="com.typesafe.akka" name="akka-agent_2.10" rev="2.3.9" transitive="false" conf="compile->default(compile);runtime->default(compile);test->default(compile);compile-internal->default(compile);runtime-internal->default(compile);test-internal->default(compile)">
+			<artifact name="akka-agent_2.10" type="src" ext="jar" conf="sources" e:classifier="sources"/>
+			<artifact name="akka-agent_2.10" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
+		</dependency>
+		<dependency org="org.scala-stm" name="scala-stm_2.10" rev="0.7" transitive="false" conf="compile->default(compile);runtime->default(compile);test->default(compile);compile-internal->default(compile);runtime-internal->default(compile);test-internal->default(compile)">
+			<artifact name="scala-stm_2.10" type="src" ext="jar" conf="sources" e:classifier="sources"/>
+			<artifact name="scala-stm_2.10" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
+		</dependency>
+		<dependency org="org.scalatest" name="scalatest_2.10" rev="3.0.0-SNAP4" transitive="false" conf="compile->default(compile);runtime->default(compile);test->default(compile);compile-internal->default(compile);runtime-internal->default(compile);test-internal->default(compile)">
 			<artifact name="scalatest_2.10" type="src" ext="jar" conf="sources" e:classifier="sources"/>
 			<artifact name="scalatest_2.10" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
+		</dependency>
+		<dependency org="com.typesafe.akka" name="akka-slf4j_2.10" rev="2.3.9" transitive="false" conf="compile->default(compile);runtime->default(compile);test->default(compile);compile-internal->default(compile);runtime-internal->default(compile);test-internal->default(compile)">
+			<artifact name="akka-slf4j_2.10" type="src" ext="jar" conf="sources" e:classifier="sources"/>
+			<artifact name="akka-slf4j_2.10" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
+		</dependency>
+		<dependency org="org.slf4j" name="slf4j-api" rev="1.7.7" transitive="false" conf="compile->default(compile);runtime->default(compile);test->default(compile);compile-internal->default(compile);runtime-internal->default(compile);test-internal->default(compile)">
+			<artifact name="slf4j-api" type="src" ext="jar" conf="sources" e:classifier="sources"/>
+			<artifact name="slf4j-api" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
+		</dependency>
+		<dependency org="ch.qos.logback" name="logback-classic" rev="1.1.2" transitive="false" conf="compile->default(compile);runtime->default(compile);test->default(compile);compile-internal->default(compile);runtime-internal->default(compile);test-internal->default(compile)">
+			<artifact name="logback-classic" type="src" ext="jar" conf="sources" e:classifier="sources"/>
+			<artifact name="logback-classic" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
+		</dependency>
+		<dependency org="ch.qos.logback" name="logback-core" rev="1.1.2" transitive="false" conf="compile->default(compile);runtime->default(compile);test->default(compile);compile-internal->default(compile);runtime-internal->default(compile);test-internal->default(compile)">
+			<artifact name="logback-core" type="src" ext="jar" conf="sources" e:classifier="sources"/>
+			<artifact name="logback-core" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
+		</dependency>
+		<dependency org="ch.qos.logback" name="logback-access" rev="1.1.2" transitive="false" conf="compile->default(compile);runtime->default(compile);test->default(compile);compile-internal->default(compile);runtime-internal->default(compile);test-internal->default(compile)">
+			<artifact name="logback-access" type="src" ext="jar" conf="sources" e:classifier="sources"/>
+			<artifact name="logback-access" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
+		</dependency>
+		<dependency org="org.codehaus.janino" name="janino" rev="2.7.6" transitive="false" conf="compile->default(compile);runtime->default(compile);test->default(compile);compile-internal->default(compile);runtime-internal->default(compile);test-internal->default(compile)">
+			<artifact name="janino" type="src" ext="jar" conf="sources" e:classifier="sources"/>
+			<artifact name="janino" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
+		</dependency>
+		<dependency org="org.codehaus.janino" name="commons-compiler" rev="2.7.6" transitive="false" conf="compile->default(compile);runtime->default(compile);test->default(compile);compile-internal->default(compile);runtime-internal->default(compile);test-internal->default(compile)">
+			<artifact name="commons-compiler" type="src" ext="jar" conf="sources" e:classifier="sources"/>
+			<artifact name="commons-compiler" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
 		</dependency>
 		<dependency org="org.scala-lang" name="jline" rev="2.10.4" transitive="false" conf="scala-tool->default(compile)">
 			<artifact name="jline" type="src" ext="jar" conf="sources" e:classifier="sources"/>

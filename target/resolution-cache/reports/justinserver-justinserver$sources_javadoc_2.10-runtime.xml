@@ -7,28 +7,226 @@
 		revision="1.0"
 		conf="runtime"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool"
-		date="20150126121148"/>
+		date="20150208160521"/>
 	<dependencies>
-		<module organisation="com.typesafe.akka" name="akka-actor_2.10">
-			<revision name="2.3.5" status="release" pubdate="20140813211137" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://akka.io/" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="13">
-				<license name="Apache License, Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0"/>
-				<metadata-artifact status="no" details="" size="2687" time="0" location="C:\Users\Administrator\.ivy2\cache\com.typesafe.akka\akka-actor_2.10\ivy-2.3.5.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.10/2.3.5/akka-actor_2.10-2.3.5.pom"/>
-				<caller organisation="justinserver" name="justinserver$sources_javadoc_2.10" conf="compile, runtime" rev="2.3.5" rev-constraint-default="2.3.5" rev-constraint-dynamic="2.3.5" callerrev="1.0"/>
+		<module organisation="org.codehaus.janino" name="janino">
+			<revision name="2.7.6" status="release" pubdate="20140816122528" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="21">
+				<metadata-artifact status="no" details="" size="5174" time="0" location="C:\Users\Administrator\.ivy2\cache\org.codehaus.janino\janino\ivy-2.7.6.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/org/codehaus/janino/janino/2.7.6/janino-2.7.6.pom"/>
+				<caller organisation="justinserver" name="justinserver$sources_javadoc_2.10" conf="compile, runtime" rev="2.7.6" rev-constraint-default="2.7.6" rev-constraint-dynamic="2.7.6" callerrev="1.0"/>
 				<artifacts>
-					<artifact name="akka-actor_2.10" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="2188669" time="0" location="C:\Users\Administrator\.ivy2\cache\com.typesafe.akka\akka-actor_2.10\docs\akka-actor_2.10-2.3.5-javadoc.jar">
-						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.10/2.3.5/akka-actor_2.10-2.3.5-javadoc.jar"/>
+					<artifact name="janino" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="343478" time="0" location="C:\Users\Administrator\.ivy2\cache\org.codehaus.janino\janino\srcs\janino-2.7.6-sources.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/codehaus/janino/janino/2.7.6/janino-2.7.6-sources.jar"/>
 					</artifact>
-					<artifact name="akka-actor_2.10" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="330314" time="0" location="C:\Users\Administrator\.ivy2\cache\com.typesafe.akka\akka-actor_2.10\srcs\akka-actor_2.10-2.3.5-sources.jar">
-						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.10/2.3.5/akka-actor_2.10-2.3.5-sources.jar"/>
+					<artifact name="janino" type="jar" ext="jar" status="no" details="" size="611863" time="0" location="C:\Users\Administrator\.ivy2\cache\org.codehaus.janino\janino\jars\janino-2.7.6.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/codehaus/janino/janino/2.7.6/janino-2.7.6.jar"/>
 					</artifact>
-					<artifact name="akka-actor_2.10" type="jar" ext="jar" status="no" details="" size="2583945" time="0" location="C:\Users\Administrator\.ivy2\cache\com.typesafe.akka\akka-actor_2.10\jars\akka-actor_2.10-2.3.5.jar">
-						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.10/2.3.5/akka-actor_2.10-2.3.5.jar"/>
+					<artifact name="janino" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="1179673" time="0" location="C:\Users\Administrator\.ivy2\cache\org.codehaus.janino\janino\docs\janino-2.7.6-javadoc.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/codehaus/janino/janino/2.7.6/janino-2.7.6-javadoc.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="org.codehaus.janino" name="commons-compiler">
+			<revision name="2.7.6" status="release" pubdate="20140816122309" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="22">
+				<metadata-artifact status="no" details="" size="4926" time="0" location="C:\Users\Administrator\.ivy2\cache\org.codehaus.janino\commons-compiler\ivy-2.7.6.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/org/codehaus/janino/commons-compiler/2.7.6/commons-compiler-2.7.6.pom"/>
+				<caller organisation="justinserver" name="justinserver$sources_javadoc_2.10" conf="compile, runtime" rev="2.7.6" rev-constraint-default="2.7.6" rev-constraint-dynamic="2.7.6" callerrev="1.0"/>
+				<artifacts>
+					<artifact name="commons-compiler" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="1179673" time="0" location="C:\Users\Administrator\.ivy2\cache\org.codehaus.janino\commons-compiler\docs\commons-compiler-2.7.6-javadoc.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/codehaus/janino/commons-compiler/2.7.6/commons-compiler-2.7.6-javadoc.jar"/>
+					</artifact>
+					<artifact name="commons-compiler" type="jar" ext="jar" status="no" details="" size="30595" time="0" location="C:\Users\Administrator\.ivy2\cache\org.codehaus.janino\commons-compiler\jars\commons-compiler-2.7.6.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/codehaus/janino/commons-compiler/2.7.6/commons-compiler-2.7.6.jar"/>
+					</artifact>
+					<artifact name="commons-compiler" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="48229" time="0" location="C:\Users\Administrator\.ivy2\cache\org.codehaus.janino\commons-compiler\srcs\commons-compiler-2.7.6-sources.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/codehaus/janino/commons-compiler/2.7.6/commons-compiler-2.7.6-sources.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="ch.qos.logback" name="logback-access">
+			<revision name="1.1.2" status="release" pubdate="20140402224322" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://logback.qos.ch" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="20">
+				<license name="Eclipse Public License - v 1.0" url="http://www.eclipse.org/legal/epl-v10.html"/>
+				<license name="GNU Lesser General Public License" url="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"/>
+				<metadata-artifact status="no" details="" size="8807" time="0" location="C:\Users\Administrator\.ivy2\cache\ch.qos.logback\logback-access\ivy-1.1.2.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/ch/qos/logback/logback-access/1.1.2/logback-access-1.1.2.pom"/>
+				<caller organisation="justinserver" name="justinserver$sources_javadoc_2.10" conf="compile, runtime" rev="1.1.2" rev-constraint-default="1.1.2" rev-constraint-dynamic="1.1.2" callerrev="1.0"/>
+				<artifacts>
+					<artifact name="logback-access" type="jar" ext="jar" status="no" details="" size="93526" time="0" location="C:\Users\Administrator\.ivy2\cache\ch.qos.logback\logback-access\jars\logback-access-1.1.2.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/ch/qos/logback/logback-access/1.1.2/logback-access-1.1.2.jar"/>
+					</artifact>
+					<artifact name="logback-access" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="86528" time="0" location="C:\Users\Administrator\.ivy2\cache\ch.qos.logback\logback-access\srcs\logback-access-1.1.2-sources.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/ch/qos/logback/logback-access/1.1.2/logback-access-1.1.2-sources.jar"/>
+					</artifact>
+					<artifact name="logback-access" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="512134" time="0" location="C:\Users\Administrator\.ivy2\cache\ch.qos.logback\logback-access\docs\logback-access-1.1.2-javadoc.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/ch/qos/logback/logback-access/1.1.2/logback-access-1.1.2-javadoc.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="ch.qos.logback" name="logback-classic">
+			<revision name="1.1.2" status="release" pubdate="20140402224238" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://logback.qos.ch" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="18">
+				<license name="Eclipse Public License - v 1.0" url="http://www.eclipse.org/legal/epl-v10.html"/>
+				<license name="GNU Lesser General Public License" url="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"/>
+				<metadata-artifact status="no" details="" size="10581" time="0" location="C:\Users\Administrator\.ivy2\cache\ch.qos.logback\logback-classic\ivy-1.1.2.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.1.2/logback-classic-1.1.2.pom"/>
+				<caller organisation="justinserver" name="justinserver$sources_javadoc_2.10" conf="compile, runtime" rev="1.1.2" rev-constraint-default="1.1.2" rev-constraint-dynamic="1.1.2" callerrev="1.0"/>
+				<artifacts>
+					<artifact name="logback-classic" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="1040995" time="0" location="C:\Users\Administrator\.ivy2\cache\ch.qos.logback\logback-classic\docs\logback-classic-1.1.2-javadoc.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.1.2/logback-classic-1.1.2-javadoc.jar"/>
+					</artifact>
+					<artifact name="logback-classic" type="jar" ext="jar" status="no" details="" size="270750" time="0" location="C:\Users\Administrator\.ivy2\cache\ch.qos.logback\logback-classic\jars\logback-classic-1.1.2.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.1.2/logback-classic-1.1.2.jar"/>
+					</artifact>
+					<artifact name="logback-classic" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="222634" time="0" location="C:\Users\Administrator\.ivy2\cache\ch.qos.logback\logback-classic\srcs\logback-classic-1.1.2-sources.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.1.2/logback-classic-1.1.2-sources.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="ch.qos.logback" name="logback-core">
+			<revision name="1.1.2" status="release" pubdate="20140402224047" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://logback.qos.ch" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="19">
+				<license name="Eclipse Public License - v 1.0" url="http://www.eclipse.org/legal/epl-v10.html"/>
+				<license name="GNU Lesser General Public License" url="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"/>
+				<metadata-artifact status="no" details="" size="9845" time="0" location="C:\Users\Administrator\.ivy2\cache\ch.qos.logback\logback-core\ivy-1.1.2.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/ch/qos/logback/logback-core/1.1.2/logback-core-1.1.2.pom"/>
+				<caller organisation="justinserver" name="justinserver$sources_javadoc_2.10" conf="compile, runtime" rev="1.1.2" rev-constraint-default="1.1.2" rev-constraint-dynamic="1.1.2" callerrev="1.0"/>
+				<artifacts>
+					<artifact name="logback-core" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="1911474" time="0" location="C:\Users\Administrator\.ivy2\cache\ch.qos.logback\logback-core\docs\logback-core-1.1.2-javadoc.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/ch/qos/logback/logback-core/1.1.2/logback-core-1.1.2-javadoc.jar"/>
+					</artifact>
+					<artifact name="logback-core" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="368594" time="0" location="C:\Users\Administrator\.ivy2\cache\ch.qos.logback\logback-core\srcs\logback-core-1.1.2-sources.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/ch/qos/logback/logback-core/1.1.2/logback-core-1.1.2-sources.jar"/>
+					</artifact>
+					<artifact name="logback-core" type="jar" ext="jar" status="no" details="" size="427729" time="0" location="C:\Users\Administrator\.ivy2\cache\ch.qos.logback\logback-core\jars\logback-core-1.1.2.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/ch/qos/logback/logback-core/1.1.2/logback-core-1.1.2.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="org.slf4j" name="slf4j-api">
+			<revision name="1.7.7" status="release" pubdate="20140404141248" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.slf4j.org" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="17">
+				<metadata-artifact status="no" details="" size="4613" time="0" location="C:\Users\Administrator\.ivy2\cache\org.slf4j\slf4j-api\ivy-1.7.7.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7.pom"/>
+				<caller organisation="justinserver" name="justinserver$sources_javadoc_2.10" conf="compile, runtime" rev="1.7.7" rev-constraint-default="1.7.7" rev-constraint-dynamic="1.7.7" callerrev="1.0"/>
+				<artifacts>
+					<artifact name="slf4j-api" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="49406" time="0" location="C:\Users\Administrator\.ivy2\cache\org.slf4j\slf4j-api\srcs\slf4j-api-1.7.7-sources.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7-sources.jar"/>
+					</artifact>
+					<artifact name="slf4j-api" type="jar" ext="jar" status="no" details="" size="29257" time="0" location="C:\Users\Administrator\.ivy2\cache\org.slf4j\slf4j-api\jars\slf4j-api-1.7.7.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7.jar"/>
+					</artifact>
+					<artifact name="slf4j-api" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="195678" time="0" location="C:\Users\Administrator\.ivy2\cache\org.slf4j\slf4j-api\docs\slf4j-api-1.7.7-javadoc.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7-javadoc.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="com.typesafe.akka" name="akka-slf4j_2.10">
+			<revision name="2.3.9" status="release" pubdate="20150120081039" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://akka.io/" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="16">
+				<license name="Apache License, Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0"/>
+				<metadata-artifact status="no" details="" size="3079" time="0" location="C:\Users\Administrator\.ivy2\cache\com.typesafe.akka\akka-slf4j_2.10\ivy-2.3.9.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-slf4j_2.10/2.3.9/akka-slf4j_2.10-2.3.9.pom"/>
+				<caller organisation="justinserver" name="justinserver$sources_javadoc_2.10" conf="compile, runtime" rev="2.3.9" rev-constraint-default="2.3.9" rev-constraint-dynamic="2.3.9" callerrev="1.0"/>
+				<artifacts>
+					<artifact name="akka-slf4j_2.10" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="1971" time="0" location="C:\Users\Administrator\.ivy2\cache\com.typesafe.akka\akka-slf4j_2.10\srcs\akka-slf4j_2.10-2.3.9-sources.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-slf4j_2.10/2.3.9/akka-slf4j_2.10-2.3.9-sources.jar"/>
+					</artifact>
+					<artifact name="akka-slf4j_2.10" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="27079" time="0" location="C:\Users\Administrator\.ivy2\cache\com.typesafe.akka\akka-slf4j_2.10\docs\akka-slf4j_2.10-2.3.9-javadoc.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-slf4j_2.10/2.3.9/akka-slf4j_2.10-2.3.9-javadoc.jar"/>
+					</artifact>
+					<artifact name="akka-slf4j_2.10" type="jar" ext="jar" status="no" details="" size="15520" time="0" location="C:\Users\Administrator\.ivy2\cache\com.typesafe.akka\akka-slf4j_2.10\jars\akka-slf4j_2.10-2.3.9.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-slf4j_2.10/2.3.9/akka-slf4j_2.10-2.3.9.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="org.scalatest" name="scalatest_2.10">
+			<revision name="3.0.0-SNAP4" status="release" pubdate="20141215002326" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.scalatest.org" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="15">
+				<license name="the Apache License, ASL Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0"/>
+				<metadata-artifact status="no" details="" size="4637" time="0" location="C:\Users\Administrator\.ivy2\cache\org.scalatest\scalatest_2.10\ivy-3.0.0-SNAP4.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/org/scalatest/scalatest_2.10/3.0.0-SNAP4/scalatest_2.10-3.0.0-SNAP4.pom"/>
+				<caller organisation="justinserver" name="justinserver$sources_javadoc_2.10" conf="compile, runtime" rev="3.0.0-SNAP4" rev-constraint-default="3.0.0-SNAP4" rev-constraint-dynamic="3.0.0-SNAP4" callerrev="1.0"/>
+				<artifacts>
+					<artifact name="scalatest_2.10" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="1580231" time="0" location="C:\Users\Administrator\.ivy2\cache\org.scalatest\scalatest_2.10\srcs\scalatest_2.10-3.0.0-SNAP4-sources.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/scalatest/scalatest_2.10/3.0.0-SNAP4/scalatest_2.10-3.0.0-SNAP4-sources.jar"/>
+					</artifact>
+					<artifact name="scalatest_2.10" type="jar" ext="jar" status="no" details="" size="8841786" time="0" location="C:\Users\Administrator\.ivy2\cache\org.scalatest\scalatest_2.10\jars\scalatest_2.10-3.0.0-SNAP4.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/scalatest/scalatest_2.10/3.0.0-SNAP4/scalatest_2.10-3.0.0-SNAP4.jar"/>
+					</artifact>
+					<artifact name="scalatest_2.10" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="9105938" time="0" location="C:\Users\Administrator\.ivy2\cache\org.scalatest\scalatest_2.10\docs\scalatest_2.10-3.0.0-SNAP4-javadoc.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/scalatest/scalatest_2.10/3.0.0-SNAP4/scalatest_2.10-3.0.0-SNAP4-javadoc.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="com.typesafe.akka" name="akka-agent_2.10">
+			<revision name="2.3.9" status="release" pubdate="20150120081035" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://akka.io/" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="13">
+				<license name="Apache License, Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0"/>
+				<metadata-artifact status="no" details="" size="3183" time="0" location="C:\Users\Administrator\.ivy2\cache\com.typesafe.akka\akka-agent_2.10\ivy-2.3.9.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-agent_2.10/2.3.9/akka-agent_2.10-2.3.9.pom"/>
+				<caller organisation="justinserver" name="justinserver$sources_javadoc_2.10" conf="compile, runtime" rev="2.3.9" rev-constraint-default="2.3.9" rev-constraint-dynamic="2.3.9" callerrev="1.0"/>
+				<artifacts>
+					<artifact name="akka-agent_2.10" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="23534" time="0" location="C:\Users\Administrator\.ivy2\cache\com.typesafe.akka\akka-agent_2.10\docs\akka-agent_2.10-2.3.9-javadoc.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-agent_2.10/2.3.9/akka-agent_2.10-2.3.9-javadoc.jar"/>
+					</artifact>
+					<artifact name="akka-agent_2.10" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="3181" time="0" location="C:\Users\Administrator\.ivy2\cache\com.typesafe.akka\akka-agent_2.10\srcs\akka-agent_2.10-2.3.9-sources.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-agent_2.10/2.3.9/akka-agent_2.10-2.3.9-sources.jar"/>
+					</artifact>
+					<artifact name="akka-agent_2.10" type="jar" ext="jar" status="no" details="" size="17210" time="0" location="C:\Users\Administrator\.ivy2\cache\com.typesafe.akka\akka-agent_2.10\jars\akka-agent_2.10-2.3.9.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-agent_2.10/2.3.9/akka-agent_2.10-2.3.9.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="org.scala-stm" name="scala-stm_2.10">
+			<revision name="0.7" status="release" pubdate="20121222053826" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://nbronson.github.com/scala-stm/" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="14">
+				<license name="BSD" url="https://github.com/nbronson/scala-stm/blob/master/LICENSE.txt"/>
+				<metadata-artifact status="no" details="" size="2563" time="0" location="C:\Users\Administrator\.ivy2\cache\org.scala-stm\scala-stm_2.10\ivy-0.7.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/org/scala-stm/scala-stm_2.10/0.7/scala-stm_2.10-0.7.pom"/>
+				<caller organisation="justinserver" name="justinserver$sources_javadoc_2.10" conf="compile, runtime" rev="0.7" rev-constraint-default="0.7" rev-constraint-dynamic="0.7" callerrev="1.0"/>
+				<artifacts>
+					<artifact name="scala-stm_2.10" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="937426" time="0" location="C:\Users\Administrator\.ivy2\cache\org.scala-stm\scala-stm_2.10\docs\scala-stm_2.10-0.7-javadoc.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/scala-stm/scala-stm_2.10/0.7/scala-stm_2.10-0.7-javadoc.jar"/>
+					</artifact>
+					<artifact name="scala-stm_2.10" type="jar" ext="jar" status="no" details="" size="650514" time="0" location="C:\Users\Administrator\.ivy2\cache\org.scala-stm\scala-stm_2.10\jars\scala-stm_2.10-0.7.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/scala-stm/scala-stm_2.10/0.7/scala-stm_2.10-0.7.jar"/>
+					</artifact>
+					<artifact name="scala-stm_2.10" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="116136" time="0" location="C:\Users\Administrator\.ivy2\cache\org.scala-stm\scala-stm_2.10\srcs\scala-stm_2.10-0.7-sources.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/scala-stm/scala-stm_2.10/0.7/scala-stm_2.10-0.7-sources.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="com.typesafe.akka" name="akka-testkit_2.10">
+			<revision name="2.3.9" status="release" pubdate="20150120081021" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://akka.io/" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="10">
+				<license name="Apache License, Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0"/>
+				<metadata-artifact status="no" details="" size="2925" time="0" location="C:\Users\Administrator\.ivy2\cache\com.typesafe.akka\akka-testkit_2.10\ivy-2.3.9.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-testkit_2.10/2.3.9/akka-testkit_2.10-2.3.9.pom"/>
+				<caller organisation="justinserver" name="justinserver$sources_javadoc_2.10" conf="compile, runtime" rev="2.3.9" rev-constraint-default="2.3.9" rev-constraint-dynamic="2.3.9" callerrev="1.0"/>
+				<artifacts>
+					<artifact name="akka-testkit_2.10" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="30664" time="0" location="C:\Users\Administrator\.ivy2\cache\com.typesafe.akka\akka-testkit_2.10\srcs\akka-testkit_2.10-2.3.9-sources.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-testkit_2.10/2.3.9/akka-testkit_2.10-2.3.9-sources.jar"/>
+					</artifact>
+					<artifact name="akka-testkit_2.10" type="jar" ext="jar" status="no" details="" size="247658" time="0" location="C:\Users\Administrator\.ivy2\cache\com.typesafe.akka\akka-testkit_2.10\jars\akka-testkit_2.10-2.3.9.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-testkit_2.10/2.3.9/akka-testkit_2.10-2.3.9.jar"/>
+					</artifact>
+					<artifact name="akka-testkit_2.10" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="242199" time="0" location="C:\Users\Administrator\.ivy2\cache\com.typesafe.akka\akka-testkit_2.10\docs\akka-testkit_2.10-2.3.9-javadoc.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-testkit_2.10/2.3.9/akka-testkit_2.10-2.3.9-javadoc.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="com.typesafe.akka" name="akka-actor_2.10">
+			<revision name="2.3.9" status="release" pubdate="20150120080859" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://akka.io/" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="11">
+				<license name="Apache License, Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0"/>
+				<metadata-artifact status="no" details="" size="2687" time="0" location="C:\Users\Administrator\.ivy2\cache\com.typesafe.akka\akka-actor_2.10\ivy-2.3.9.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.10/2.3.9/akka-actor_2.10-2.3.9.pom"/>
+				<caller organisation="justinserver" name="justinserver$sources_javadoc_2.10" conf="compile, runtime" rev="2.3.9" rev-constraint-default="2.3.9" rev-constraint-dynamic="2.3.9" callerrev="1.0"/>
+				<artifacts>
+					<artifact name="akka-actor_2.10" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="331900" time="0" location="C:\Users\Administrator\.ivy2\cache\com.typesafe.akka\akka-actor_2.10\srcs\akka-actor_2.10-2.3.9-sources.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.10/2.3.9/akka-actor_2.10-2.3.9-sources.jar"/>
+					</artifact>
+					<artifact name="akka-actor_2.10" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="2949286" time="0" location="C:\Users\Administrator\.ivy2\cache\com.typesafe.akka\akka-actor_2.10\docs\akka-actor_2.10-2.3.9-javadoc.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.10/2.3.9/akka-actor_2.10-2.3.9-javadoc.jar"/>
+					</artifact>
+					<artifact name="akka-actor_2.10" type="jar" ext="jar" status="no" details="" size="2596474" time="0" location="C:\Users\Administrator\.ivy2\cache\com.typesafe.akka\akka-actor_2.10\jars\akka-actor_2.10-2.3.9.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.10/2.3.9/akka-actor_2.10-2.3.9.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="com.typesafe" name="config">
-			<revision name="1.2.1" status="release" pubdate="20140502185416" resolver="sbt-chain" artresolver="sbt-chain" homepage="https://github.com/typesafehub/config" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="14">
+			<revision name="1.2.1" status="release" pubdate="20140502185416" resolver="sbt-chain" artresolver="sbt-chain" homepage="https://github.com/typesafehub/config" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="12">
 				<license name="Apache License, Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0"/>
 				<metadata-artifact status="no" details="" size="2768" time="0" location="C:\Users\Administrator\.ivy2\cache\com.typesafe\config\ivy-1.2.1.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/com/typesafe/config/1.2.1/config-1.2.1.pom"/>
 				<caller organisation="justinserver" name="justinserver$sources_javadoc_2.10" conf="compile, runtime" rev="1.2.1" rev-constraint-default="1.2.1" rev-constraint-dynamic="1.2.1" callerrev="1.0"/>
@@ -46,7 +244,7 @@
 			</revision>
 		</module>
 		<module organisation="postgresql" name="postgresql">
-			<revision name="9.1-901-1.jdbc4" status="release" pubdate="20111219035532" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://jdbc.postgresql.org" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="12">
+			<revision name="9.1-901-1.jdbc4" status="release" pubdate="20111219035532" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://jdbc.postgresql.org" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="9">
 				<license name="BSD License" url="http://jdbc.postgresql.org/license.html"/>
 				<metadata-artifact status="no" details="" size="2380" time="0" location="C:\Users\Administrator\.ivy2\cache\postgresql\postgresql\ivy-9.1-901-1.jdbc4.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/postgresql/postgresql/9.1-901-1.jdbc4/postgresql-9.1-901-1.jdbc4.pom"/>
 				<caller organisation="justinserver" name="justinserver$sources_javadoc_2.10" conf="compile, runtime" rev="9.1-901-1.jdbc4" rev-constraint-default="9.1-901-1.jdbc4" rev-constraint-dynamic="9.1-901-1.jdbc4" callerrev="1.0"/>
@@ -59,58 +257,6 @@
 					</artifact>
 					<artifact name="postgresql" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="672849" time="0" location="C:\Users\Administrator\.ivy2\cache\postgresql\postgresql\srcs\postgresql-9.1-901-1.jdbc4-sources.jar">
 						<origin-location is-local="false" location="http://repo1.maven.org/maven2/postgresql/postgresql/9.1-901-1.jdbc4/postgresql-9.1-901-1.jdbc4-sources.jar"/>
-					</artifact>
-				</artifacts>
-			</revision>
-		</module>
-		<module organisation="org.scalactic" name="scalactic_2.10">
-			<revision name="2.2.2" status="release" pubdate="20140819075239" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.scalatest.org" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="11">
-				<license name="the Apache License, ASL Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0"/>
-				<metadata-artifact status="no" details="" size="2975" time="0" location="C:\Users\Administrator\.ivy2\cache\org.scalactic\scalactic_2.10\ivy-2.2.2.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/org/scalactic/scalactic_2.10/2.2.2/scalactic_2.10-2.2.2.pom"/>
-				<caller organisation="justinserver" name="justinserver$sources_javadoc_2.10" conf="compile, runtime" rev="2.2.2" rev-constraint-default="2.2.2" rev-constraint-dynamic="2.2.2" callerrev="1.0"/>
-				<artifacts>
-					<artifact name="scalactic_2.10" type="jar" ext="jar" status="no" details="" size="386604" time="0" location="C:\Users\Administrator\.ivy2\cache\org.scalactic\scalactic_2.10\jars\scalactic_2.10-2.2.2.jar">
-						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/scalactic/scalactic_2.10/2.2.2/scalactic_2.10-2.2.2.jar"/>
-					</artifact>
-					<artifact name="scalactic_2.10" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="240" time="0" location="C:\Users\Administrator\.ivy2\cache\org.scalactic\scalactic_2.10\srcs\scalactic_2.10-2.2.2-sources.jar">
-						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/scalactic/scalactic_2.10/2.2.2/scalactic_2.10-2.2.2-sources.jar"/>
-					</artifact>
-					<artifact name="scalactic_2.10" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="905532" time="0" location="C:\Users\Administrator\.ivy2\cache\org.scalactic\scalactic_2.10\docs\scalactic_2.10-2.2.2-javadoc.jar">
-						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/scalactic/scalactic_2.10/2.2.2/scalactic_2.10-2.2.2-javadoc.jar"/>
-					</artifact>
-				</artifacts>
-			</revision>
-		</module>
-		<module organisation="org.apache.logging.log4j" name="log4j-core">
-			<revision name="2.1" status="release" pubdate="20141020054519" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="10">
-				<metadata-artifact status="no" details="" size="27219" time="0" location="C:\Users\Administrator\.ivy2\cache\org.apache.logging.log4j\log4j-core\ivy-2.1.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.1/log4j-core-2.1.pom"/>
-				<caller organisation="justinserver" name="justinserver$sources_javadoc_2.10" conf="compile, runtime" rev="2.1" rev-constraint-default="2.1" rev-constraint-dynamic="2.1" callerrev="1.0"/>
-				<artifacts>
-					<artifact name="log4j-core" type="jar" ext="jar" status="no" details="" size="824749" time="0" location="C:\Users\Administrator\.ivy2\cache\org.apache.logging.log4j\log4j-core\jars\log4j-core-2.1.jar">
-						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.1/log4j-core-2.1.jar"/>
-					</artifact>
-					<artifact name="log4j-core" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="2800863" time="0" location="C:\Users\Administrator\.ivy2\cache\org.apache.logging.log4j\log4j-core\docs\log4j-core-2.1-javadoc.jar">
-						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.1/log4j-core-2.1-javadoc.jar"/>
-					</artifact>
-					<artifact name="log4j-core" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="699656" time="0" location="C:\Users\Administrator\.ivy2\cache\org.apache.logging.log4j\log4j-core\srcs\log4j-core-2.1-sources.jar">
-						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.1/log4j-core-2.1-sources.jar"/>
-					</artifact>
-				</artifacts>
-			</revision>
-		</module>
-		<module organisation="org.apache.logging.log4j" name="log4j-api">
-			<revision name="2.1" status="release" pubdate="20141020053855" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="9">
-				<metadata-artifact status="no" details="" size="29207" time="0" location="C:\Users\Administrator\.ivy2\cache\org.apache.logging.log4j\log4j-api\ivy-2.1.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.1/log4j-api-2.1.pom"/>
-				<caller organisation="justinserver" name="justinserver$sources_javadoc_2.10" conf="compile, runtime" rev="2.1" rev-constraint-default="2.1" rev-constraint-dynamic="2.1" callerrev="1.0"/>
-				<artifacts>
-					<artifact name="log4j-api" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="477478" time="0" location="C:\Users\Administrator\.ivy2\cache\org.apache.logging.log4j\log4j-api\docs\log4j-api-2.1-javadoc.jar">
-						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.1/log4j-api-2.1-javadoc.jar"/>
-					</artifact>
-					<artifact name="log4j-api" type="jar" ext="jar" status="no" details="" size="133531" time="0" location="C:\Users\Administrator\.ivy2\cache\org.apache.logging.log4j\log4j-api\jars\log4j-api-2.1.jar">
-						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.1/log4j-api-2.1.jar"/>
-					</artifact>
-					<artifact name="log4j-api" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="125569" time="0" location="C:\Users\Administrator\.ivy2\cache\org.apache.logging.log4j\log4j-api\srcs\log4j-api-2.1-sources.jar">
-						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.1/log4j-api-2.1-sources.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>

@@ -21,13 +21,10 @@ class TransportProtocolCollection(val aRefMaster: TcpConnectionHandlerActor ) {
   def +=(pid:Int, func:doSomething, tempFlag:Int =0): Unit ={
     import scala.concurrent.duration._
     implicit val ec = aRefMaster.context.system.dispatcher
-    implicit var timeout = GlobalContext.defoultPkgTimeToLive
-      tempFlag match {
-        case 1 => timeout = GlobalContext.timeToWeightCallIntentAnswerTCP
-        case _=>
-      }
+    implicit var timeout = GlobalContext.pkgTimeToLive
+
     val dellF = Future {
-      Thread.sleep(GlobalContext.timeToPing.duration.toNanos)
+      Thread.sleep(GlobalContext.timeToPing.toNanos)
       pid
     }
     dellF.onSuccess{

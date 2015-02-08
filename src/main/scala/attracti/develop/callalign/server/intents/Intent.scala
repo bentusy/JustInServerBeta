@@ -2,7 +2,7 @@ package attracti.develop.callalign.server.intents
 
 
 
-import akka.actor.{Props, Actor, Cancellable}
+import akka.actor.{ActorLogging, Props, Actor, Cancellable}
 import attracti.develop.callalign.server.GlobalContext
 import attracti.develop.callalign.server.utill._
 
@@ -17,7 +17,7 @@ object Intent{
     Props(new Intent(mc,metaDatac,myIndexc))
 }
 
-class Intent(val myConteiner:IntentConteiner, val metaDatac:UsersMetaData, val myIndexc:IIndex ) extends Actor {
+class Intent(val myConteiner:IntentConteiner, val metaDatac:UsersMetaData, val myIndexc:IIndex ) extends Actor with ActorLogging {
 
   implicit val ex = context.system.dispatcher
   var cancellSR:Cancellable=null
@@ -31,10 +31,17 @@ class Intent(val myConteiner:IntentConteiner, val metaDatac:UsersMetaData, val m
   override def receive: Receive = {
 
     case IntentManagerToIntentTerminate()=>
-//      cancellSR.cancel();cancellPromise._1.cancel();cancellPromise._2.cancel();
+
+      if(cancellSR!=null){
+      cancellSR.cancel()}
+      if(cancellPromise!=null){
+      cancellPromise._1.cancel();
+      cancellPromise._2.cancel()}
     context.system.stop(self)
 
     case IntentCalculatorToIntentWork()=>{
+      println("Intent start work")
+      log.debug("Intent start work "+ self)
     myConteiner.istatus.value=0
      val sch=context.system.scheduler
     cancellSR=  sch.scheduleOnce(GlobalContext.delayIStatusReturn){ myConteiner.istatus.value=1}
@@ -54,13 +61,14 @@ class Intent(val myConteiner:IntentConteiner, val metaDatac:UsersMetaData, val m
         rs2<-fds} yield (rs1, rs2)
 
     rsp.onSuccess{
-      case (1,1)=>myConteiner.aRefCreator ! IntentToUserCall(myConteiner);cancellPromise._1.cancel();cancellPromise._2.cancel();
+      case (1,1)=>myConteiner.aRefCreator ! IntentToUserCall(myConteiner);cancellPromise._1.cancel();cancellPromise._2.cancel();println("интент - "+myConteiner.iid+" OK")
       case (_,_)=>myConteiner.aRefCreator ! IntentToUserFree(); myConteiner.aRefDestination ! IntentToUserFree()
     }
 
    }
 
     case UserToIntentMetaRefresh()=>{
+      log.debug("Intent refresh "+ self)
       weightRefresh
     }
 

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- Properties are set below, alternatively they can be set as system
+         properties or passed as command line arguments -->
+    <property name="LOG_HOME" value="Logs" />
+
+    <property name="LOG_MAIN_FILE_NAME" value="applic.log" />
+    <timestamp key="bySecond" datePattern="yyyy.MM.dd"/>
+
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!--<ImmediateFlush>true</ImmediateFlush>-->
+        <encoder>
+            <pattern><!--%date{ISO8601}--> %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="FILE_full" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/full-${bySecond}.log</file>
+        <!-- Support multiple-JVM writing to the same log file -->
+        <prudent>false</prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/full/%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern><!--%date{ISO8601}--> %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE_UserManager" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_HOME}/usermanager-${bySecond}.log</file>
+    <!-- Support multiple-JVM writing to the same log file -->
+    <prudent>false</prudent>
+    <!--<ImmediateFlush>true</ImmediateFlush>-->
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>${LOG_HOME}/UserManager/%d{yyyy-MM-dd}.log</fileNamePattern>
+        <!-- keep 30 days' worth of history -->
+        <maxHistory>30</maxHistory>
+    </rollingPolicy>
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+        <maxFileSize>5MB</maxFileSize>
+    </triggeringPolicy>
+    <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+        <evaluator> <!-- defaults to type ch.qos.logback.classic.boolex.JaninoEventEvaluator -->
+            <expression>return formattedMessage.contains("UserManager");</expression>
+        </evaluator>
+        <OnMismatch>DENY</OnMismatch>
+        <OnMatch>ACCEPT</OnMatch>
+    </filter>
+    <encoder>
+        <pattern><!--%date{ISO8601} -->%msg%n</pattern>
+    </encoder>
+</appender>
+
+    <appender name="FILE_TCPServer" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/tcpserver-${bySecond}.log</file>
+        <!-- Support multiple-JVM writing to the same log file -->
+        <prudent>false</prudent>
+        <!--<ImmediateFlush>true</ImmediateFlush>-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/tcpserver/%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator> <!-- defaults to type ch.qos.logback.classic.boolex.JaninoEventEvaluator -->
+                <expression>return (formattedMessage.contains("tcpserver")||formattedMessage.contains("TCPServer"));</expression>
+            </evaluator>
+            <OnMismatch>DENY</OnMismatch>
+            <OnMatch>ACCEPT</OnMatch>
+        </filter>
+        <encoder>
+            <pattern><!--%date{ISO8601}--> %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE_IntentManager" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/intentmanager-${bySecond}.log</file>
+        <!-- Support multiple-JVM writing to the same log file -->
+        <prudent>false</prudent>
+        <!--<ImmediateFlush>true</ImmediateFlush>-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/intentmanager/%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator> <!-- defaults to type ch.qos.logback.classic.boolex.JaninoEventEvaluator -->
+                <expression>return formattedMessage.contains("IntentManager");</expression>
+            </evaluator>
+            <OnMismatch>DENY</OnMismatch>
+            <OnMatch>ACCEPT</OnMatch>
+        </filter>
+        <encoder>
+            <pattern><!--%date{ISO8601} -->%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE_IntentCalculator" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/intentcalculator-${bySecond}.log</file>
+        <!-- Support multiple-JVM writing to the same log file -->
+        <prudent>false</prudent>
+        <!--<ImmediateFlush>true</ImmediateFlush>-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/intentcalculator/%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator> <!-- defaults to type ch.qos.logback.classic.boolex.JaninoEventEvaluator -->
+                <expression>return formattedMessage.contains("IntentCalculator");</expression>
+            </evaluator>
+            <OnMismatch>DENY</OnMismatch>
+            <OnMatch>ACCEPT</OnMatch>
+        </filter>
+        <encoder>
+            <pattern><!--%date{ISO8601}--> %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE_Users" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/user-${bySecond}.log</file>
+        <!-- Support multiple-JVM writing to the same log file -->
+        <prudent>false</prudent>
+        <!--<ImmediateFlush>true</ImmediateFlush>-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/users/%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator> <!-- defaults to type ch.qos.logback.classic.boolex.JaninoEventEvaluator -->
+                <expression>return formattedMessage.contains("User");</expression>
+            </evaluator>
+            <OnMismatch>DENY</OnMismatch>
+            <OnMatch>ACCEPT</OnMatch>
+        </filter>
+        <encoder>
+            <pattern><!--%date{ISO8601}--> %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE_BdManager" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/bdmanager-${bySecond}.log</file>
+        <!-- Support multiple-JVM writing to the same log file -->
+        <prudent>false</prudent>
+        <!--<ImmediateFlush>true</ImmediateFlush>-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/bdmanager/%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator> <!-- defaults to type ch.qos.logback.classic.boolex.JaninoEventEvaluator -->
+                <expression>return formattedMessage.contains("BdManager");</expression>
+            </evaluator>
+            <OnMismatch>DENY</OnMismatch>
+            <OnMatch>ACCEPT</OnMatch>
+        </filter>
+        <encoder>
+            <pattern><!--%date{ISO8601}--> %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE_TcpConnection" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/tcponnection-${bySecond}.log</file>
+        <!-- Support multiple-JVM writing to the same log file -->
+        <prudent>false</prudent>
+        <!--<ImmediateFlush>true</ImmediateFlush>-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/tcpconection/%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator> <!-- defaults to type ch.qos.logback.classic.boolex.JaninoEventEvaluator -->
+                <expression>return formattedMessage.contains("TcpConnection");</expression>
+            </evaluator>
+            <OnMismatch>DENY</OnMismatch>
+            <OnMatch>ACCEPT</OnMatch>
+        </filter>
+        <encoder>
+            <pattern><!--%date{ISO8601}--> %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE_Intent" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/intent-${bySecond}.log</file>
+        <!-- Support multiple-JVM writing to the same log file -->
+        <prudent>false</prudent>
+        <!--<ImmediateFlush>true</ImmediateFlush>-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/intent/%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator> <!-- defaults to type ch.qos.logback.classic.boolex.JaninoEventEvaluator -->
+                <expression>return formattedMessage.contains("Intent");</expression>
+            </evaluator>
+            <OnMismatch>DENY</OnMismatch>
+            <OnMatch>ACCEPT</OnMatch>
+        </filter>
+        <encoder>
+            <pattern><!--%date{ISO8601} -->%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE_full" />
+        <appender-ref ref="FILE_UserManager" />
+        <appender-ref ref="FILE_Intent" />
+        <appender-ref ref="FILE_TcpConnection" />
+        <appender-ref ref="FILE_BdManager" />
+        <appender-ref ref="FILE_Users" />
+        <appender-ref ref="FILE_IntentManager" />
+        <appender-ref ref="FILE_IntentCalculator" />
+        <appender-ref ref="FILE_TCPServer" />
+    </root>
+</configuration>

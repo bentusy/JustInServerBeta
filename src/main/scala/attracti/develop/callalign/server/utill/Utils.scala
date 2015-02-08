@@ -48,7 +48,7 @@ object Utils {
 }
 
   def makeKeyFromUsersId(idCreator: String, idDestinatio: String): String ={
-    idCreator.substring(idCreator.length-7, idCreator.length)+idDestinatio.substring(idDestinatio.length-7, idDestinatio.length)
+    idCreator.substring(1, idCreator.length)+idDestinatio.substring(1, idDestinatio.length)
   }
 
   def matchIt(str: String, p:Pattern):Boolean={

@@ -3,19 +3,23 @@ package attracti.develop.callalign.server.bd
 import java.util.Calendar
 
 import akka.actor.ActorRef
+import attracti.develop.callalign.server.GlobalContext
 import attracti.develop.callalign.server.intents.{UsersMetaData, IntentConteiner, Intent}
 import attracti.develop.callalign.server.users.{User}
 import java.sql.{Connection, DriverManager, ResultSet}
 
-import attracti.develop.callalign.server.utill.{BdManagerToUserManagerLoad, ProtoMetaData, ProtoUser, ProtoIntent}
+import attracti.develop.callalign.server.utill._
 
 import scala.collection.Map
 import scala.collection.mutable.{ListBuffer, ArrayBuffer}
+import com.typesafe.config._
 
+import scala.tools.nsc.Global
 
 class BDHandler {
 
-  val conn_str = "jdbc:postgresql://localhost:5432/callalign?user=postgres&password=artemcom"
+
+  var conn_str:String = GlobalContext.bdUri
 
 
 
@@ -149,7 +153,7 @@ class BDHandler {
   def markPreparetoremove(intent: IntentConteiner, i: Int){
     println("Помечаю подготовку на удаление")
     val conn = DriverManager.getConnection(conn_str)
-    try {
+        try {
       val pst = conn.prepareCall("SELECT preparetoremove_intent(?, ?)")
       pst.setString(1, intent.iid)
       pst.setInt(2, i)
@@ -351,19 +355,19 @@ class BDHandler {
           rs2.getInt("preparetoremove"),
           rs2.getBoolean("synchronize"),
           rs2.getBoolean("index_manual_chng"),
-          rs2.getInt("index_order integer")
+          rs2.getInt("index_order")
         )
       }
-      val rs3 = st.executeQuery("SELECT * from intents WHERE actualmark = true");
+      val rs3 = st.executeQuery("SELECT * from metas");
       while (rs3.next()) {
         pm += new ProtoMetaData(
         rs3.getString("id_meta"),
         rs3.getString("id_user1"),
         rs3.getString("id_user2"),
-        rs3.getInt("users1_to_user2_calltime integer"),
-        rs3.getInt("users1_to_user2_callcount integer"),
-        rs3.getInt("users2_to_user1_calltime integer"),
-        rs3.getInt("users2_to_user1_callcount integer")
+        rs3.getInt("users1_to_user2_calltime"),
+        rs3.getInt("users1_to_user2_callcount"),
+        rs3.getInt("users2_to_user1_calltime"),
+        rs3.getInt("users2_to_user1_callcount")
         )
       }
       println("LoadFromBdComplete")

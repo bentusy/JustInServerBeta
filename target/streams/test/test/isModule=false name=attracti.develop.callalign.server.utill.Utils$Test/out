@@ -1,5 +1,0 @@
-[info] Utils$Test:
-[info] Tests Utils methods
-[info] - should return string value for protocol
-[info] Test of regex verify
-[info] - should Return tru or false

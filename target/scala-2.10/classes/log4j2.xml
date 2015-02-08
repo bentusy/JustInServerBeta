@@ -29,7 +29,7 @@
 
     <Loggers>
         <Logger name="InfoLoger" level="debug" additivity="false">
-              <AppenderRef ref="STDOUT"/>
+              <!--<AppenderRef ref="STDOUT"/>-->
             <AppenderRef ref="RollingFile"/>
         </Logger>
 

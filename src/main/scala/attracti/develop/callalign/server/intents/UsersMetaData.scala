@@ -8,7 +8,7 @@ import attracti.develop.callalign.server.utill.Utils
 /**
  * Created by Administrator on 1/19/2015.
  */
-case class UsersMetaData(user1Id: String, user1Aref: ActorRef, user2Id: String, user2Aref: ActorRef,var u1Tou2CallTime: Int=0,var u1Tou2CallCount: Int=0,
+case class UsersMetaData(user1Id: String,var user1Aref: ActorRef, user2Id: String, var user2Aref: ActorRef,var u1Tou2CallTime: Int=0,var u1Tou2CallCount: Int=0,
                          var u2Tou1CallTime: Int=0,var u2Tou1CallCount: Int=0){
 
   var lastChangeDate:Calendar=Calendar.getInstance()
@@ -57,9 +57,10 @@ case class UsersMetaData(user1Id: String, user1Aref: ActorRef, user2Id: String, 
 }
 
   def getSecondUserRef(implicit ref:ActorRef):ActorRef=
-  if(ref==user1Aref) user2Aref
-  else
-  if(ref==user2Aref) user1Aref
-  else
-  null
+  if(ref==user1Aref){ user2Aref}
+  else{
+  if(ref==user2Aref){ user1Aref}
+  else{
+  null}
+}
 }

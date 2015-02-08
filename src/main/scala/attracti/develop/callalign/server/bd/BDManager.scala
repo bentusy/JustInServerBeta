@@ -5,7 +5,7 @@ import akka.actor.Actor.Receive
 import attracti.develop.callalign.server.intents.Intent
 import attracti.develop.callalign.server.users.User
 import attracti.develop.callalign.server.utill._
-import org.apache.logging.log4j.{LogManager, Logger}
+//import org.apache.logging.log4j.{LogManager, Logger}
 import scala.collection.Map
 import scala.collection.mutable.ArrayBuffer
 
@@ -14,9 +14,9 @@ import scala.collection.mutable.ArrayBuffer
  */
 class BDManager (val bdHandler: BDHandler) extends Actor{
 
-  val log: Logger = LogManager.getLogger("InfoLoger")
+//  val log: Logger = LogManager.getLogger("InfoLoger")
  override def preStart(): Unit ={
-   log.info("Start BD Manager")
+//   log.info("Start BD Manager")
  }
 
   override def receive: Receive = {

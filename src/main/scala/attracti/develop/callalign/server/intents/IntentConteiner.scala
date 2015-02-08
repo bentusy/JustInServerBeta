@@ -1,6 +1,6 @@
 package attracti.develop.callalign.server.intents
 
-import java.util.Calendar
+import java.util.{Date, Calendar}
 import java.util.concurrent.TimeUnit
 
 import akka.actor.ActorRef
@@ -12,22 +12,25 @@ class IntentConteiner(val iid: String,val idCreator:String,val statusCreator: St
   val dateToDie=Calendar.getInstance()
   dateToDie.add(Calendar.MINUTE, timeToDiec.toInt)
   var synchronize= false
-private[this] var iRefV:ActorRef=null
+/*private[this]*/ var iRef:ActorRef=null
 private[this] var putFlag=true
 private[this] var putSFlag=true
 private[this] var putDFlag=true
- var istatus:Status=null
+ var istatus:Status=Status(1)
  var statusDestisnation: Status=null
  var isInRecycle=false
  var weight=0
 
 
   def this(iid: String, idCreator:String, statusCreator: Status, aRefCreator:ActorRef,
-          idDestination:String, statusDestinationc: Status, aRefDestination:ActorRef, inedx:IIndex, timeToDiec: String, prepToRemove:Int, synchr: Boolean){
-    this(iid, idCreator, statusCreator, aRefCreator, idDestination, aRefDestination, inedx, timeToDiec)
+          idDestination:String, statusDestinationc: Status, aRefDestination:ActorRef, inedx:IIndex, dateToDiec: String, prepToRemove:Int, synchr: Boolean){
+
+    this(iid, idCreator, statusCreator, aRefCreator, idDestination, aRefDestination, inedx, "1")
     statusDestisnation=statusDestinationc
     isInRecycle=if(prepToRemove==3)false else true
     synchronize=synchr
+//   println("TestPoint"+dateToDie)
+    dateToDie.setTime(new Date(dateToDiec.toLong))
   }
 
   def isICreator(id:String):Boolean={
@@ -39,11 +42,11 @@ private[this] var putDFlag=true
   }
 
 
-  def iRef=iRefV
+/*  def iRef=iRefV
 
   def iRef_=(ir: ActorRef): Unit ={
-    if(putFlag){iRef=ir; putFlag=false;} else throw PutExceptions(s"cannot put $ir, this container is already comprise Intent")
-  }
+    if(putFlag){iRef=ir; putFlag=false;return } /*else throw PutExceptions(s"cannot put $ir, this container is already comprise Intent")*/
+  }*/
 
   def putIStatus(st: Status): Unit ={
     if(putSFlag){istatus=st; putSFlag=false;} else throw PutExceptions(s"cannot put $st, this container is already comprise Status")

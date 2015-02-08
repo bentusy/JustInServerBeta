@@ -611,9 +611,9 @@
 [debug] 	[NOT REQUIRED] org.scala-sbt#test-agent;0.13.5!test-agent.jar
 [debug] 	[NOT REQUIRED] org.scala-sbt#test-interface;1.0!test-interface.jar
 [debug] 	[NOT REQUIRED] org.scala-sbt#apply-macro;0.13.5!apply-macro.jar
-[debug] :: resolution report :: resolve 3167ms :: artifacts dl 69ms
+[debug] :: resolution report :: resolve 5588ms :: artifacts dl 208ms
 [debug] 	report for justinserver#justinserver$sbt_2.10;1.0 default produced in E:\IdeaProjects\JustInServer\target\resolution-cache\reports\justinserver-justinserver$sbt_2.10-default.xml
-[debug] 	resolve done (3167ms resolve - 69ms download)
+[debug] 	resolve done (5588ms resolve - 208ms download)
 [debug] Using inline dependencies specified in Scala.
 [debug] :: resolving dependencies :: justinserver#justinserver$sources_2.10;1.0
 [debug] 	confs: [default]
@@ -955,6 +955,6 @@
 [debug] 	[NOT REQUIRED] org.scala-sbt#precompiled-2_8_2;0.13.5!precompiled-2_8_2.jar(src)
 [debug] 	[NOT REQUIRED] org.scala-sbt#precompiled-2_9_2;0.13.5!precompiled-2_9_2.jar(src)
 [debug] 	[NOT REQUIRED] org.scala-sbt#precompiled-2_9_3;0.13.5!precompiled-2_9_3.jar(src)
-[debug] :: resolution report :: resolve 665ms :: artifacts dl 68ms
+[debug] :: resolution report :: resolve 626ms :: artifacts dl 93ms
 [debug] 	report for justinserver#justinserver$sources_2.10;1.0 default produced in E:\IdeaProjects\JustInServer\target\resolution-cache\reports\justinserver-justinserver$sources_2.10-default.xml
-[debug] 	resolve done (665ms resolve - 68ms download)
+[debug] 	resolve done (626ms resolve - 93ms download)

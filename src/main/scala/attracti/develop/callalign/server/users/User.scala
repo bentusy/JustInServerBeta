@@ -3,10 +3,11 @@ package attracti.develop.callalign.server.users
 import java.util.Calendar
 
 import akka.actor.{ActorRef,Cancellable}
+import akka.event.{LoggingAdapter, Logging}
 import attracti.develop.callalign.server.intents.{IntentConteiner, UsersMetaData, Intent}
 import attracti.develop.callalign.server.GlobalContext
 import attracti.develop.callalign.server.utill._
-import org.apache.logging.log4j.{LogManager, Logger}
+//import org.apache.logging.log4j.{LogManager, Logger}
 import akka.pattern.{ ask, pipe }
 
 import scala.collection.{mutable, Map}
@@ -18,16 +19,16 @@ import scala.util.{Failure, Success}
 class User(val id: String, val countryCod:String, val globalMap:Map[String, ActorRef], val intentManager: ActorRef,
             val dao: ActorRef, val metaMap:Map[String, UsersMetaData], val userManager: ActorRef) {
 
+  var log:LoggingAdapter = null
 
-
-  val log: Logger = LogManager.getLogger("InfoLoger")
+//  val log: Logger = LogManager.getLogger("InfoLoger")
 
   var deviceType:Int=0
   var userActor:UserActor=null
   var connection:ActorRef=null
   implicit var slf:ActorRef=null
   implicit var ex: ExecutionContextExecutor=null
-  var status = Status();
+  var status = Status(0);
   var statusTo0Cancell:Cancellable=null
   var cancellableStatusChngIntrequestForCall:Cancellable=null
   var contacts: ArrayBuffer[String] = ArrayBuffer()
@@ -49,13 +50,13 @@ class User(val id: String, val countryCod:String, val globalMap:Map[String, Acto
 
     val rUserM =regContatcs.getOrElse(rUser, null)
     if(rUserM!=null){
-      if(flagIntentWorkWithMe==false) {
+      if(flagIntentWorkWithMe==false){
         flagIntentWorkWithMe==true
         val pc=Promise[Int]()
-        val cpc = userActor.context.system.scheduler.scheduleOnce(GlobalContext.delayUserToUserCallRQ){pc.trySuccess(1)}
+        cancellableStatusChngIntrequestForCall = userActor.context.system.scheduler.scheduleOnce(GlobalContext.delayUserToUserCallRQ){pc.trySuccess(1)}
         pc.future.onSuccess{
-          case v:Int if v==5 =>connection ! UserToTcpResponsForCallRequest(v,pid);cpc.cancel();
-          case v:Int if v!=5 =>connection ! UserToTcpResponsForCallRequest(v,pid);cpc.cancel();setStatus(1)
+          case v:Int if v==5 =>connection ! UserToTcpResponsForCallRequest(v,pid);cancellableStatusChngIntrequestForCall.cancel();
+          case v:Int if v!=5 =>connection ! UserToTcpResponsForCallRequest(v,pid);status.rollback;flagIntentWorkWithMe==false;if(cancellableStatusChngIntrequestForCall!=null)cancellableStatusChngIntrequestForCall.cancel();
         }
         setStatus(0)
         rUserM.getSecondUserRef ! UserToUserRequestSolutionForCall(pc,id)
@@ -68,15 +69,15 @@ class User(val id: String, val countryCod:String, val globalMap:Map[String, Acto
   def requestForCallFromUser(pr:Promise[Int],rid:String): Unit ={
 
     if(regContatcs.contains(rid)==false){pr.trySuccess(0); return}
-    if(status==0||flagIntentWorkWithMe){
+    if(status.value==0||flagIntentWorkWithMe){
       pr.trySuccess(1);
       return
     }
-    if(status==1&&flagIntentWorkWithMe==false){
+    if(status.value==1&&flagIntentWorkWithMe==false){
       flagIntentWorkWithMe==true
-      setStatus(0)
+//      status.value= 0
       pr.trySuccess(5);
-      userActor.context.system.scheduler.scheduleOnce(GlobalContext.delayUserRollBackStatus){status.rollback;flagIntentWorkWithMe==false}
+      cancellableStatusChngIntrequestForCall= userActor.context.system.scheduler.scheduleOnce(GlobalContext.delayUserRollBackFree){/*status.rollback;*/this.flagIntentWorkWithMe==false}
       return
     }
 
@@ -96,10 +97,12 @@ class User(val id: String, val countryCod:String, val globalMap:Map[String, Acto
   def dropConection: Unit ={
     connection = null
     lastConnectDate.setTimeInMillis(System.currentTimeMillis())
+    println("DROPCONNECTION IN USER")
     deviceType match {
-        
+
     case 0=>
     statusTo0Cancell = userActor.context.system.scheduler.scheduleOnce(GlobalContext.delayUserStatusTo0){status.value=0;
+
     setStatus(0)}
 
     case 1=>
@@ -109,11 +112,13 @@ class User(val id: String, val countryCod:String, val globalMap:Map[String, Acto
 
 
   def statusRQfromInent(pr: Promise[Int]): Unit ={
-    if(flagIntentWorkWithMe) pr.trySuccess(0)
+    println("Запрос статуса из интента в при этом статус ="+status.value+" flag -"+flagIntentWorkWithMe+" в актёре "+id)
+    if(flagIntentWorkWithMe/*&&status.value==1*/) pr.trySuccess(0)
       else {
         if (status.value==1) {
           pr.trySuccess(1)
           flagIntentWorkWithMe = true
+          userActor.context.system.scheduler.scheduleOnce(GlobalContext.delayUserRollBackFree){this.flagIntentWorkWithMe = false}
             }else{
               if(connection==null&&System.currentTimeMillis()-lastConnectDate.getTimeInMillis<900000) {
                 Utils.makePush
@@ -121,17 +126,16 @@ class User(val id: String, val countryCod:String, val globalMap:Map[String, Acto
                 }else pr.trySuccess(0)
         }
   }
-
-  }
+ }
 
   def startWorkIntent(ic:IntentConteiner): Unit ={
-    connection ! UserToTcpCallIntentINF(ic)
+    if(connection!=null)connection ! UserToTcpCallIntentINF(ic)
     setStatus(0)
     flagIntentWorkWithMe=false
   }
 
   def setStatus(statusm: Int): Unit = {
-
+    println("изменяется статус в"+id+" "+status.value+"->"+statusm)
     def inform():Unit={
     flagConfigStatusEvent match{
       case 0=> seeingList.foreach(_._2 ! UserToUserMyStatusIsChange(id, status.value))
@@ -141,9 +145,10 @@ class User(val id: String, val countryCod:String, val globalMap:Map[String, Acto
   }
 
    statusm match {
-     case 0 if(status==1)=> status.value = statusm;inform;
+     case 0 /*if(status.value==1)*/=> status.value = statusm;inform;if(cancellableStatusChngIntrequestForCall!=null){cancellableStatusChngIntrequestForCall.cancel()}; cancellableStatusChngIntrequestForCall=null
 
-     case 1 if(status==0)=> status.value = statusm;inform;flagIntentWorkWithMe=false;if(cancellableStatusChngIntrequestForCall!=null)cancellableStatusChngIntrequestForCall.cancel();cancellableStatusChngIntrequestForCall=null
+     case 1 if(status.value==0)=> status.value = statusm;inform;flagIntentWorkWithMe=false;if(cancellableStatusChngIntrequestForCall!=null)cancellableStatusChngIntrequestForCall.cancel();cancellableStatusChngIntrequestForCall=null
+     case 1/* if(status.value==0)*/=> status.value = statusm;inform;
 
      case _=>println(s" изменить статус из $status to $statusm")
    }
@@ -161,7 +166,7 @@ class User(val id: String, val countryCod:String, val globalMap:Map[String, Acto
         if(d.isDefined){
           val key1=Utils.makeKeyFromUsersId(id,a)
           val key2=Utils.makeKeyFromUsersId(a,id)
-          val md = metaMap get key1 orElse  metaMap.get(key2) orElse {val umd = new UsersMetaData(id, slf, a, d.get);
+          val md = metaMap get key1 orElse  metaMap.get(key2) orElse {val umd = new UsersMetaData(id, slf, a, d.get);;println(s"Создал мета in  setAllContats  из slf [$slf] and ["+d.get+"]");
             userManager ! UserToUserManagerAddMetadates(slf, umd);Some(umd)}
           regContatcs += a->md.get
         }
@@ -180,26 +185,31 @@ class User(val id: String, val countryCod:String, val globalMap:Map[String, Acto
   }
 
   def addContacts(list: Array[String], pid: Int): Unit = {
-    log.info(id + " Start add contacts")
+//    log.debug("User ["+id + "] adding ["+list.length+"] contacts pid["+pid+"]")
     val rc: MMap[String, UsersMetaData] = MMap()
     val c = ArrayBuffer[String]()
 
-    for(a<-list if a.length==13&&a!=id ){
-      c +=a
+    for(a<-list if a.length==13&&a!=id ) {
+      c += a
       val d = globalMap.get(a)
-      if(d.isDefined){
-        val key1=Utils.makeKeyFromUsersId(id,a)
-        val key2=Utils.makeKeyFromUsersId(a,id)
-        val md = metaMap get key1 orElse  metaMap.get(key2) orElse {val umd = new UsersMetaData(id, slf, a, d.get);
-          userManager ! UserToUserManagerAddMetadates(slf, umd);Some(umd)}
-        rc += a->md.get
+      if (d.isDefined) {
+        val key1 = Utils.makeKeyFromUsersId(id, a)
+        val key2 = Utils.makeKeyFromUsersId(a, id)
+        val md = metaMap get key1 orElse metaMap.get(key2) orElse {
+          val umd = new UsersMetaData(id, slf, a, d.get);println(s"Создал мета in addContacts  из slf [$slf] and ["+d.get+"]");
+          userManager ! UserToUserManagerAddMetadates(slf, umd);
+          Some(umd)
+        }
+        rc += a -> md.get
       }
-
+    }
+    println("regContatcs size befor add contacts - "+regContatcs.size )
     regContatcs ++= rc
+    println("regContatcs size after add contacts - "+regContatcs.size )
     contacts ++=c
     dao ! UserToBDAddContacts(id, c, rc.keys)
     connection ! UserToTcpAfterAddContacts(rc.keys, pid)
-  }}
+  }
 
 
   def newUserHaveRegisteredInSystem(idm:String, aRef:ActorRef): Unit ={
@@ -207,8 +217,12 @@ class User(val id: String, val countryCod:String, val globalMap:Map[String, Acto
       val key1=Utils.makeKeyFromUsersId(id,idm)
       val key2=Utils.makeKeyFromUsersId(idm,id)
       val rz=metaMap get key1 orElse  metaMap.get(key2) orElse {val umd = new UsersMetaData(id, slf, idm, aRef)
-        userManager ! UserToUserManagerAddMetadates(slf, umd);Some(umd)}
+        userManager ! UserToUserManagerAddMetadates(slf, umd);println(s"Создал мета in newUserHaveRegisteredInSystem  из slf [$slf] and [$aRef]");Some(umd)}
+      println("regContatcs size befor add new user - "+regContatcs.size)
+      regContatcs.foreach(x=>println(x+" regContatcs befor add new user"))
       regContatcs +=(idm -> rz.get);
+      println("regContatcs size after add new user - "+regContatcs.size)
+      regContatcs.foreach(x=>println(x+" regContatcs after add new user"))
      if(connection!=null){
      connection ! UserToTcpYourContactHaveRegistr(idm)
      }
@@ -217,7 +231,9 @@ class User(val id: String, val countryCod:String, val globalMap:Map[String, Acto
   }
 
   def setMetasFromUM(um: UsersMetaData) {
+    println("regContatcs setMetas from UM size befor - "+regContatcs.size)
     if(regContatcs.contains(um.getSecondUserId(id)))regContatcs += um.getSecondUserId(id)->um
+    println("regContatcs size after set metas - "+regContatcs.size)
   }
 
 
@@ -270,7 +286,9 @@ class User(val id: String, val countryCod:String, val globalMap:Map[String, Acto
       for (a <- list) {
         val d = regContatcs.getOrElse(a, null)
         if (d != null) {
-          seeingList += (a -> d.getSecondUserRef)
+          val f = (a -> d.getSecondUserRef)
+          seeingList += f
+          f._2 ! UserToUserMyStatusIsChange(id, status.value)
         }else{errorList+=a}
       }
       dao ! UserToBDSetSeeings(id, seeingList)
@@ -279,6 +297,8 @@ class User(val id: String, val countryCod:String, val globalMap:Map[String, Acto
 
     def removeSeeing(list: Array[String], pid: Int): Unit = {
       log.info(id + " remove from SeeingList")
+      val sd=seeingList.filter(x=>list.contains(x._1))
+      sd.foreach(x=>x._2 ! UserToUserMyStatusIsChange(id,0))
       seeingList --= list
       dao ! UserToBDRemoveFromSeeings(id, list)
       connection ! UserToTcpAfterRemoveSeeings(pid)
@@ -287,32 +307,45 @@ class User(val id: String, val countryCod:String, val globalMap:Map[String, Acto
   def configStatusEvent(conf:Int, pid:Int){flagConfigStatusEvent=conf;connection ! UserTotcpStatusEventConfRS(pid)}
 
     def addSeeings(list: Array[String], pid:  Int): Unit = {
-      if(id=="+380995450043"){
-      log.info(id + " add Favorits")}
+
       val errorList = ArrayBuffer[String]()
       val sl = MMap[String, ActorRef]()
       for (a <- list) {
         var d = regContatcs.getOrElse(a, null)
-        if (d != null && seeingList.contains(a)==false) {
-          sl += (a -> d.getSecondUserRef)
-        }else{errorList+=a}
+        if (d != null) {
+          if (seeingList.contains(a) == false) {
+            val f = (a -> d.getSecondUserRef)
+            sl += f
+            f._2 ! UserToUserMyStatusIsChange(id, status.value)
+          } else {
+            errorList += a
+          }
+        }
+        if(sl.isEmpty==false){
+        seeingList ++= sl
+        dao ! UserToBDAddForSeeings(id, sl.keys.toArray)
+        connection ! UserToTcpAfterAddSeeings(errorList, pid)
       }
-      seeingList ++=sl
-      dao ! UserToBDAddForSeeings(id, sl.keys.toArray)
-      connection ! UserToTcpAfterAddSeeings(errorList, pid)
       }
-
+    }
 
 
     def hailStatusOfMyContact(pid: Int): Unit ={
-    for (a<-regContatcs){
+      println("Slf "+slf+" id- "+id)
+      println("regContatcs size befor hailStatus - "+regContatcs.size)
+      regContatcs.foreach(x=>println("["+x._1+"]["+x._2+"] regContatcs in heail my ststus"))
+      for (a<-regContatcs){
+      println("["+a._1+"]["+a._2+"]regContatcs in loop hailStstus")
       a._2.getSecondUserRef ! UserToUserGetMeYourStatus(id, userActor.getMyActorRef())
     }
       connection ! UserToTcpAfterGetAllStatus(pid)
     }
 
   def load(intents:ArrayBuffer[IntentConteiner], regcs:Array[String], favoritcs:Array[String], seeingscs:Array[String]): Unit ={
-  regcs.foreach(x=>regContatcs+=(x -> metaMap.find(b=>b._2.isMy(id, x)).get._2))
+    println("LOAD USER ")
+  regcs.foreach(x=>
+    regContatcs+=(x -> (metaMap.find(b=>b._2.isMy(id, x)) orElse {val umd = new UsersMetaData(id, slf, x, globalMap(x));println(s"Создал мета in load  из slf [$slf] and ["+globalMap(x)+"]");
+      userManager ! UserToUserManagerAddMetadates(slf, umd);Some((x,umd))} ).get._2))
   favoritcs.foreach(x=>favoritList +=x->regContatcs(x).getSecondUserRef)
   seeingscs.foreach(x=>seeingList +=x->regContatcs(x).getSecondUserRef)
 
@@ -320,8 +353,8 @@ class User(val id: String, val countryCod:String, val globalMap:Map[String, Acto
   val outics = intents.filter(_.isICreator(id))
   val inics = intents.filter(_.isIDestination(id))
 
-    outics.foreach(x=>{val iRef=userActor.context.system.actorOf(
-      Intent.propsFromUser(x, metaMap.find(b=>b._2.isMy(x.idCreator, x.idDestination)).get._2, x.inedx ));x.iRef =iRef })
+    outics.foreach(x=>{val iRefs=userActor.context.system.actorOf(
+      Intent.propsFromUser(x, metaMap.find(b=>b._2.isMy(x.idCreator, x.idDestination)).get._2, x.inedx ));x.iRef =iRefs })
 
     val a=outics.partition(_.isInRecycle)
     val b = inics.partition(_.isInRecycle)
@@ -334,7 +367,7 @@ class User(val id: String, val countryCod:String, val globalMap:Map[String, Acto
   }
 
 
-   
+
 
   def updMetas(l:Array[String],pid:Int): Unit ={
   val errorList=ArrayBuffer[String]()
@@ -354,19 +387,21 @@ class User(val id: String, val countryCod:String, val globalMap:Map[String, Acto
 
   }
 
-  def setIIndex(str: Array[String], pid: Int): Unit ={
+  def updIIndex(str: Array[String], pid: Int): Unit ={
     val errl=ArrayBuffer[String]()
     for(a<-str){
       val b = a.split(":")
+
       val key = Utils.makeKeyFromUsersId(id, b(0))
-      if(outgoingIntent.contains(key)){
-      val intnt = outgoingIntent(key)
+      if(incomingIntent.contains(key)){
+      val intnt = incomingIntent(key)
         intnt.inedx.indx = b(1).toInt
         intnt.inedx.tf = b(2).toBoolean
         dao ! UserToBdManagerUpdIIndex(intnt)
       }else{
        errl += b(0)
       }
+
     }
 
     connection ! UserToTcpSetIIndexRS(errl, pid)
@@ -382,12 +417,12 @@ class User(val id: String, val countryCod:String, val globalMap:Map[String, Acto
         val indx=b(3)
         val tf=b(4)
         val iid= Utils.makeKeyFromUsersId(b(0), b(1))
-        if(b(0)==id && regContatcs.contains(b(1))&&outgoingIntent.contains(iid)==false){
+        if(b(0)==id && regContatcs.contains(b(1))&&outgoingIntent.contains(iid)==false&&incomingIntent.contains(Utils.makeKeyFromUsersId(b(1), b(0)))==false){
           val index =IIndex(indx.toInt, tf.toBoolean)
           val meta = regContatcs(rId)
           val ic = new IntentConteiner(iid, id, status, slf, rId, meta.getSecondUserRef, index, timeToDie)
-          val iRef = userActor.context.system.actorOf(Intent.propsFromUser(ic, meta, index ))
-          ic.iRef=iRef
+          val iRefs = userActor.context.system.actorOf(Intent.propsFromUser(ic, meta, index ))
+          ic.iRef=iRefs
           outgoingIntent += (iid -> ic)
           intentManager ! UserToIntentManagerAddIntent(ic)
           ic.aRefDestination ! UserToUserAddIncomingIntent(ic)
@@ -435,7 +470,8 @@ def removeIntent(str: String, pid: Int): Unit ={
     i.aRefCreator ! UserToUserRemoveIntent(i, 1)
   }else{bag=str}
   }
-  if(bag==null)bag="ВООбще не то прислал"
+  if(bag==null)bag="Всё ок"
+
 
   connection ! UserToTcpAfterRemoveIntent(bag, pid)
 }

@@ -13,7 +13,7 @@ import ProtocolMessageDescribe._
 
 import attracti.develop.callalign.server.utill.Utils._
 import attracti.develop.callalign.server.utill._
-import org.apache.logging.log4j.{LogManager, Logger}
+//import org.apache.logging.log4j.{LogManager, Logger}
 
 import scala.collection.mutable.{ArrayBuilder => ARB, Map => MMap, Set => MSet, ArrayBuffer}
 import scala.concurrent.Future
@@ -26,9 +26,9 @@ object TcpConnectionHandlerActor {
     Props(new TcpConnectionHandlerActor(remote, connection, usermeneger))
 }
 
-class TcpConnectionHandlerActor(remote: InetSocketAddress, connect: ActorRef, userMenege: ActorRef) extends Actor with ActorLog {
+class TcpConnectionHandlerActor(remote: InetSocketAddress, connect: ActorRef, userMenege: ActorRef) extends Actor with ActorLogging {
 
-  var log:Logger =LogManager.getLogger("InfoLoger")
+//  var log:Logger =LogManager.getLogger("InfoLoger")
   val collect = new TransportProtocolCollection(this)
   val buffer=new Buffer(collect)
   val out=new OutgoinFormatTools()
@@ -41,8 +41,9 @@ class TcpConnectionHandlerActor(remote: InetSocketAddress, connect: ActorRef, us
 
 
   def send(arr: Array[Byte]): Unit ={
-println("отправка тип- "+arr(0)+", ид- "+buffer.byteToShort(arr,1)+" текст "+ new String(arr.slice(7, arr.length))+" to "+remote)
-//    arr.foreach(x=>print(x+" ")); println()
+log.debug("TcpConnection send ["+(if(arr(0)==0x2b){"pid-"+buffer.byteToShort(arr,1)+"]["+(new String(arr.slice(7, arr.length)))}else{if(arr(0)==0x30){new String(arr.slice(5, arr.length))}else{"type "+arr(0)}})+"]" +
+  " to ["+remote+"]["+(if(useractor!=null){useractor.toString()/*.substring(useractor.toString().length-5)*/}else{"null"})+"]")
+
     connect ! Tcp.Write(ByteString.fromArray(arr))
   }
 
@@ -141,6 +142,7 @@ println("отправка тип- "+arr(0)+", ид- "+buffer.byteToShort(arr,1)+
         send(out.createPckgType0x2b(pid, "113"))
 
     case UserToTcpAfterAddContacts(regContacts, pid)=>
+
       send(out.createPckgType0x2b(pid, nombersAdsdedSuccessfuly(regContacts)))
 
      case UserManagerToTcpRespForAuthorization(id, aref, pkgid)=>{
@@ -170,14 +172,12 @@ println("отправка тип- "+arr(0)+", ид- "+buffer.byteToShort(arr,1)+
     case Tcp.Received(data) => {
 
       buffer.inComingData(data.toArray)
-      print(s"Пришло - от" +remote+" - ")
-      data.foreach(x=>print(x+" "))
-      println
+
       while(buffer.hasNext()){
 
         val incomingData = buffer.getNext()
 
-//        log.info("Incoming from "+remote+" : "+new String(incomingData.dat.toArray))
+        log.debug("TcpConnection incoming ["+incomingData.typ+"]["+incomingData.pid+"]["+new String(incomingData.dat.toArray))
         incomingData.typ match {
           case 0 =>{send(out.createPckgType0x30("0002/Wrong data format" ))}
 
@@ -204,7 +204,7 @@ println("отправка тип- "+arr(0)+", ид- "+buffer.byteToShort(arr,1)+
             val text = new String(incomingData.dat.toArray)
             val pkgId = incomingData.pid
             val cmd = text.split("/")
-            println(s"ид пакета в хендлера - "+incomingData.pid+" Incoming from "+remote+" : "+text)
+//            println(s"ид пакета в хендлера - "+incomingData.pid+" Incoming from "+remote+" : "+text)
 
             cmd(0) match {
               case "60" => {
@@ -400,7 +400,6 @@ println("отправка тип- "+arr(0)+", ид- "+buffer.byteToShort(arr,1)+
               case "87" => {
                 if(useractor!=null) {
                   if (cmd.length==1&&matchIt(cmd(1), patern87)) {
-
                     useractor ! TcpToUserSetMetas(cmd(1).split(","), pkgId)
                     log.info("Tcp send SetMetas")
                   }else{send (out.createPckgType0x2b(incomingData.pid, "0002/Wrong data format"))}
@@ -415,6 +414,16 @@ println("отправка тип- "+arr(0)+", ид- "+buffer.byteToShort(arr,1)+
                   }else{send (out.createPckgType0x2b(incomingData.pid, "0002/Wrong data format"))}
                 } else send (out.createPckgType0x2b(incomingData.pid, "0001/You must authorization first"))
               }
+
+//              case "89" => {
+//                if(useractor!=null) {
+//                  if (cmd.length==1&&matchIt(cmd(1), patern88)) {
+//                    useractor ! TcpToUserSetIIndex(cmd(1).split(","), pkgId)
+//                    log.info("Tcp send SetIIndex")
+//                  }else{send (out.createPckgType0x2b(incomingData.pid, "0002/Wrong data format"))}
+//                } else send (out.createPckgType0x2b(incomingData.pid, "0001/You must authorization first"))
+//              }
+
 
               case _ => {
                 send(out.createPckgType0x30("0002/Wrong data format" ))
@@ -445,8 +454,8 @@ println("отправка тип- "+arr(0)+", ид- "+buffer.byteToShort(arr,1)+
       log.info("Stopping,conn from " + remote+"  "+connection)
       context.stop(self)
     }
-    case  ConfirmedClose=>("ConfirmedClose")
-    case  ErrorClosed=>("Eror closed")
+//    case  ConfirmedClose=>("ConfirmedClose")
+//    case  ErrorClosed=>("Eror closed")
     case  PeerClosed=>println("PeerClosed ")
     case _: ConnectionClosed => println("ConnectionClosed ")
 
@@ -465,6 +474,7 @@ println("отправка тип- "+arr(0)+", ид- "+buffer.byteToShort(arr,1)+
 //    useractor ! ConectionDrop
   }
   override def postRestart(reason: Throwable): Unit = {
+
     log.info("postRestart TCPHendler-"+self.path, reason) //preStart()
   }
 
